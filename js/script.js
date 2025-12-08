@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Verificar sesión del usuario en todas las páginas
+  checkUserSession();
+
   // Intro Screen Animation
   const introScreen = document.getElementById("intro-screen")
 
@@ -139,4 +142,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check elements on scroll
   window.addEventListener("scroll", checkIfInView)
 })
+
+// Función para verificar sesión del usuario
+async function checkUserSession() {
+  try {
+    const response = await fetch('php/auth.php?action=check_session');
+    const data = await response.json();
+    
+    const authButtons = document.getElementById('auth-buttons');
+    
+    if (data.authenticated && authButtons) {
+      authButtons.innerHTML = `
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <i class="fas fa-user me-1"></i>${data.user.nombre}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="favoritos.html"><i class="fas fa-heart me-2"></i>Mis Favoritos</a></li>
+            ${data.user.rol === 'admin' ? '<li><a class="dropdown-item" href="admin.html"><i class="fas fa-cog me-2"></i>Panel Admin</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
+          </ul>
+        </div>
+      `;
+    }
+  } catch (error) {
+    console.error('Error al verificar sesión:', error);
+  }
+}
+
+// Función para cerrar sesión
+async function logout() {
+  try {
+    await fetch('php/auth.php?action=logout');
+    window.location.reload();
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
+  }
+}
+
 

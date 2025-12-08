@@ -329,6 +329,43 @@ a {
   border-top-left-radius: var(--radius-md);
 }
 
+.btn-favorito {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.btn-favorito:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
+.btn-favorito i {
+  font-size: 1.2rem;
+  color: #e74c3c;
+  transition: all 0.3s ease;
+}
+
+.btn-favorito i.fas {
+  color: #e74c3c;
+}
+
+.btn-favorito:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .car-features {
   display: flex;
   justify-content: space-between;
@@ -786,3 +823,218 @@ footer ul li {
   color: var(--color-secondary) !important;
 }
 
+
+/* Modal de Detalles del Vehiculo */
+#vehicleModal .modal-dialog {
+  max-width: 1200px;
+}
+
+#vehicleModal .modal-content {
+  border-radius: 20px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+#vehicleModal .modal-header {
+  background: linear-gradient(135deg, #1a5490 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 1.5rem 2rem;
+}
+
+#vehicleModal .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+#vehicleModal .modal-header .btn-close:hover {
+  opacity: 1;
+}
+
+#vehicleModal .modal-body {
+  padding: 2rem;
+  background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+}
+
+#vehicleModal .carousel {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+#vehicleModal .carousel-item img {
+  height: 450px;
+  object-fit: cover;
+  width: 100%;
+}
+
+#vehicleModal .carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background-color: rgba(255,255,255,0.5);
+  border: 2px solid white;
+}
+
+#vehicleModal .carousel-indicators button.active {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+#vehicleModal .vehicle-details {
+  padding: 0 1rem;
+}
+
+#vehicleModal #modal-vehicle-name {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #1a5490;
+  margin-bottom: 0.5rem;
+}
+
+#vehicleModal #modal-vehicle-price {
+  font-weight: 800;
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #1a5490 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+}
+
+#vehicleModal .vehicle-specs {
+  margin-bottom: 2rem;
+}
+
+#vehicleModal .spec-item {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  background: white;
+  height: 100%;
+}
+
+#vehicleModal .spec-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(26,84,144,0.15);
+  border-color: #1a5490;
+}
+
+#vehicleModal .spec-item i {
+  font-size: 1.3rem;
+}
+
+#vehicleModal .spec-item strong {
+  display: block;
+  color: #6b7280;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+#vehicleModal .spec-item div:last-child {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+#vehicleModal .vehicle-description {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border-left: 4px solid #1a5490;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+#vehicleModal .vehicle-description h5 {
+  color: #1a5490;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+#vehicleModal .vehicle-description p {
+  color: #4b5563;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+#vehicleModal .btn-lg {
+  padding: 0.9rem 1.5rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+}
+
+#vehicleModal .btn-primary {
+  background: linear-gradient(135deg, #1a5490 0%, #2563eb 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(26,84,144,0.3);
+}
+
+#vehicleModal .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26,84,144,0.4);
+  background: linear-gradient(135deg, #153d6f 0%, #1e40af 100%);
+}
+
+#vehicleModal .btn-outline-primary {
+  border: 2px solid #1a5490;
+  color: #1a5490;
+}
+
+#vehicleModal .btn-outline-primary:hover {
+  background: #1a5490;
+  border-color: #1a5490;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26,84,144,0.3);
+}
+
+#vehicleModal .carousel-control-prev-icon,
+#vehicleModal .carousel-control-next-icon {
+  background-color: rgba(26,84,144,0.8);
+  border-radius: 50%;
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+#vehicleModal .carousel-control-prev:hover .carousel-control-prev-icon,
+#vehicleModal .carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(26,84,144,1);
+  transform: scale(1.1);
+}
+
+/* Cursor pointer para cards clickeables */
+.car-card[style*="cursor: pointer"] {
+  transition: all 0.3s ease;
+}
+
+.car-card[style*="cursor: pointer"]:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+/* Animacion de entrada del modal */
+#vehicleModal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+}
+
+#vehicleModal.show .modal-dialog {
+  animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: scale(0.8) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
