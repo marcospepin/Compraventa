@@ -20,7 +20,7 @@
           <div class="col-md-6">
             <div class="contact-info">
               <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617 540 616</span>
-              <span><i class="fas fa-map-marker-alt me-2"></i>San CipriÃ¡n De ViÃ±as, Galicia</span>
+              <span><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</span>
             </div>
           </div>
           <div class="col-md-6 text-md-end">
@@ -54,14 +54,14 @@
               <a class="nav-link" href="coches-vendidos.html">Coches Vendidos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="financiacion.html">FinanciaciÃ³n</a>
+              <a class="nav-link" href="financiacion.html">Financiación</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contacto.html">Contacto</a>
             </li>
           </ul>
           <div class="ms-lg-3 mt-3 mt-lg-0" id="auth-buttons">
-            <a href="login.html" class="btn btn-outline-primary me-2"><i class="fas fa-sign-in-alt me-1"></i>Iniciar SesiÃ³n</a>
+            <a href="login.html" class="btn btn-outline-primary me-2"><i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión</a>
             <a href="registro.html" class="btn btn-primary"><i class="fas fa-user-plus me-1"></i>Registrarse</a>
           </div>
         </div>
@@ -90,13 +90,13 @@
       <div class="container">
         <div class="row mb-4">
           <div class="col-12">
-            <h2>VehÃ­culos Guardados</h2>
+            <h2>Vehículos Guardados</h2>
             <p class="text-muted" id="favorites-count">Cargando...</p>
           </div>
         </div>
         
         <div class="row g-4" id="favorites-container">
-          <!-- Los favoritos se cargarÃ¡n dinÃ¡micamente aquÃ­ -->
+          <!-- Los favoritos se cargarán dinámicamente aquí -->
         </div>
       </div>
     </section>
@@ -107,17 +107,17 @@
       <div class="row">
         <div class="col-lg-4 mb-4">
           <img src="images/logo-ppal.png" alt="MCR Motors Logo" height="60" class="mb-3">
-          <p>Tu concesionario de confianza especializado en vehÃ­culos premium y de alta gama.</p>
+          <p>Tu concesionario de confianza especializado en vehículos premium y de alta gama.</p>
         </div>
         <div class="col-lg-4 mb-4">
           <h5>Contacto</h5>
           <ul class="list-unstyled">
             <li><i class="fas fa-phone-alt me-2"></i>617 540 616</li>
-            <li><i class="fas fa-map-marker-alt me-2"></i>San CipriÃ¡n De ViÃ±as, Galicia</li>
+            <li><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</li>
           </ul>
         </div>
         <div class="col-lg-4 mb-4">
-          <h5>SÃ­guenos</h5>
+          <h5>Síguenos</h5>
           <div class="social-links">
             <a href="https://www.instagram.com/marcos_pepin/" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
             <a href="https://es.wallapop.com/user/pepinairlines-354840890" target="_blank" class="text-white me-3 fs-4"><i class="fas fa-store"></i></a>
@@ -139,7 +139,7 @@
   <script>
     let currentUser = null;
 
-    // Verificar sesiÃ³n
+    // Verificar sesión
     async function checkSession() {
       try {
         const response = await fetch('php/auth.php?action=check_session');
@@ -176,16 +176,16 @@
             container.innerHTML = `
               <div class="col-12 text-center py-5">
                 <i class="fas fa-heart-broken fa-4x text-muted mb-3"></i>
-                <h3>No tienes favoritos aÃºn</h3>
-                <p class="text-muted">Explora nuestro catÃ¡logo y guarda tus vehÃ­culos favoritos</p>
-                <a href="coches-venta.html" class="btn btn-primary mt-3">Ver CatÃ¡logo</a>
+                <h3>No tienes favoritos aún</h3>
+                <p class="text-muted">Explora nuestro catálogo y guarda tus vehículos favoritos</p>
+                <a href="coches-venta.html" class="btn btn-primary mt-3">Ver Catálogo</a>
               </div>
             `;
             countElement.textContent = 'No hay favoritos guardados';
             return;
           }
           
-          countElement.textContent = `${favorites.length} vehÃ­culo${favorites.length !== 1 ? 's' : ''} guardado${favorites.length !== 1 ? 's' : ''}`;
+          countElement.textContent = `${favorites.length} vehículo${favorites.length !== 1 ? 's' : ''} guardado${favorites.length !== 1 ? 's' : ''}`;
           renderFavorites(favorites);
         }
       } catch (error) {
@@ -221,7 +221,7 @@
           <div class="card car-card h-100">
             <div class="car-image-wrapper position-relative">
               <img src="${imageUrl}" class="card-img-top" alt="${vehicle.marca} ${vehicle.modelo}" onerror="this.src='https://via.placeholder.com/800x500?text=Sin+Imagen'">
-              <span class="car-price">${precio} â‚¬</span>
+              <span class="car-price">${precio} €</span>
               <button class="btn btn-favorito btn-remove-favorite" data-vehicle-id="${vehicle.id}" title="Quitar de favoritos">
                 <i class="fas fa-heart"></i>
               </button>
@@ -248,7 +248,7 @@
       const btn = e.currentTarget;
       const vehicleId = btn.dataset.vehicleId;
       
-      if (!confirm('Â¿Quitar este vehÃ­culo de favoritos?')) return;
+      if (!confirm('¿Quitar este vehículo de favoritos?')) return;
       
       try {
         const response = await fetch('php/favoritos.php', {
@@ -272,4 +272,3 @@
   </script>
 </body>
 </html>
-

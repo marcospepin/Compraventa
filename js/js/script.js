@@ -106,24 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-      try {
-        const href = this.getAttribute("href");
-        
-        // Ignorar links que solo son "#"
-        if (href === '#' || href === '' || href === null) {
-          return;
-        }
-        
-        e.preventDefault()
+      e.preventDefault()
 
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: "smooth",
-          })
-        }
-      } catch (error) {
-        console.warn('Error en scroll de anchor:', error);
+      const target = document.querySelector(this.getAttribute("href"))
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+        })
       }
     })
   })
@@ -157,9 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Función para verificar sesión del usuario
 async function checkUserSession() {
   try {
-    const response = await fetch('php/auth.php?action=check_session', {
-      credentials: 'include'
-    });
+    const response = await fetch('php/auth.php?action=check_session');
     const data = await response.json();
     
     const authButtons = document.getElementById('auth-buttons');
@@ -187,9 +174,7 @@ async function checkUserSession() {
 // Función para cerrar sesión
 async function logout() {
   try {
-    await fetch('php/auth.php?action=logout', {
-      credentials: 'include'
-    });
+    await fetch('php/auth.php?action=logout');
     window.location.reload();
   } catch (error) {
     console.error('Error al cerrar sesión:', error);

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - MCR Motors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <style>
+    .admin-container {
+      min-height: 100vh;
+      background-color: #0A1324;
+    }
+
+    .admin-header {
+      background: linear-gradient(135deg, #0A1324 0%, #2F67FF 100%);
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .admin-nav {
+      background-color: #1D1F23;
+      border-bottom: 2px solid #2F67FF;
+    }
+
+    .admin-nav .nav-link {
+      color: #CFD3D9;
+      padding: 1rem;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .admin-nav .nav-link:hover,
+    .admin-nav .nav-link.active {
+      color: #2F67FF;
+      border-bottom-color: #2F67FF;
+    }
+
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .form-section {
+      background-color: #1D1F23;
+      border: 1px solid #2F67FF;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .form-section h3 {
+      color: #2F67FF;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-group label {
+      color: #CFD3D9;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      background-color: #0A1324;
+      border: 1px solid #2F67FF;
+      color: #FFFFFF;
+      padding: 0.75rem;
+    }
+
+    .form-control:focus {
+      background-color: #0A1324;
+      border-color: #2F67FF;
+      color: #FFFFFF;
+      box-shadow: 0 0 0 0.2rem rgba(47, 103, 255, 0.25);
+    }
+
+    .form-select {
+      background-color: #0A1324;
+      border: 1px solid #2F67FF;
+      color: #FFFFFF;
+    }
+
+    .form-select:focus {
+      border-color: #2F67FF;
+      box-shadow: 0 0 0 0.2rem rgba(47, 103, 255, 0.25);
+    }
+
+    .btn-publish {
+      background-color: #2F67FF;
+      border-color: #2F67FF;
+      color: white;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-publish:hover {
+      background-color: #1f4dd6;
+      border-color: #1f4dd6;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(47, 103, 255, 0.3);
+    }
+
+    .vehicles-table {
+      background-color: #1D1F23;
+      border: 1px solid #2F67FF;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table {
+      color: #CFD3D9;
+      margin-bottom: 0;
+    }
+
+    .table thead {
+      background-color: #0A1324;
+      border-bottom: 2px solid #2F67FF;
+    }
+
+    .table thead th {
+      color: #2F67FF;
+      font-weight: 700;
+      border: none;
+      padding: 1rem;
+    }
+
+    .table tbody td {
+      padding: 1rem;
+      border-color: #2F67FF;
+      vertical-align: middle;
+    }
+
+    .table tbody tr:hover {
+      background-color: rgba(47, 103, 255, 0.1);
+    }
+
+    .badge-estado {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .badge-disponible {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .badge-vendido {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .badge-reservado {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    .estado-select {
+      background-color: #1D1F23;
+      border: 1px solid #2F67FF;
+      color: #FFFFFF;
+      padding: 0.4rem;
+      cursor: pointer;
+      font-weight: 600;
+      min-width: 120px;
+    }
+
+    .estado-select:focus {
+      background-color: #0A1324;
+      border-color: #2F67FF;
+      color: #FFFFFF;
+      box-shadow: 0 0 0 0.2rem rgba(47, 103, 255, 0.25);
+    }
+
+    .estado-select option {
+      background-color: #1D1F23;
+      color: #FFFFFF;
+      padding: 0.5rem;
+    }
+
+    .btn-action {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      margin: 0 0.25rem;
+    }
+
+    .btn-edit {
+      background-color: #2F67FF;
+      border: none;
+      color: white;
+    }
+
+    .btn-edit:hover {
+      background-color: #1f4dd6;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      border: none;
+      color: white;
+    }
+
+    .btn-delete:hover {
+      background-color: #c82333;
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background-color: #1D1F23;
+      border: 1px solid #2F67FF;
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-card i {
+      font-size: 2rem;
+      color: #2F67FF;
+      margin-bottom: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2F67FF;
+    }
+
+    .stat-label {
+      color: #CFD3D9;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .alert {
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    /* Ocultar la página por defecto hasta verificar autenticación */
+    body.admin-container {
+      display: none;
+    }
+
+    body.admin-container.authorized {
+      display: block;
+    }
+
+    .alert-success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid #28a745;
+      color: #28a745;
+    }
+
+    .alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid #dc3545;
+      color: #dc3545;
+    }
+
+    .alert-warning {
+      background-color: rgba(255, 193, 7, 0.1);
+      border: 1px solid #ffc107;
+      color: #ffc107;
+    }
+
+    .admin-sidebar {
+      position: sticky;
+      top: 0;
+    }
+
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        margin-bottom: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="admin-container">
+  <header class="sticky-top">
+    <div class="top-bar bg-dark text-white py-2">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="contact-info">
+              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617 540 616</span>
+              <span><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</span>
+            </div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <div class="social-links">
+              <a href="https://www.instagram.com/marcos_pepin/" target="_blank" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+              <a href="https://es.wallapop.com/user/pepinairlines-354840890" target="_blank" class="text-white me-3"><i class="fas fa-store"></i></a>
+              <a href="https://www.coches.net/concesionario/grmmotorsport/" target="_blank" class="text-white"><i class="fas fa-car"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo-ppal.png" alt="MCR Motors Logo" height="60">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="coches-venta.html">Catálogo</a>
+            </li>
+          </ul>
+          <div class="ms-lg-3 mt-3 mt-lg-0" id="auth-buttons">
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" id="user-menu">
+                <i class="fas fa-user me-1"></i><span id="user-name">Admin</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="favoritos.html"><i class="fas fa-heart me-2"></i>Mis Favoritos</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-header">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h1><i class="fas fa-cog me-2"></i>Panel de Administración</h1>
+            <p class="mb-0">Gestiona el catálogo de vehículos</p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a href="index.html" class="btn btn-light btn-sm"><i class="fas fa-arrow-left me-2"></i>Volver</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-4">
+      <div id="alert-container"></div>
+
+      <!-- Navegación de pestañas -->
+      <ul class="nav admin-nav" id="adminTabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-tab="dashboard" href="#"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-tab="publish" href="#"><i class="fas fa-plus-circle me-2"></i>Publicar Vehículo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-tab="manage" href="#"><i class="fas fa-list me-2"></i>Gestionar Vehículos</a>
+        </li>
+      </ul>
+
+      <!-- SECCIÓN: Dashboard -->
+      <div id="dashboard" class="admin-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <i class="fas fa-car"></i>
+            <div class="stat-number" id="total-vehicles">0</div>
+            <div class="stat-label">Vehículos Totales</div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <div class="stat-number" id="available-vehicles">0</div>
+            <div class="stat-label">Disponibles</div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-ban"></i>
+            <div class="stat-number" id="sold-vehicles">0</div>
+            <div class="stat-label">Vendidos</div>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-clock"></i>
+            <div class="stat-number" id="reserved-vehicles">0</div>
+            <div class="stat-label">Reservados</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Publicar Vehículo -->
+      <div id="publish" class="admin-section">
+        <div class="form-section">
+          <h3><i class="fas fa-plus-circle me-2"></i>Publicar Nuevo Vehículo</h3>
+          
+          <form id="publish-form">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="marca" class="form-label">Marca *</label>
+                <input type="text" class="form-control" id="marca" name="marca" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="modelo" class="form-label">Modelo *</label>
+                <input type="text" class="form-control" id="modelo" name="modelo" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="anio" class="form-label">Año *</label>
+                <input type="number" class="form-control" id="anio" name="anio" min="1990" max="2099" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="tipo" class="form-label">Tipo *</label>
+                <select class="form-select" id="tipo" name="tipo" required>
+                  <option value="">Selecciona un tipo</option>
+                  <option value="coche">Coche</option>
+                  <option value="moto">Moto</option>
+                  <option value="furgoneta">Furgoneta</option>
+                </select>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="precio" class="form-label">Precio (€) *</label>
+                <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="kilometraje" class="form-label">Kilometraje</label>
+                <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="0">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="color" class="form-label">Color</label>
+                <input type="text" class="form-control" id="color" name="color">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="combustible" class="form-label">Combustible *</label>
+                <select class="form-select" id="combustible" name="combustible" required>
+                  <option value="">Selecciona combustible</option>
+                  <option value="gasolina">Gasolina</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="hibrido">Híbrido</option>
+                  <option value="electrico">Eléctrico</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="transmision" class="form-label">Transmisión *</label>
+                <select class="form-select" id="transmision" name="transmision" required>
+                  <option value="">Selecciona transmisión</option>
+                  <option value="manual">Manual</option>
+                  <option value="automatico">Automático</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="imagenes" class="form-label">Imágenes del Vehículo (máx. 7)</label>
+                <input type="file" class="form-control" id="imagenes" name="imagenes" accept="image/*" multiple required>
+                <small class="text-muted">Selecciona hasta 7 imágenes</small>
+                <div id="image-preview" class="mt-3"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcion" name="descripcion" rows="4" placeholder="Descripción detallada del vehículo..."></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-publish">
+                <i class="fas fa-upload me-2"></i>Publicar Vehículo
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Gestionar Vehículos -->
+      <div id="manage" class="admin-section">
+        <h3 class="mb-4"><i class="fas fa-list me-2"></i>Vehículos Publicados</h3>
+        
+        <div class="vehicles-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Marca / Modelo</th>
+                <th>Año</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="vehicles-list">
+              <tr>
+                <td colspan="6" class="text-center py-4">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer bg-dark text-white py-5 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <img src="images/logo-ppal.png" alt="MCR Motors Logo" height="60" class="mb-3">
+          <p>Tu concesionario de confianza especializado en vehículos premium.</p>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <h5>Contacto</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-phone-alt me-2"></i>617 540 616</li>
+            <li><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</li>
+          </ul>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <h5>Síguenos</h5>
+          <div class="social-links">
+            <a href="https://www.instagram.com/marcos_pepin/" target="_blank" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
+            <a href="https://es.wallapop.com/user/pepinairlines-354840890" target="_blank" class="text-white me-3 fs-4"><i class="fas fa-store"></i></a>
+            <a href="https://www.coches.net/concesionario/grmmotorsport/" target="_blank" class="text-white fs-4"><i class="fas fa-car"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4 bg-white">
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="mb-0">&copy; 2025 MCR Motors. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal para editar vehículo -->
+  <div class="modal fade" id="editVehicleModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="background-color: #1D1F23; border: 1px solid #2F67FF;">
+        <div class="modal-header" style="border-bottom: 1px solid #2F67FF;">
+          <h5 class="modal-title" style="color: #2F67FF;"><i class="fas fa-edit me-2"></i>Editar Vehículo</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-form">
+            <input type="hidden" id="edit-vehicle-id">
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="edit-marca" class="form-label">Marca *</label>
+                <input type="text" class="form-control" id="edit-marca" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="edit-modelo" class="form-label">Modelo *</label>
+                <input type="text" class="form-control" id="edit-modelo" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="edit-anio" class="form-label">Año *</label>
+                <input type="number" class="form-control" id="edit-anio" min="1990" max="2099" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="edit-precio" class="form-label">Precio (€) *</label>
+                <input type="number" class="form-control" id="edit-precio" step="0.01" min="0" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="edit-estado" class="form-label">Estado *</label>
+                <select class="form-select" id="edit-estado" required>
+                  <option value="disponible">Disponible</option>
+                  <option value="vendido">Vendido</option>
+                  <option value="reservado">Reservado</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="edit-kilometraje" class="form-label">Kilometraje</label>
+                <input type="number" class="form-control" id="edit-kilometraje" min="0">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="edit-color" class="form-label">Color</label>
+                <input type="text" class="form-control" id="edit-color">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="edit-combustible" class="form-label">Combustible *</label>
+                <select class="form-select" id="edit-combustible" required>
+                  <option value="gasolina">Gasolina</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="hibrido">Híbrido</option>
+                  <option value="electrico">Eléctrico</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-transmision" class="form-label">Transmisión *</label>
+              <select class="form-select" id="edit-transmision" required>
+                <option value="manual">Manual</option>
+                <option value="automatico">Automático</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-imagen_url" class="form-label">URL de Imagen</label>
+              <input type="url" class="form-control" id="edit-imagen_url" placeholder="https://ejemplo.com/imagen.jpg">
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="edit-descripcion" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid #2F67FF;">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-publish" onclick="saveVehicleChanges()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    let currentUser = null;
+
+    // Verificar que el usuario sea administrador
+    async function checkAdminAccess() {
+      console.log('=== checkAdminAccess iniciado ===');
+      try {
+        console.log('Haciendo fetch a check_session...');
+        const response = await fetch('php/auth.php?action=check_session', {
+          credentials: 'include'
+        });
+        
+        console.log('Response status:', response.status);
+        const data = await response.json();
+
+        console.log('Check session response:', JSON.stringify(data));
+
+        if (!data.authenticated) {
+          console.error('❌ Usuario no autenticado');
+          window.location.href = 'index.html';
+          return;
+        }
+
+        if (!data.user) {
+          console.error('❌ data.user es null:', data);
+          window.location.href = 'index.html';
+          return;
+        }
+
+        if (data.user.rol !== 'admin') {
+          console.error('❌ No es admin. Rol:', data.user.rol);
+          window.location.href = 'index.html';
+          return;
+        }
+
+        console.log('✅ Acceso concedido a:', data.user.nombre);
+        currentUser = data.user;
+        
+        const userNameElement = document.getElementById('user-name');
+        if (userNameElement) {
+          userNameElement.textContent = data.user.nombre;
+        }
+
+        // Mostrar la página solo si es admin
+        document.querySelector('body.admin-container').classList.add('authorized');
+        
+        loadStatistics();
+        loadVehicles();
+      } catch (error) {
+        console.error('❌ Error en checkAdminAccess:', error);
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Cargar estadísticas
+    async function loadStatistics() {
+      try {
+        const response = await fetch('php/vehiculos.php?action=list&all_status=1', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          const vehicles = data.vehiculos;
+          const total = vehicles.length;
+          const available = vehicles.filter(v => v.estado === 'disponible').length;
+          const sold = vehicles.filter(v => v.estado === 'vendido').length;
+          const reserved = vehicles.filter(v => v.estado === 'reservado').length;
+
+          document.getElementById('total-vehicles').textContent = total;
+          document.getElementById('available-vehicles').textContent = available;
+          document.getElementById('sold-vehicles').textContent = sold;
+          document.getElementById('reserved-vehicles').textContent = reserved;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Cargar vehículos para tabla de gestión
+    async function loadVehicles() {
+      const tbody = document.getElementById('vehicles-list');
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></td></tr>';
+
+      try {
+        const response = await fetch('php/vehiculos.php?action=list&all_status=1', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.success && data.vehiculos.length > 0) {
+          tbody.innerHTML = '';
+          data.vehiculos.forEach(vehicle => {
+            const precio = parseFloat(vehicle.precio).toLocaleString('es-ES', { minimumFractionDigits: 2 });
+            
+            tbody.innerHTML += `
+              <tr>
+                <td>#${vehicle.id}</td>
+                <td><strong>${vehicle.marca}</strong> ${vehicle.modelo}</td>
+                <td>${vehicle.anio}</td>
+                <td>${precio} €</td>
+                <td>
+                  <select class="form-select form-select-sm estado-select" onchange="changeEstado(${vehicle.id}, this.value)" data-vehicle-id="${vehicle.id}">
+                    <option value="disponible" ${vehicle.estado === 'disponible' ? 'selected' : ''}>Disponible</option>
+                    <option value="reservado" ${vehicle.estado === 'reservado' ? 'selected' : ''}>Reservado</option>
+                    <option value="vendido" ${vehicle.estado === 'vendido' ? 'selected' : ''}>Vendido</option>
+                  </select>
+                </td>
+                <td>
+                  <button class="btn btn-edit btn-action" onclick="editVehicle(${vehicle.id})"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-delete btn-action" onclick="deleteVehicle(${vehicle.id})"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            `;
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No hay vehículos publicados</td></tr>';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-danger">Error al cargar vehículos</td></tr>';
+      }
+    }
+
+    // Publicar nuevo vehículo
+    // Vista previa de imágenes
+    document.getElementById('imagenes').addEventListener('change', function(e) {
+      const preview = document.getElementById('image-preview');
+      preview.innerHTML = '';
+      const files = Array.from(e.target.files);
+      
+      if (files.length > 7) {
+        showAlert('Máximo 7 imágenes permitidas', 'warning');
+        e.target.value = '';
+        return;
+      }
+      
+      files.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = document.createElement('img');
+          img.src = event.target.result;
+          img.style.maxWidth = '100px';
+          img.style.margin = '5px';
+          img.style.borderRadius = '5px';
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    document.getElementById('publish-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const imageFiles = document.getElementById('imagenes').files;
+      
+      if (imageFiles.length === 0) {
+        showAlert('Debes seleccionar al menos una imagen', 'warning');
+        return;
+      }
+
+      if (imageFiles.length > 7) {
+        showAlert('Máximo 7 imágenes permitidas', 'warning');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('action', 'add');
+      formData.append('marca', document.getElementById('marca').value);
+      formData.append('modelo', document.getElementById('modelo').value);
+      formData.append('anio', parseInt(document.getElementById('anio').value));
+      formData.append('tipo', document.getElementById('tipo').value);
+      formData.append('precio', parseFloat(document.getElementById('precio').value));
+      formData.append('kilometraje', document.getElementById('kilometraje').value ? parseInt(document.getElementById('kilometraje').value) : 0);
+      formData.append('color', document.getElementById('color').value || '');
+      formData.append('combustible', document.getElementById('combustible').value);
+      formData.append('transmision', document.getElementById('transmision').value);
+      formData.append('descripcion', document.getElementById('descripcion').value || '');
+      
+      // Agregar archivos de imagen
+      Array.from(imageFiles).forEach((file, index) => {
+        formData.append('imagenes[]', file);
+      });
+
+      try {
+        const response = await fetch('php/vehiculos.php', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showAlert('Vehículo publicado correctamente', 'success');
+          document.getElementById('publish-form').reset();
+          document.getElementById('image-preview').innerHTML = '';
+          loadStatistics();
+          loadVehicles();
+          
+          // Cambiar a pestaña de gestión
+          setTimeout(() => {
+            const manageTab = document.querySelector('[data-tab="manage"]');
+            if (manageTab) {
+              manageTab.click();
+            }
+          }, 500);
+        } else {
+          showAlert(data.message || 'Error al publicar el vehículo', 'danger');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al conectar con el servidor', 'danger');
+      }
+    });
+
+    // Editar vehículo
+    function editVehicle(vehicleId) {
+      fetch(`php/vehiculos.php?action=get&id=${vehicleId}`, {
+        credentials: 'include'
+      })
+      .then(r => r.json())
+        .then(data => {
+          if (data.success) {
+            const v = data.vehiculo;
+            document.getElementById('edit-vehicle-id').value = v.id;
+            document.getElementById('edit-marca').value = v.marca;
+            document.getElementById('edit-modelo').value = v.modelo;
+            document.getElementById('edit-anio').value = v.anio;
+            document.getElementById('edit-precio').value = v.precio;
+            document.getElementById('edit-estado').value = v.estado;
+            document.getElementById('edit-kilometraje').value = v.kilometraje || '';
+            document.getElementById('edit-color').value = v.color || '';
+            document.getElementById('edit-combustible').value = v.combustible;
+            document.getElementById('edit-transmision').value = v.transmision;
+            document.getElementById('edit-imagen_url').value = v.imagen_url || '';
+            document.getElementById('edit-descripcion').value = v.descripcion || '';
+
+            new bootstrap.Modal(document.getElementById('editVehicleModal')).show();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showAlert('Error al cargar datos del vehículo', 'danger');
+        });
+    }
+
+    // Guardar cambios del vehículo
+    function saveVehicleChanges() {
+      const vehicleId = document.getElementById('edit-vehicle-id').value;
+      const formData = {
+        action: 'update',
+        id: vehicleId,
+        marca: document.getElementById('edit-marca').value,
+        modelo: document.getElementById('edit-modelo').value,
+        anio: parseInt(document.getElementById('edit-anio').value),
+        precio: parseFloat(document.getElementById('edit-precio').value),
+        estado: document.getElementById('edit-estado').value,
+        kilometraje: document.getElementById('edit-kilometraje').value ? parseInt(document.getElementById('edit-kilometraje').value) : 0,
+        color: document.getElementById('edit-color').value || null,
+        combustible: document.getElementById('edit-combustible').value,
+        transmision: document.getElementById('edit-transmision').value,
+        imagen_url: document.getElementById('edit-imagen_url').value || null,
+        descripcion: document.getElementById('edit-descripcion').value || null
+      };
+
+      fetch('php/vehiculos.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(formData)
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          bootstrap.Modal.getInstance(document.getElementById('editVehicleModal')).hide();
+          showAlert('Vehículo actualizado correctamente', 'success');
+          loadStatistics();
+          loadVehicles();
+        } else {
+          showAlert(data.message || 'Error al actualizar', 'danger');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showAlert('Error al conectar con el servidor', 'danger');
+      });
+    }
+
+    // Cambiar estado de vehículo directamente
+    function changeEstado(vehicleId, nuevoEstado) {
+      fetch('php/vehiculos.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ 
+          action: 'update_estado', 
+          id: vehicleId,
+          estado: nuevoEstado
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          showAlert('Estado actualizado correctamente', 'success');
+          loadStatistics();
+        } else {
+          showAlert(data.message || 'Error al actualizar estado', 'danger');
+          loadVehicles(); // Recargar para restaurar el valor anterior
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showAlert('Error al conectar con el servidor', 'danger');
+        loadVehicles();
+      });
+    }
+
+    // Eliminar vehículo
+    function deleteVehicle(vehicleId) {
+      if (!confirm('¿Estás seguro de que deseas eliminar este vehículo?')) return;
+
+      fetch('php/vehiculos.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ action: 'delete', id: vehicleId })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          showAlert('Vehículo eliminado correctamente', 'success');
+          loadStatistics();
+          loadVehicles();
+        } else {
+          showAlert(data.message || 'Error al eliminar', 'danger');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showAlert('Error al conectar con el servidor', 'danger');
+      });
+    }
+
+    // Mostrar alertas
+    function showAlert(message, type = 'info') {
+      const alertClass = type === 'success' ? 'alert-success' : type === 'danger' ? 'alert-danger' : 'alert-warning';
+      const icon = type === 'success' ? 'fa-check-circle' : type === 'danger' ? 'fa-exclamation-circle' : 'fa-info-circle';
+
+      const alert = document.createElement('div');
+      alert.className = `alert ${alertClass} alert-dismissible fade show`;
+      alert.innerHTML = `
+        <i class="fas ${icon} me-2"></i>${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+
+      document.getElementById('alert-container').appendChild(alert);
+
+      setTimeout(() => {
+        alert.remove();
+      }, 4000);
+    }
+
+    // Gestión de pestañas
+    document.querySelectorAll('.admin-nav .nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remover activo de todos
+        document.querySelectorAll('.admin-nav .nav-link').forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+        
+        // Activar seleccionado
+        link.classList.add('active');
+        const tabName = link.dataset.tab;
+        document.getElementById(tabName).classList.add('active');
+
+        // Recargar datos si es necesario
+        if (tabName === 'manage') {
+          loadVehicles();
+        }
+      });
+    });
+
+    // Cerrar sesión
+    async function logout() {
+      try {
+        await fetch('php/auth.php?action=logout', {
+          credentials: 'include'
+        });
+        window.location.href = 'index.html';
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', checkAdminAccess);
+  </script>
+</body>
+</html>

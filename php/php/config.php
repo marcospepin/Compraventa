@@ -1,16 +1,4 @@
 <?php
-// Configuración de sesiones ANTES de hacer cualquier otra cosa
-// IMPORTANTE: Esto DEBE estar antes de cualquier output
-if (session_status() === PHP_SESSION_NONE) {
-    // Configurar opciones de sesión
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_samesite', 'Lax');
-    ini_set('session.use_strict_mode', 0);
-    ini_set('session.use_only_cookies', 1);
-    
-    session_start();
-}
-
 // Configuración de la base de datos
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
@@ -27,4 +15,9 @@ if ($conn->connect_error) {
 
 // Establecer charset UTF-8
 $conn->set_charset("utf8mb4");
+
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>

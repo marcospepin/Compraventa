@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Upload</title>
+</head>
+<body>
+    <h1>Prueba de Subida de Vehículo</h1>
+    
+    <form id="testForm">
+        <input type="text" name="marca" value="BMW" required><br>
+        <input type="text" name="modelo" value="X5" required><br>
+        <input type="number" name="anio" value="2020" required><br>
+        <input type="text" name="tipo" value="coche" required><br>
+        <input type="number" name="precio" value="50000" required><br>
+        <input type="number" name="kilometraje" value="10000"><br>
+        <input type="text" name="color" value="Negro"><br>
+        <input type="text" name="combustible" value="diesel" required><br>
+        <input type="text" name="transmision" value="automatico" required><br>
+        <textarea name="descripcion">Test</textarea><br>
+        <input type="file" name="imagenes" multiple required><br><br>
+        <button type="submit">Subir</button>
+    </form>
+    
+    <h2>Respuesta:</h2>
+    <pre id="response"></pre>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('action', 'add');
+            formData.append('marca', 'BMW');
+            formData.append('modelo', 'X5');
+            formData.append('anio', 2020);
+            formData.append('tipo', 'coche');
+            formData.append('precio', 50000);
+            formData.append('kilometraje', 10000);
+            formData.append('color', 'Negro');
+            formData.append('combustible', 'diesel');
+            formData.append('transmision', 'automatico');
+            formData.append('descripcion', 'Test');
+            
+            const files = document.querySelector('input[type="file"]').files;
+            if (files.length === 0) {
+                alert('Selecciona al menos una imagen');
+                return;
+            }
+            
+            Array.from(files).forEach((file, index) => {
+                formData.append('imagenes[]', file);
+            });
+            
+            try {
+                const response = await fetch('php/vehiculos.php', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                
+                const text = await response.text();
+                document.getElementById('response').textContent = text;
+                
+                console.log('Response text:', text);
+                
+                try {
+                    const json = JSON.parse(text);
+                    alert('Success: ' + JSON.stringify(json));
+                } catch (e) {
+                    alert('No es JSON válido. Ver respuesta abajo.');
+                }
+            } catch (error) {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
