@@ -102,6 +102,111 @@
     </section>
   </main>
 
+  <!-- Modal de Detalles del Vehículo -->
+  <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="vehicleModalLabel"><i class="fas fa-car me-2"></i>Detalles del Vehículo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Galería de Imágenes -->
+            <div class="col-lg-7 mb-4 mb-lg-0">
+              <div id="vehicleCarousel" class="carousel slide mb-3" data-bs-ride="false">
+                <div class="carousel-indicators" id="carousel-indicators">
+                  <!-- Indicadores dinámicos -->
+                </div>
+                <div class="carousel-inner" id="carousel-inner">
+                  <!-- Imágenes dinámicas -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Siguiente</span>
+                </button>
+              </div>
+              
+              <!-- Botones de acción debajo de las imágenes -->
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary btn-lg" id="modal-btn-favorito">
+                  <i class="far fa-heart me-2"></i>Añadir a Favoritos
+                </button>
+                <a href="contacto.html" class="btn btn-outline-primary btn-lg">
+                  <i class="fas fa-phone-alt me-2"></i>Contactar Vendedor
+                </a>
+              </div>
+            </div>
+            
+            <!-- Información del Vehículo -->
+            <div class="col-lg-5">
+              <div class="vehicle-details">
+                <h3 id="modal-vehicle-name" class="mb-2"></h3>
+                <h2 id="modal-vehicle-price" class="mb-4"></h2>
+                
+                <div class="vehicle-specs">
+                  <div class="row g-3">
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-calendar text-primary"></i>
+                        <strong>Año</strong>
+                        <div id="modal-vehicle-year"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-tachometer-alt text-primary"></i>
+                        <strong>Kilómetros</strong>
+                        <div id="modal-vehicle-km"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-gas-pump text-primary"></i>
+                        <strong>Combustible</strong>
+                        <div id="modal-vehicle-fuel"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-cog text-primary"></i>
+                        <strong>Transmisión</strong>
+                        <div id="modal-vehicle-transmission"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-tachometer-alt text-primary"></i>
+                        <strong>Potencia</strong>
+                        <div id="modal-vehicle-potencia"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="spec-item p-3 text-center">
+                        <i class="fas fa-check-circle text-primary"></i>
+                        <strong>Estado</strong>
+                        <div id="modal-vehicle-status"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="vehicle-description">
+                  <h5><i class="fas fa-info-circle me-2"></i>Descripción</h5>
+                  <p id="modal-vehicle-description"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer bg-dark text-white py-5 mt-5">
     <div class="container">
       <div class="row">
@@ -233,7 +338,7 @@
             </div>
             <div class="card-footer bg-white border-top-0">
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-outline-primary btn-sm">Ver Detalles</a>
+                <a href="coches-venta.html?vehiculo=${vehicle.id}" class="btn btn-outline-primary btn-sm">Ver Detalles</a>
                 <a href="contacto.html" class="btn btn-primary btn-sm">Contactar</a>
               </div>
             </div>
@@ -270,5 +375,6 @@
     // Inicializar
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
+  <script src="js/vehiculos.js"></script>
 </body>
 </html>

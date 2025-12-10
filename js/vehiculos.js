@@ -860,3 +860,16 @@ function closeLightbox() {
         }, 300);
     }
 }
+
+// Verificar si hay un parámetro vehiculo en la URL al cargar la página
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const vehiculoId = urlParams.get('vehiculo');
+    
+    if (vehiculoId) {
+        // Esperar a que la página esté completamente cargada
+        setTimeout(() => {
+            showVehicleModal(parseInt(vehiculoId));
+        }, 500);
+    }
+});

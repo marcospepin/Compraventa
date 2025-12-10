@@ -188,7 +188,7 @@
                   <div id="form-message" class="alert d-none mb-3" role="alert"></div>
                   
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane me-2"></i>Enviar Mensaje</button>
                   </div>
                 </form>
               </div>
@@ -359,7 +359,7 @@
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Enviando...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
         
         // Ocultar mensaje anterior si existe
         const formMessage = document.getElementById('form-message');
@@ -406,7 +406,7 @@
         .finally(() => {
           // Restaurar botón
           submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>' + originalText;
         });
       });
     });
