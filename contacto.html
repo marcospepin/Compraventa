@@ -25,7 +25,7 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="contact-info">
-              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617 540 616</span>
+              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617700519</span>
               <span><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</span>
             </div>
           </div>
@@ -107,7 +107,7 @@
               </div>
               <h4>Teléfono</h4>
               <p>Estamos disponibles para atenderte telefónicamente en nuestro horario comercial.</p>
-              <a href="tel:+34617540616" class="btn btn-primary mt-3">617 540 616</a>
+              <a href="tel:+34617700519" class="btn btn-primary mt-3">617700519</a>
             </div>
           </div>
           
@@ -154,19 +154,19 @@
                 <form id="contact-form">
                   <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre completo</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required>
                   </div>
                   <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="tu@email.com" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="tu@email.com" required>
                   </div>
                   <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="telefono" placeholder="Tu teléfono">
+                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Tu teléfono">
                   </div>
                   <div class="mb-3">
                     <label for="asunto" class="form-label">Asunto</label>
-                    <select class="form-select" id="asunto" required>
+                    <select class="form-select" id="asunto" name="asunto" required>
                       <option value="">Seleccionar</option>
                       <option value="Información sobre vehículo">Información sobre vehículo</option>
                       <option value="Financiación">Financiación</option>
@@ -177,12 +177,16 @@
                   </div>
                   <div class="mb-3">
                     <label for="mensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
                   </div>
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="privacidad" required>
                     <label class="form-check-label" for="privacidad">Acepto la <a href="#" data-bs-toggle="modal" data-bs-target="#privacidadModal">política de privacidad</a></label>
                   </div>
+                  
+                  <!-- Mensaje de respuesta -->
+                  <div id="form-message" class="alert d-none mb-3" role="alert"></div>
+                  
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
                   </div>
@@ -237,7 +241,7 @@
             <p class="mb-0">Llámanos ahora y te ayudaremos a encontrarlo. Financiación a medida disponible.</p>
           </div>
           <div class="col-lg-4 text-lg-end">
-            <a href="tel:+34617540616" class="btn btn-light">Llamar Ahora</a>
+            <a href="tel:+34617700519" class="btn btn-light">Llamar Ahora</a>
           </div>
         </div>
       </div>
@@ -316,7 +320,7 @@
           <h5>Contacto</h5>
           <ul class="list-unstyled">
             <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Calle 13 N°5 Sector C Pol. Industrial, San Ciprián De Viñas, Galicia, Spain 32901</li>
-            <li class="mb-2"><i class="fas fa-phone-alt me-2"></i>617 540 616</li>
+            <li class="mb-2"><i class="fas fa-phone-alt me-2"></i>617700519</li>
             <li><i class="fas fa-envelope me-2"></i>info@mcrmotors.com</li>
           </ul>
         </div>
@@ -351,19 +355,59 @@
       contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get form values
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        const telefono = document.getElementById('telefono').value;
-        const asunto = document.getElementById('asunto').value;
-        const mensaje = document.getElementById('mensaje').value;
+        // Desabilitar botón para evitar envíos duplicados
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Enviando...';
         
-        // Here you would normally send the form data to a server
-        // For this example, we'll just show an alert
-        alert('Gracias por tu mensaje, ' + nombre + '. Nos pondremos en contacto contigo lo antes posible.');
+        // Ocultar mensaje anterior si existe
+        const formMessage = document.getElementById('form-message');
+        formMessage.classList.add('d-none');
         
-        // Reset form
-        contactForm.reset();
+        // Crear FormData con los datos del formulario
+        const formData = new FormData(contactForm);
+        
+        // Enviar el formulario
+        fetch('php/send_email.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            // Mostrar mensaje de éxito
+            formMessage.className = 'alert alert-success';
+            formMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + data.message;
+            formMessage.classList.remove('d-none');
+            contactForm.reset();
+            
+            // Hacer scroll al mensaje
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            // Mostrar mensaje de error
+            formMessage.className = 'alert alert-danger';
+            formMessage.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>' + data.message;
+            formMessage.classList.remove('d-none');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // Mostrar mensaje de error
+          formMessage.className = 'alert alert-danger';
+          formMessage.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Error al enviar el mensaje. Por favor intenta más tarde.';
+          formMessage.classList.remove('d-none');
+        })
+        .finally(() => {
+          // Restaurar botón
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        });
       });
     });
   </script>

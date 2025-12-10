@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Verificar sesión del usuario en todas las páginas
-  checkUserSession();
+  // Verificar sesión del usuario en todas las páginas (sin bloquear la carga)
+  setTimeout(() => {
+    checkUserSession();
+  }, 100);
 
   // Intro Screen Animation
   const introScreen = document.getElementById("intro-screen")
@@ -157,9 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
 // Función para verificar sesión del usuario
 async function checkUserSession() {
   try {
+    // Agregar timeout de 5 segundos
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
     const response = await fetch('php/auth.php?action=check_session', {
-      credentials: 'include'
+      credentials: 'include',
+      signal: controller.signal
     });
+    
+    clearTimeout(timeoutId);
     const data = await response.json();
     
     const authButtons = document.getElementById('auth-buttons');
@@ -180,7 +189,8 @@ async function checkUserSession() {
       `;
     }
   } catch (error) {
-    console.error('Error al verificar sesión:', error);
+    console.warn('Error al verificar sesión (ignorado):', error);
+    // No hacer nada si falla - simplemente no mostrar el usuario
   }
 }
 

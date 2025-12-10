@@ -19,7 +19,7 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="contact-info">
-              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617 540 616</span>
+              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617700519</span>
               <span><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</span>
             </div>
           </div>
@@ -100,150 +100,14 @@
 
     <section class="sold-cars-grid py-5 bg-light">
       <div class="container">
-        <div class="row g-4">
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500&q=80" class="card-img-top" alt="Ford Mustang">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Ford Mustang GT</h5>
-                <p class="card-text text-muted">2020 | 25.000 km | 450 CV | Gasolina</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 450 CV</span>
-                  <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                  <span><i class="fas fa-cog"></i> Manual</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Marzo 2023</span>
-                  <span class="sold-price">55.900 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row g-4" id="sold-cars-container">
+          <!-- Los vehículos vendidos se cargarán dinámicamente desde la base de datos -->
+        </div>
+        <div id="no-sold-cars" class="text-center py-5" style="display: none;">
+          <i class="fas fa-car fa-3x text-muted mb-3"></i>
+          <p class="text-muted">No hay vehículos vendidos para mostrar en este momento.</p>
+        </div>
           
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/03/23/16480356696000.jpg" class="card-img-top" alt="Porsche Cayman">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Porsche 718 Cayman S</h5>
-                <p class="card-text text-muted">2019 | 30.000 km | 350 CV | Gasolina</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 350 CV</span>
-                  <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                  <span><i class="fas fa-cog"></i> PDK</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Febrero 2023</span>
-                  <span class="sold-price">72.500 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500&q=80" class="card-img-top" alt="Audi RS3">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Audi RS3 Sportback</h5>
-                <p class="card-text text-muted">2020 | 22.000 km | 400 CV | Gasolina</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 400 CV</span>
-                  <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                  <span><i class="fas fa-cog"></i> Automático</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Enero 2023</span>
-                  <span class="sold-price">59.900 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500&q=80" class="card-img-top" alt="Mercedes C63 AMG">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Mercedes-AMG C63 S</h5>
-                <p class="card-text text-muted">2019 | 35.000 km | 510 CV | Gasolina</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 510 CV</span>
-                  <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                  <span><i class="fas fa-cog"></i> Automático</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Diciembre 2022</span>
-                  <span class="sold-price">68.500 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500&q=80" class="card-img-top" alt="Porsche Taycan">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Porsche Taycan 4S</h5>
-                <p class="card-text text-muted">2021 | 15.000 km | 530 CV | Eléctrico</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 530 CV</span>
-                  <span><i class="fas fa-bolt"></i> Eléctrico</span>
-                  <span><i class="fas fa-cog"></i> Automático</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Noviembre 2022</span>
-                  <span class="sold-price">89.900 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-6 col-lg-4">
-            <div class="card car-card h-100">
-              <div class="car-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500&q=80" class="card-img-top" alt="Lamborghini Huracan">
-                <div class="sold-badge">VENDIDO</div>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Lamborghini Huracán LP 610-4</h5>
-                <p class="card-text text-muted">2018 | 20.000 km | 610 CV | Gasolina</p>
-                <div class="car-features">
-                  <span><i class="fas fa-tachometer-alt"></i> 610 CV</span>
-                  <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                  <span><i class="fas fa-cog"></i> Automático</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Vendido: Octubre 2022</span>
-                  <span class="sold-price">195.000 €</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -366,7 +230,7 @@
           <h5>Contacto</h5>
           <ul class="list-unstyled">
             <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Calle 13 N°5 Sector C Pol. Industrial, San Ciprián De Viñas, Galicia, Spain 32901</li>
-            <li class="mb-2"><i class="fas fa-phone-alt me-2"></i>617 540 616</li>
+            <li class="mb-2"><i class="fas fa-phone-alt me-2"></i>617700519</li>
             <li><i class="fas fa-envelope me-2"></i>info@mcrmotors.com</li>
           </ul>
         </div>
@@ -389,6 +253,81 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  
+  <script>
+    // Cargar vehículos vendidos desde la base de datos
+    async function loadSoldVehicles() {
+      try {
+        const response = await fetch('php/vehiculos.php?action=get_all&estado=vendido');
+        const data = await response.json();
+        
+        const container = document.getElementById('sold-cars-container');
+        const noSoldCars = document.getElementById('no-sold-cars');
+        container.innerHTML = '';
+        
+        const vehiculos = Array.isArray(data) ? data : [];
+        
+        if (vehiculos.length === 0) {
+          noSoldCars.style.display = 'block';
+          return;
+        }
+        
+        noSoldCars.style.display = 'none';
+        
+        // Cargar vehículos con sus imágenes
+        for (const vehicle of vehiculos) {
+          try {
+            // Obtener primera imagen de vehiculo_imagenes
+            const imgResponse = await fetch(`php/vehiculos.php?action=get_images&vehiculo_id=${vehicle.id}`);
+            const imgData = await imgResponse.json();
+            const imagenes = imgData.imagenes || [];
+            const imageUrl = imagenes.length > 0 ? imagenes[0] : (vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Sin+Imagen');
+            
+            const precio = parseFloat(vehicle.precio).toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const kilometraje = vehicle.kilometraje ? parseInt(vehicle.kilometraje).toLocaleString('es-ES') : 'N/D';
+            
+            const combustibleIcon = {
+              'gasolina': 'fa-gas-pump',
+              'diesel': 'fa-gas-pump',
+              'hibrido': 'fa-leaf',
+              'electrico': 'fa-bolt'
+            };
+            const icon = combustibleIcon[vehicle.combustible] || 'fa-gas-pump';
+            
+            const card = document.createElement('div');
+            card.className = 'col-md-6 col-lg-4';
+            card.innerHTML = `
+              <div class="card car-card h-100">
+                <div class="car-image-wrapper">
+                  <img src="${imageUrl}" class="card-img-top" alt="${vehicle.marca} ${vehicle.modelo}" onerror="this.src='https://via.placeholder.com/800x500?text=Sin+Imagen'">
+                  <div class="sold-badge">VENDIDO</div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">${vehicle.marca} ${vehicle.modelo}</h5>
+                  <p class="card-text">${vehicle.anio}</p>
+                  <div class="car-features">
+                    <span><i class="fas fa-tachometer-alt"></i> ${vehicle.potencia || 0} CV</span>
+                    <span><i class="fas ${icon}"></i> ${vehicle.combustible.charAt(0).toUpperCase() + vehicle.combustible.slice(1)}</span>
+                    <span><i class="fas fa-cog"></i> ${vehicle.transmision.charAt(0).toUpperCase() + vehicle.transmision.slice(1)}</span>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            container.appendChild(card);
+          } catch (err) {
+            console.error('Error cargando vehículo:', vehicle.id, err);
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar vehículos vendidos:', error);
+        document.getElementById('no-sold-cars').style.display = 'block';
+      }
+    }
+    
+    // Cargar al cargar la página
+    document.addEventListener('DOMContentLoaded', loadSoldVehicles);
+  </script>
 </body>
 </html>
 

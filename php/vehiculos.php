@@ -11,14 +11,22 @@ header('Access-Control-Allow-Headers: Content-Type');
 function getVehiculos($filtros = []) {
     global $conn;
     
-    // Si no es para admin (all_status), solo mostrar disponibles
+    // Manejo del estado
     $where = [];
-    if (empty($filtros['all_status'])) {
+    if (!empty($filtros['estado'])) {
+        // Si se especifica un estado concreto, filtrar por ese estado
+        $where[] = "estado = ?";
+        $params[] = $filtros['estado'];
+        $types = "s";
+    } elseif (empty($filtros['all_status'])) {
+        // Si no se especifica estado ni all_status, solo mostrar disponibles
         $where[] = "estado = 'disponible'";
+        $params = [];
+        $types = "";
+    } else {
+        $params = [];
+        $types = "";
     }
-    
-    $params = [];
-    $types = "";
     
     if (!empty($filtros['marca'])) {
         $where[] = "LOWER(marca) = LOWER(?)";
@@ -48,6 +56,25 @@ function getVehiculos($filtros = []) {
         $where[] = "anio = ?";
         $params[] = $filtros['anio'];
         $types .= "i";
+    }
+    
+    if (!empty($filtros['potencia'])) {
+        // Parse potencia range (e.g., "100-150" or "500+")
+        $potencia = $filtros['potencia'];
+        if (strpos($potencia, '+') !== false) {
+            // 500+
+            $min_potencia = intval($potencia);
+            $where[] = "potencia >= ?";
+            $params[] = $min_potencia;
+            $types .= "i";
+        } elseif (strpos($potencia, '-') !== false) {
+            // 100-150
+            list($min_potencia, $max_potencia) = explode('-', $potencia);
+            $where[] = "potencia >= ? AND potencia <= ?";
+            $params[] = intval($min_potencia);
+            $params[] = intval($max_potencia);
+            $types .= "ii";
+        }
     }
     
     if (!empty($filtros['tipo'])) {
@@ -100,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'precio_min' => $_GET['precio_min'] ?? '',
                 'precio_max' => $_GET['precio_max'] ?? '',
                 'anio' => $_GET['anio'] ?? '',
+                'potencia' => $_GET['potencia'] ?? '',
                 'tipo' => $_GET['tipo'] ?? '',
                 'combustible' => $_GET['combustible'] ?? '',
                 'order' => $_GET['order'] ?? 'fecha_registro DESC',
@@ -108,6 +136,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             
             $vehiculos = getVehiculos($filtros);
             echo json_encode(['success' => true, 'vehiculos' => $vehiculos, 'total' => count($vehiculos)]);
+            break;
+            
+        case 'get_all':
+            $filtros = [
+                'estado' => $_GET['estado'] ?? '',
+                'marca' => $_GET['marca'] ?? '',
+                'modelo' => $_GET['modelo'] ?? '',
+                'order' => $_GET['order'] ?? 'fecha_registro DESC'
+            ];
+            
+            $vehiculos = getVehiculos($filtros);
+            echo json_encode($vehiculos);
             break;
             
         case 'get':
@@ -150,12 +190,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         case 'populares':
             $limit = $_GET['limit'] ?? 3;
-            $sql = "SELECT v.*, COUNT(f.id) as num_favoritos 
+            $sql = "SELECT v.* 
                     FROM vehiculos v 
-                    LEFT JOIN favoritos f ON v.id = f.vehiculo_id 
                     WHERE v.estado = 'disponible' 
-                    GROUP BY v.id 
-                    ORDER BY num_favoritos DESC, v.fecha_registro DESC 
+                    ORDER BY v.precio DESC, v.fecha_registro DESC 
                     LIMIT ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $limit);
@@ -166,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             while ($row = $result->fetch_assoc()) {
                 $vehiculos[] = $row;
             }
-            echo json_encode(['success' => true, 'vehiculos' => $vehiculos]);
+            echo json_encode($vehiculos);
             break;
 
         default:
@@ -205,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Insertar vehículo
-            $stmt = $conn->prepare("INSERT INTO vehiculos (marca, modelo, anio, tipo, precio, kilometraje, color, combustible, transmision, descripcion, imagen_url, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO vehiculos (marca, modelo, anio, tipo, precio, kilometraje, potencia, combustible, transmision, descripcion, imagen_url, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
             // Preparar variables para bind_param (no se pueden usar expresiones)
             $marca = $_POST['marca'];
@@ -214,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo = $_POST['tipo'];
             $precio = $_POST['precio'];
             $kilometraje = $_POST['kilometraje'];
-            $color = $_POST['color'];
+            $potencia = $_POST['potencia'];
             $combustible = $_POST['combustible'];
             $transmision = $_POST['transmision'];
             $descripcion = $_POST['descripcion'];
@@ -228,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $tipo,
                 $precio,
                 $kilometraje,
-                $color,
+                $potencia,
                 $combustible,
                 $transmision,
                 $descripcion,
@@ -309,7 +347,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         case 'update':
             $id = $data['id'] ?? 0;
-            $stmt = $conn->prepare("UPDATE vehiculos SET marca=?, modelo=?, anio=?, tipo=?, precio=?, kilometraje=?, color=?, combustible=?, transmision=?, descripcion=?, imagen_url=?, estado=? WHERE id=?");
+            $stmt = $conn->prepare("UPDATE vehiculos SET marca=?, modelo=?, anio=?, tipo=?, precio=?, kilometraje=?, potencia=?, combustible=?, transmision=?, descripcion=?, imagen_url=?, estado=? WHERE id=?");
             $stmt->bind_param("ssississssssi",
                 $data['marca'],
                 $data['modelo'],
@@ -317,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data['tipo'],
                 $data['precio'],
                 $data['kilometraje'],
-                $data['color'],
+                $data['potencia'],
                 $data['combustible'],
                 $data['transmision'],
                 $data['descripcion'],

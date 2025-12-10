@@ -135,6 +135,12 @@ a {
   border-radius: var(--radius-sm);
 }
 
+.form-control::placeholder,
+.form-select::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
 .form-control:focus,
 .form-select:focus {
   background-color: var(--color-dark);
@@ -366,6 +372,12 @@ a {
   cursor: not-allowed;
 }
 
+.btn-edit-vehicle:hover {
+  background: rgba(47, 103, 255, 1) !important;
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(47, 103, 255, 0.5) !important;
+}
+
 .car-features {
   display: flex;
   justify-content: space-between;
@@ -559,6 +571,7 @@ footer ul li {
   padding: 0.5rem 1rem;
   font-weight: 700;
   border-radius: var(--radius-sm);
+  z-index: 10;
 }
 
 .sold-price {
@@ -566,15 +579,97 @@ footer ul li {
   color: var(--color-secondary);
 }
 
+/* Estilos para coches vendidos */
+.sold-cars-grid .card-title {
+  color: var(--color-light) !important;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sold-cars-grid .card-text {
+  color: #d1d5db !important;
+  margin-bottom: 1rem;
+}
+
+.sold-cars-grid .car-features {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.sold-cars-grid .car-features span {
+  color: #e5e7eb !important;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.sold-cars-grid .car-features i {
+  color: var(--color-secondary) !important;
+  margin-right: 0.3rem;
+}
+
 /* ===== FINANCING PAGE ===== */
+.financing-options {
+  background-color: #f8f9fa;
+}
+
+.financing-options .section-header h2 {
+  color: #1D1F23;
+  font-weight: 700;
+}
+
+.financing-options .section-header p {
+  color: #6c757d;
+}
+
 .financing-option {
-  background-color: var(--color-dark);
-  border: 1px solid var(--color-secondary);
-  border-radius: var(--radius-md);
+  background-color: #1D1F23;
+  border: 2px solid #2F67FF;
+  border-radius: 10px;
   padding: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transition: var(--transition);
+  transition: all 0.3s ease;
   height: 100%;
+}
+
+.financing-option h4 {
+  color: #FFFFFF !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  font-weight: 700 !important;
+  font-size: 1.4rem !important;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  text-align: center !important;
+}
+
+.financing-option.text-center h4 {
+  color: #FFFFFF !important;
+}
+
+.financing-option p {
+  color: #e5e7eb !important;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  text-align: center !important;
+}
+
+.financing-option ul {
+  padding-left: 0;
+}
+
+.financing-option ul li {
+  color: #e5e7eb !important;
+  font-size: 1rem;
+}
+
+.financing-option ul li i.text-primary,
+.financing-option ul li i.fa-check {
+  color: #2F67FF !important;
+  font-size: 1.1rem;
 }
 
 .financing-option:hover {
@@ -594,6 +689,42 @@ footer ul li {
   border-radius: var(--radius-md);
   padding: 2rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calculator-card h3 {
+  color: #FFFFFF !important;
+}
+
+.calculator-card .form-label {
+  color: #e5e7eb !important;
+  font-weight: 500;
+}
+
+.calculator-card .form-control,
+.calculator-card .form-select {
+  background-color: #2d2f33;
+  border: 1px solid #2F67FF;
+  color: #FFFFFF;
+}
+
+.calculator-card .form-control::placeholder,
+.calculator-card .form-select::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+.calculator-card .form-control:focus,
+.calculator-card .form-select:focus {
+  background-color: #2d2f33;
+  border-color: #2F67FF;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 0.25rem rgba(47, 103, 255, 0.25);
+}
+
+.calculator-card .form-control[readonly] {
+  background-color: #1a1c20;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .accordion-button {
@@ -861,12 +992,30 @@ footer ul li {
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  background-color: #000;
+}
+
+#vehicleModal .carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+#vehicleModal .carousel-item {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%; /* Aspect ratio 3:2 */
 }
 
 #vehicleModal .carousel-item img {
-  height: 450px;
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #000;
 }
 
 #vehicleModal .carousel-indicators button {
@@ -968,18 +1117,41 @@ footer ul li {
   border-radius: 10px;
   transition: all 0.3s ease;
   font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#vehicleModal .btn-lg i {
+  font-size: 1.1rem;
 }
 
 #vehicleModal .btn-primary {
   background: linear-gradient(135deg, #1a5490 0%, #2563eb 100%);
   border: none;
   box-shadow: 0 4px 15px rgba(26,84,144,0.3);
+  color: white;
 }
 
 #vehicleModal .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(26,84,144,0.4);
   background: linear-gradient(135deg, #153d6f 0%, #1e40af 100%);
+  color: white;
+}
+
+#vehicleModal .btn-outline-primary {
+  border: 2px solid #1a5490;
+  color: #1a5490;
+  background: white;
+}
+
+#vehicleModal .btn-outline-primary:hover {
+  background: #1a5490;
+  border-color: #1a5490;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(26,84,144,0.3);
 }
 
 #vehicleModal .btn-outline-primary {
@@ -1037,4 +1209,75 @@ footer ul li {
     transform: scale(1) translateY(0);
     opacity: 1;
   }
+}
+
+/* ===== LOGIN & REGISTRO FORMS ===== */
+.login-section .card,
+.register-section .card {
+  background-color: var(--color-dark);
+  border: 1px solid var(--color-secondary);
+}
+
+.login-section .card-body,
+.register-section .card-body {
+  color: var(--color-light);
+}
+
+.login-section .form-label,
+.register-section .form-label {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.login-section .form-control,
+.register-section .form-control,
+.login-section .input-group-text,
+.register-section .input-group-text {
+  background-color: #2d2f33;
+  border: 1px solid #2F67FF;
+  color: #FFFFFF;
+}
+
+.login-section .form-control::placeholder,
+.register-section .form-control::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+.login-section .form-control:focus,
+.register-section .form-control:focus {
+  background-color: #2d2f33;
+  border-color: #2F67FF;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 0.25rem rgba(47, 103, 255, 0.25);
+}
+
+.login-section .input-group-text,
+.register-section .input-group-text {
+  color: #2F67FF;
+}
+
+.login-section .form-check-label,
+.register-section .form-check-label {
+  color: #e5e7eb;
+}
+
+.login-section h3,
+.register-section h3 {
+  color: #FFFFFF;
+}
+
+.login-section p,
+.register-section p {
+  color: #d1d5db;
+}
+
+.login-section a,
+.register-section a {
+  color: #2F67FF;
+}
+
+.login-section a:hover,
+.register-section a:hover {
+  color: #5989ff;
 }

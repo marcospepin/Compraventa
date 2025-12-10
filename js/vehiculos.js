@@ -78,6 +78,9 @@ async function loadVehicles(filters = {}) {
         if (data.success) {
             allVehicles = data.vehiculos;
             
+            // Actualizar marcas y modelos en cada carga
+            updateBrandsAndModels(allVehicles);
+            
             if (allVehicles.length === 0) {
                 container.innerHTML = `
                     <div class="col-12 text-center py-5">
@@ -158,10 +161,17 @@ function createVehicleCard(vehicle) {
     
     const icon = combustibleIcon[vehicle.combustible] || 'fa-gas-pump';
     
+    // Botón de editar solo para administradores
+    const editButton = currentUser && currentUser.rol === 'admin' ? 
+        `<button class="btn btn-edit-vehicle position-absolute" data-vehicle-id="${vehicle.id}" title="Editar vehículo" onclick="event.stopPropagation(); window.location.href='admin.html?edit=${vehicle.id}';" style="top: 10px; left: 10px; z-index: 10; background: rgba(47, 103, 255, 0.9); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s;">
+            <i class="fas fa-pencil-alt"></i>
+        </button>` : '';
+    
     return `
         <div class="col-md-6 col-lg-4">
             <div class="card car-card h-100" style="cursor: pointer;" onclick="showVehicleModal(${vehicle.id})">
                 <div class="car-image-wrapper position-relative">
+                    ${editButton}
                     <img src="${imageUrl}" class="card-img-top" alt="${vehicle.marca} ${vehicle.modelo}" onerror="this.src='https://via.placeholder.com/800x500?text=Sin+Imagen'">
                     <span class="car-price">${precio} €</span>
                     <button class="btn btn-favorito ${currentUser ? '' : 'btn-login-required'}" data-vehicle-id="${vehicle.id}" title="${currentUser ? 'Anadir a favoritos' : 'Inicia sesion para anadir a favoritos'}" onclick="event.stopPropagation();">
@@ -170,9 +180,9 @@ function createVehicleCard(vehicle) {
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">${vehicle.marca} ${vehicle.modelo}</h5>
-                    <p class="card-text text-muted">${vehicle.anio} | ${kilometraje} km | ${vehicle.combustible.charAt(0).toUpperCase() + vehicle.combustible.slice(1)}</p>
+                    <p class="card-text text-muted">${vehicle.anio} | ${kilometraje} km</p>
                     <div class="car-features">
-                        <span><i class="fas fa-calendar"></i> ${vehicle.anio}</span>
+                        <span><i class="fas fa-tachometer-alt"></i> ${vehicle.potencia || 0} CV</span>
                         <span><i class="fas ${icon}"></i> ${vehicle.combustible.charAt(0).toUpperCase() + vehicle.combustible.slice(1)}</span>
                         <span><i class="fas fa-cog"></i> ${vehicle.transmision.charAt(0).toUpperCase() + vehicle.transmision.slice(1)}</span>
                     </div>
@@ -293,16 +303,73 @@ function applyFilters() {
         precio_min: document.getElementById('filter-precio-min')?.value || '',
         precio_max: document.getElementById('filter-precio-max')?.value || '',
         anio: document.getElementById('filter-ano')?.value || '',
+        potencia: document.getElementById('filter-potencia')?.value || '',
         order: document.getElementById('sort-by')?.value || 'fecha_registro DESC'
     };
     
     loadVehicles(filters);
 }
 
+// Cargar marcas y modelos únicos desde la base de datos
+async function loadBrandsAndModels() {
+    try {
+        const response = await fetch('php/vehiculos.php?action=list');
+        const data = await response.json();
+        
+        if (data.success && data.vehiculos) {
+            updateBrandsAndModels(data.vehiculos);
+        }
+    } catch (error) {
+        console.error('Error al cargar marcas y modelos:', error);
+    }
+}
+
+// Actualizar datalists con marcas y modelos únicos
+function updateBrandsAndModels(vehiculos) {
+    // Obtener marcas únicas desde la BD
+    const marcasSet = new Set(vehiculos.map(v => v.marca).filter(Boolean));
+    const marcasBD = Array.from(marcasSet);
+    
+    // Marcas predefinidas
+    const predefinidas = ['Audi', 'BMW', 'Ford', 'Mercedes', 'Peugeot', 'Porsche', 'Renault', 'Seat', 'Toyota', 'Volkswagen'];
+    
+    // Combinar todas las marcas (predefinidas + BD) y eliminar duplicados
+    const todasMarcas = [...new Set([...predefinidas, ...marcasBD])];
+    
+    // Ordenar alfabéticamente
+    todasMarcas.sort((a, b) => a.localeCompare(b, 'es'));
+    
+    const marcasList = document.getElementById('marcas-list');
+    if (marcasList) {
+        // Crear HTML con todas las marcas ordenadas
+        marcasList.innerHTML = todasMarcas.map(marca => `<option value="${marca}">`).join('\n            ');
+    }
+    
+    // Hacer lo mismo con los modelos
+    const modelosSet = new Set(vehiculos.map(v => v.modelo).filter(Boolean));
+    const modelosBD = Array.from(modelosSet);
+    
+    // Modelos predefinidos
+    const predefinidosModelos = ['911', 'A3', 'A4', 'Cayenne', 'Clase A', 'Clase C', 'Golf', 'Passat', 'Serie 3', 'Serie 5'];
+    
+    // Combinar todos los modelos (predefinidos + BD) y eliminar duplicados
+    const todosModelos = [...new Set([...predefinidosModelos, ...modelosBD])];
+    
+    // Ordenar alfabéticamente
+    todosModelos.sort((a, b) => a.localeCompare(b, 'es'));
+    
+    const modelosList = document.getElementById('modelos-list');
+    if (modelosList) {
+        // Crear HTML con todos los modelos ordenados
+        modelosList.innerHTML = todosModelos.map(modelo => `<option value="${modelo}">`).join('\n            ');
+    }
+}
+
 // Inicializar al cargar la pagina
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Iniciando aplicacion...');
     await checkSession();
+    await loadBrandsAndModels();
     setupFilters();
     loadVehicles();
 });
@@ -439,21 +506,34 @@ async function showVehicleModal(vehicleId) {
             document.getElementById('modal-vehicle-km').textContent = vehicle.kilometraje ? `${parseInt(vehicle.kilometraje).toLocaleString('es-ES')} km` : 'N/D';
             document.getElementById('modal-vehicle-fuel').textContent = vehicle.combustible.charAt(0).toUpperCase() + vehicle.combustible.slice(1);
             document.getElementById('modal-vehicle-transmission').textContent = vehicle.transmision.charAt(0).toUpperCase() + vehicle.transmision.slice(1);
-            document.getElementById('modal-vehicle-color').textContent = vehicle.color || 'No especificado';
+            document.getElementById('modal-vehicle-potencia').textContent = vehicle.potencia ? `${vehicle.potencia} CV` : 'No especificado';
             document.getElementById('modal-vehicle-status').textContent = vehicle.estado === 'disponible' ? 'Disponible' : vehicle.estado.charAt(0).toUpperCase() + vehicle.estado.slice(1);
-            document.getElementById('modal-vehicle-description').textContent = vehicle.descripcion || 'Sin descripción disponible.';
+            
+            // Descripción con saltos de línea preservados
+            const descripcionElement = document.getElementById('modal-vehicle-description');
+            const descripcionTexto = vehicle.descripcion || 'Sin descripción disponible.';
+            descripcionElement.innerHTML = descripcionTexto.replace(/\n/g, '<br>');
             
             // Crear galeria de imagenes
             const carouselInner = document.getElementById('carousel-inner');
             const carouselIndicators = document.getElementById('carousel-indicators');
             
-            // Imagenes del vehiculo (por ahora usamos la imagen principal y placeholders)
-            const images = [
-                vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Sin+Imagen',
-                vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Vista+Lateral',
-                vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Interior',
-                vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Motor'
-            ];
+            // Cargar imágenes del vehículo desde la base de datos
+            let images = [];
+            try {
+                const imagesResponse = await fetch(`php/vehiculos.php?action=get_images&vehiculo_id=${vehicleId}`);
+                const imagesData = await imagesResponse.json();
+                
+                if (imagesData.success && imagesData.imagenes && imagesData.imagenes.length > 0) {
+                    images = imagesData.imagenes;
+                } else {
+                    // Si no hay imágenes en la tabla, usar la imagen principal
+                    images = [vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Sin+Imagen'];
+                }
+            } catch (error) {
+                console.error('Error loading images:', error);
+                images = [vehicle.imagen_url || 'https://via.placeholder.com/800x500?text=Sin+Imagen'];
+            }
             
             carouselInner.innerHTML = '';
             carouselIndicators.innerHTML = '';
@@ -466,12 +546,24 @@ async function showVehicleModal(vehicleId) {
                 indicator.setAttribute('data-bs-slide-to', index);
                 if (index === 0) indicator.classList.add('active');
                 indicator.setAttribute('aria-label', `Imagen ${index + 1}`);
+                indicator.setAttribute('aria-current', index === 0 ? 'true' : 'false');
                 carouselIndicators.appendChild(indicator);
                 
                 // Crear item del carousel
                 const item = document.createElement('div');
                 item.className = index === 0 ? 'carousel-item active' : 'carousel-item';
-                item.innerHTML = `<img src="${img}" class="d-block w-100" alt="${vehicle.marca} ${vehicle.modelo}" onerror="this.src='https://via.placeholder.com/800x500?text=Sin+Imagen'">`;
+                const imgElement = document.createElement('img');
+                imgElement.src = img;
+                imgElement.className = 'd-block w-100';
+                imgElement.alt = `${vehicle.marca} ${vehicle.modelo}`;
+                imgElement.style.cursor = 'pointer';
+                imgElement.onerror = function() {
+                    this.src = 'https://via.placeholder.com/800x500?text=Sin+Imagen';
+                };
+                imgElement.onclick = function() {
+                    openImageLightbox(images, index);
+                };
+                item.appendChild(imgElement);
                 carouselInner.appendChild(item);
             });
             
@@ -522,5 +614,249 @@ async function showVehicleModal(vehicleId) {
     } catch (error) {
         console.error('Error:', error);
         showNotification('Error al cargar los detalles del vehículo', 'error');
+    }
+}
+
+// Función para abrir imagen en lightbox
+let lightboxImages = [];
+let currentLightboxIndex = 0;
+
+function openImageLightbox(images, startIndex) {
+    lightboxImages = images;
+    currentLightboxIndex = startIndex;
+    
+    // Crear el lightbox si no existe
+    let lightbox = document.getElementById('image-lightbox');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'image-lightbox';
+        lightbox.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+        
+        const img = document.createElement('img');
+        img.id = 'lightbox-image';
+        img.style.cssText = `
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            transition: opacity 0.2s ease;
+        `;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '×';
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 50px;
+            font-weight: 300;
+            cursor: pointer;
+            z-index: 10001;
+            transition: transform 0.2s ease;
+        `;
+        closeBtn.onmouseover = function() {
+            this.style.transform = 'scale(1.2)';
+        };
+        closeBtn.onmouseout = function() {
+            this.style.transform = 'scale(1)';
+        };
+        closeBtn.onclick = function(e) {
+            e.stopPropagation();
+            closeLightbox();
+        };
+        
+        // Botón anterior
+        const prevBtn = document.createElement('button');
+        prevBtn.id = 'lightbox-prev';
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.style.cssText = `
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+        prevBtn.onmouseover = function() {
+            this.style.background = 'rgba(255, 255, 255, 0.4)';
+            this.style.transform = 'translateY(-50%) scale(1.1)';
+        };
+        prevBtn.onmouseout = function() {
+            this.style.background = 'rgba(255, 255, 255, 0.2)';
+            this.style.transform = 'translateY(-50%)';
+        };
+        prevBtn.onclick = function(e) {
+            e.stopPropagation();
+            showPreviousImage();
+        };
+        
+        // Botón siguiente
+        const nextBtn = document.createElement('button');
+        nextBtn.id = 'lightbox-next';
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.style.cssText = `
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+        nextBtn.onmouseover = function() {
+            this.style.background = 'rgba(255, 255, 255, 0.4)';
+            this.style.transform = 'translateY(-50%) scale(1.1)';
+        };
+        nextBtn.onmouseout = function() {
+            this.style.background = 'rgba(255, 255, 255, 0.2)';
+            this.style.transform = 'translateY(-50%)';
+        };
+        nextBtn.onclick = function(e) {
+            e.stopPropagation();
+            showNextImage();
+        };
+        
+        // Contador de imágenes
+        const counter = document.createElement('div');
+        counter.id = 'lightbox-counter';
+        counter.style.cssText = `
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            z-index: 10001;
+        `;
+        
+        lightbox.appendChild(img);
+        lightbox.appendChild(closeBtn);
+        lightbox.appendChild(prevBtn);
+        lightbox.appendChild(nextBtn);
+        lightbox.appendChild(counter);
+        document.body.appendChild(lightbox);
+        
+        // Cerrar al hacer click en el fondo
+        lightbox.onclick = function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        };
+        
+        // Navegación con teclado
+        document.addEventListener('keydown', handleLightboxKeydown);
+    }
+    
+    // Mostrar la imagen actual
+    updateLightboxImage();
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // Fade in
+    setTimeout(() => {
+        lightbox.style.opacity = '1';
+    }, 10);
+}
+
+function updateLightboxImage() {
+    const img = document.getElementById('lightbox-image');
+    const counter = document.getElementById('lightbox-counter');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    
+    // Fade out
+    img.style.opacity = '0';
+    
+    setTimeout(() => {
+        img.src = lightboxImages[currentLightboxIndex];
+        counter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+        
+        // Mostrar/ocultar botones si solo hay una imagen
+        if (lightboxImages.length <= 1) {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'flex';
+            nextBtn.style.display = 'flex';
+        }
+        
+        // Fade in
+        img.style.opacity = '1';
+    }, 200);
+}
+
+function showPreviousImage() {
+    currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    updateLightboxImage();
+}
+
+function showNextImage() {
+    currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+    updateLightboxImage();
+}
+
+function handleLightboxKeydown(e) {
+    const lightbox = document.getElementById('image-lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            showPreviousImage();
+        } else if (e.key === 'ArrowRight') {
+            showNextImage();
+        }
+    }
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('image-lightbox');
+    if (lightbox) {
+        lightbox.style.opacity = '0';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
     }
 }

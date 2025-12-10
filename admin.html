@@ -317,7 +317,7 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="contact-info">
-              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617 540 616</span>
+              <span class="me-3"><i class="fas fa-phone-alt me-2"></i>617700519</span>
               <span><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</span>
             </div>
           </div>
@@ -432,18 +432,18 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="marca" class="form-label">Marca *</label>
-                <input type="text" class="form-control" id="marca" name="marca" required>
+                <input type="text" class="form-control" id="marca" name="marca" required placeholder="Ej: BMW">
               </div>
               <div class="col-md-6 mb-3">
                 <label for="modelo" class="form-label">Modelo *</label>
-                <input type="text" class="form-control" id="modelo" name="modelo" required>
+                <input type="text" class="form-control" id="modelo" name="modelo" required placeholder="Ej: M4 Competition">
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label for="anio" class="form-label">Año *</label>
-                <input type="number" class="form-control" id="anio" name="anio" min="1990" max="2099" required>
+                <input type="number" class="form-control" id="anio" name="anio" min="1990" max="2099" required placeholder="Ej: 2023">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="tipo" class="form-label">Tipo *</label>
@@ -456,18 +456,18 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label for="precio" class="form-label">Precio (€) *</label>
-                <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" required>
+                <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" required placeholder="Ej: 45000">
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-4 mb-3">
                 <label for="kilometraje" class="form-label">Kilometraje</label>
-                <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="0">
+                <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="0" placeholder="Ej: 15000">
               </div>
               <div class="col-md-4 mb-3">
-                <label for="color" class="form-label">Color</label>
-                <input type="text" class="form-control" id="color" name="color">
+                <label for="potencia" class="form-label">Potencia (CV)</label>
+                <input type="number" class="form-control" id="potencia" name="potencia" min="0" placeholder="Ej: 150">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="combustible" class="form-label">Combustible *</label>
@@ -490,11 +490,11 @@
                   <option value="automatico">Automático</option>
                 </select>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="imagenes" class="form-label">Imágenes del Vehículo (máx. 7)</label>
-                <input type="file" class="form-control" id="imagenes" name="imagenes" accept="image/*" multiple required>
-                <small class="text-muted">Selecciona hasta 7 imágenes</small>
-                <div id="image-preview" class="mt-3"></div>
+              <div class="col-12 mb-3">
+                <label class="form-label">Imágenes del Vehículo (máx. 8)</label>
+                <input type="file" id="imagenes-input" accept="image/*" multiple style="display: none;">
+                <small class="text-muted d-block mb-2">Haz clic en los espacios para añadir imágenes. Arrastra para reordenar.</small>
+                <div id="image-slots" class="d-flex flex-wrap gap-2"></div>
               </div>
             </div>
 
@@ -553,7 +553,7 @@
         <div class="col-lg-4 mb-4">
           <h5>Contacto</h5>
           <ul class="list-unstyled">
-            <li><i class="fas fa-phone-alt me-2"></i>617 540 616</li>
+            <li><i class="fas fa-phone-alt me-2"></i>617700519</li>
             <li><i class="fas fa-map-marker-alt me-2"></i>San Ciprián De Viñas, Galicia</li>
           </ul>
         </div>
@@ -623,8 +623,8 @@
                 <input type="number" class="form-control" id="edit-kilometraje" min="0">
               </div>
               <div class="col-md-4 mb-3">
-                <label for="edit-color" class="form-label">Color</label>
-                <input type="text" class="form-control" id="edit-color">
+                <label for="edit-potencia" class="form-label">Potencia (CV)</label>
+                <input type="number" class="form-control" id="edit-potencia" min="0" placeholder="Ej: 150">
               </div>
               <div class="col-md-4 mb-3">
                 <label for="edit-combustible" class="form-label">Combustible *</label>
@@ -646,13 +646,15 @@
             </div>
 
             <div class="mb-3">
-              <label for="edit-imagen_url" class="form-label">URL de Imagen</label>
-              <input type="url" class="form-control" id="edit-imagen_url" placeholder="https://ejemplo.com/imagen.jpg">
+              <label for="edit-descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="edit-descripcion" rows="3"></textarea>
             </div>
 
             <div class="mb-3">
-              <label for="edit-descripcion" class="form-label">Descripción</label>
-              <textarea class="form-control" id="edit-descripcion" rows="3"></textarea>
+              <label class="form-label">Imágenes del Vehículo (máx. 8)</label>
+              <input type="file" id="edit-imagenes-input" accept="image/*" multiple style="display: none;">
+              <small class="text-muted d-block mb-2">Haz clic en los espacios para añadir imágenes. Arrastra para reordenar.</small>
+              <div id="edit-image-slots" class="d-flex flex-wrap gap-2"></div>
             </div>
           </form>
         </div>
@@ -717,6 +719,33 @@
       } catch (error) {
         console.error('❌ Error en checkAdminAccess:', error);
         window.location.href = 'index.html';
+      }
+    }
+
+    // Verificar si hay un vehículo para editar en la URL
+    function checkEditParameter() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editId = urlParams.get('edit');
+      
+      if (editId) {
+        // Cambiar a la pestaña de gestión de vehículos
+        document.querySelectorAll('.admin-nav .nav-link').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('.admin-section').forEach(section => section.classList.remove('active'));
+        
+        const manageTab = document.querySelector('[data-section="manage-vehicles"]');
+        const manageSection = document.getElementById('manage-vehicles');
+        
+        if (manageTab && manageSection) {
+          manageTab.classList.add('active');
+          manageSection.classList.add('active');
+        }
+        
+        // Esperar a que se carguen los vehículos y luego abrir el modal de edición
+        setTimeout(() => {
+          editVehicle(editId);
+          // Limpiar el parámetro de la URL sin recargar la página
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }, 1000);
       }
     }
 
@@ -791,44 +820,725 @@
     }
 
     // Publicar nuevo vehículo
-    // Vista previa de imágenes
-    document.getElementById('imagenes').addEventListener('change', function(e) {
-      const preview = document.getElementById('image-preview');
-      preview.innerHTML = '';
-      const files = Array.from(e.target.files);
+    // Sistema de slots de imágenes con drag and drop
+    let imageSlots = Array(8).fill(null); // 8 slots vacíos
+    let draggedSlotIndex = null;
+
+    function initializeImageSlots() {
+      const container = document.getElementById('image-slots');
+      container.innerHTML = '';
       
-      if (files.length > 7) {
-        showAlert('Máximo 7 imágenes permitidas', 'warning');
-        e.target.value = '';
-        return;
+      for (let i = 0; i < 8; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'image-slot';
+        slot.dataset.index = i;
+        slot.style.cssText = `
+          width: 120px;
+          height: 120px;
+          border: 2px dashed #2F67FF;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          position: relative;
+          transition: all 0.3s;
+          background: linear-gradient(135deg, #0A1324 0%, #1D1F23 100%);
+        `;
+        
+        if (imageSlots[i]) {
+          // Slot con imagen
+          slot.style.border = '2px solid #2F67FF';
+          slot.style.cursor = 'move';
+          slot.style.boxShadow = '0 0 15px rgba(47, 103, 255, 0.3)';
+          slot.draggable = true;
+          
+          const img = document.createElement('img');
+          img.src = imageSlots[i].preview;
+          img.style.cssText = `
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+          `;
+          
+          const orderBadge = document.createElement('span');
+          orderBadge.className = 'position-absolute top-0 start-0 badge m-1';
+          orderBadge.textContent = i + 1;
+          orderBadge.style.cssText = `
+            background: linear-gradient(135deg, #2F67FF 0%, #1a4fd6 100%);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.5rem;
+          `;
+          
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'position-absolute top-0 end-0 btn btn-sm m-1 p-0';
+          deleteBtn.style.cssText = `
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+            font-size: 1rem;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: none;
+            color: white;
+            box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+          `;
+          deleteBtn.innerHTML = '×';
+          deleteBtn.onclick = function(e) {
+            e.stopPropagation();
+            removeImage(i);
+          };
+          
+          slot.appendChild(img);
+          slot.appendChild(orderBadge);
+          slot.appendChild(deleteBtn);
+          
+          // Drag events
+          slot.addEventListener('dragstart', handleDragStart);
+          slot.addEventListener('dragend', handleDragEnd);
+        } else {
+          // Slot vacío
+          const icon = document.createElement('i');
+          icon.className = 'fas fa-plus';
+          icon.style.cssText = `
+            font-size: 2rem;
+            color: #2F67FF;
+            opacity: 0.5;
+          `;
+          slot.appendChild(icon);
+          
+          slot.onmouseover = function() {
+            this.style.borderColor = '#5a8dff';
+            this.style.boxShadow = '0 0 15px rgba(47, 103, 255, 0.4)';
+            icon.style.opacity = '0.8';
+          };
+          slot.onmouseout = function() {
+            this.style.borderColor = '#2F67FF';
+            this.style.boxShadow = 'none';
+            icon.style.opacity = '0.5';
+          };
+          
+          slot.onclick = function() {
+            selectImageForSlot(i);
+          };
+        }
+        
+        // Drop events para todos los slots
+        slot.addEventListener('dragover', handleDragOver);
+        slot.addEventListener('drop', handleDrop);
+        slot.addEventListener('dragenter', handleDragEnter);
+        slot.addEventListener('dragleave', handleDragLeave);
+        
+        container.appendChild(slot);
+      }
+    }
+
+    function selectImageForSlot(slotIndex) {
+      const input = document.getElementById('imagenes-input');
+      input.onchange = function(e) {
+        const files = Array.from(e.target.files);
+        
+        if (files.length === 0) return;
+        
+        // Encontrar slots vacíos a partir del slot clickeado
+        let availableSlots = [];
+        for (let i = slotIndex; i < 8; i++) {
+          if (imageSlots[i] === null) {
+            availableSlots.push(i);
+          }
+        }
+        
+        // Si no hay suficientes slots desde el clickeado, buscar desde el inicio
+        if (availableSlots.length < files.length) {
+          for (let i = 0; i < slotIndex; i++) {
+            if (imageSlots[i] === null) {
+              availableSlots.push(i);
+            }
+          }
+        }
+        
+        // Verificar si hay slots disponibles
+        if (availableSlots.length === 0) {
+          showAlert('No hay espacios disponibles. Elimina alguna imagen primero.', 'warning');
+          input.value = '';
+          return;
+        }
+        
+        // Limitar al número de slots disponibles
+        const filesToLoad = files.slice(0, Math.min(files.length, availableSlots.length));
+        
+        if (filesToLoad.length < files.length) {
+          showAlert(`Solo se pueden añadir ${filesToLoad.length} imágenes. Límite de 8 imágenes alcanzado.`, 'warning');
+        }
+        
+        let loadedCount = 0;
+        
+        // Cargar cada archivo en su slot correspondiente
+        filesToLoad.forEach((file, index) => {
+          const targetSlot = availableSlots[index];
+          
+          // Validar tipo de archivo
+          if (!file.type.startsWith('image/')) {
+            showAlert(`El archivo ${file.name} no es una imagen válida`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeImageSlots();
+            }
+            return;
+          }
+          
+          // Validar tamaño (máx 10MB)
+          if (file.size > 10 * 1024 * 1024) {
+            showAlert(`La imagen ${file.name} es demasiado grande (máx. 10MB)`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeImageSlots();
+            }
+            return;
+          }
+          
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            imageSlots[targetSlot] = {
+              file: file,
+              preview: event.target.result
+            };
+            loadedCount++;
+            // Solo re-renderizar después de cargar todas las imágenes
+            if (loadedCount === filesToLoad.length) {
+              initializeImageSlots();
+            }
+          };
+          reader.onerror = function() {
+            showAlert(`Error al cargar la imagen ${file.name}`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeImageSlots();
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+        
+        input.value = ''; // Reset para poder seleccionar la misma imagen otra vez
+      };
+      input.click();
+    }
+
+    function removeImage(slotIndex) {
+      imageSlots[slotIndex] = null;
+      
+      // Compactar las imágenes hacia la izquierda
+      const compactedSlots = imageSlots.filter(slot => slot !== null);
+      imageSlots = [...compactedSlots, ...Array(8 - compactedSlots.length).fill(null)];
+      
+      initializeImageSlots();
+    }
+
+    function handleDragStart(e) {
+      draggedSlotIndex = parseInt(this.dataset.index);
+      this.style.opacity = '0.4';
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+      this.style.opacity = '1';
+      document.querySelectorAll('.image-slot').forEach(slot => {
+        slot.style.border = slot.querySelector('img') ? '2px solid #2F67FF' : '2px dashed #2F67FF';
+        slot.style.transform = '';
+        slot.style.backgroundColor = '';
+        slot.style.boxShadow = slot.querySelector('img') ? '0 0 15px rgba(47, 103, 255, 0.3)' : 'none';
+      });
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      const targetIndex = parseInt(this.dataset.index);
+      if (draggedSlotIndex !== null && draggedSlotIndex !== targetIndex) {
+        this.style.backgroundColor = 'rgba(47, 103, 255, 0.2)';
+        this.style.transform = 'scale(1.05)';
+        this.style.boxShadow = '0 0 20px rgba(47, 103, 255, 0.6)';
+      }
+    }
+
+    function handleDragLeave(e) {
+      this.style.backgroundColor = '';
+      this.style.transform = '';
+      this.style.boxShadow = this.querySelector('img') ? '0 0 15px rgba(47, 103, 255, 0.3)' : 'none';
+    }
+
+    function handleDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
       }
       
-      files.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = function(event) {
+      const targetIndex = parseInt(this.dataset.index);
+      
+      if (draggedSlotIndex !== null && draggedSlotIndex !== targetIndex) {
+        // Intercambiar slots
+        const temp = imageSlots[draggedSlotIndex];
+        imageSlots[draggedSlotIndex] = imageSlots[targetIndex];
+        imageSlots[targetIndex] = temp;
+        
+        initializeImageSlots();
+      }
+      
+      return false;
+    }
+
+    // Inicializar slots al cargar la página
+    initializeImageSlots();
+
+    // Sistema de slots para el modal de edición
+    let editImageSlots = Array(8).fill(null);
+    let editDraggedSlotIndex = null;
+
+    function initializeEditImageSlots() {
+      const container = document.getElementById('edit-image-slots');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      for (let i = 0; i < 8; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'image-slot';
+        slot.dataset.index = i;
+        slot.style.cssText = `
+          width: 120px;
+          height: 120px;
+          border: 2px dashed #2F67FF;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          position: relative;
+          transition: all 0.3s;
+          background: linear-gradient(135deg, #0A1324 0%, #1D1F23 100%);
+        `;
+        
+        if (editImageSlots[i]) {
+          // Slot con imagen
+          slot.style.border = '2px solid #2F67FF';
+          slot.style.cursor = 'move';
+          slot.style.boxShadow = '0 0 15px rgba(47, 103, 255, 0.3)';
+          slot.draggable = true;
+          
           const img = document.createElement('img');
-          img.src = event.target.result;
-          img.style.maxWidth = '100px';
-          img.style.margin = '5px';
-          img.style.borderRadius = '5px';
-          preview.appendChild(img);
-        };
-        reader.readAsDataURL(file);
+          img.src = editImageSlots[i].preview || editImageSlots[i].url;
+          img.style.cssText = `
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+          `;
+          
+          const orderBadge = document.createElement('span');
+          orderBadge.className = 'position-absolute top-0 start-0 badge m-1';
+          orderBadge.textContent = i + 1;
+          orderBadge.style.cssText = `
+            background: linear-gradient(135deg, #2F67FF 0%, #1a4fd6 100%);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.5rem;
+          `;
+          
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'position-absolute top-0 end-0 btn btn-sm m-1 p-0';
+          deleteBtn.style.cssText = `
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+            font-size: 1rem;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: none;
+            color: white;
+            box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+          `;
+          deleteBtn.innerHTML = '×';
+          deleteBtn.onclick = function(e) {
+            e.stopPropagation();
+            removeEditImage(i);
+          };
+          
+          slot.appendChild(img);
+          slot.appendChild(orderBadge);
+          slot.appendChild(deleteBtn);
+          
+          // Drag events
+          slot.addEventListener('dragstart', handleEditDragStart);
+          slot.addEventListener('dragend', handleEditDragEnd);
+        } else {
+          // Slot vacío
+          const icon = document.createElement('i');
+          icon.className = 'fas fa-plus';
+          icon.style.cssText = `
+            font-size: 2rem;
+            color: #2F67FF;
+            opacity: 0.5;
+          `;
+          slot.appendChild(icon);
+          
+          slot.onmouseover = function() {
+            this.style.borderColor = '#5a8dff';
+            this.style.boxShadow = '0 0 15px rgba(47, 103, 255, 0.4)';
+            icon.style.opacity = '0.8';
+          };
+          slot.onmouseout = function() {
+            this.style.borderColor = '#2F67FF';
+            this.style.boxShadow = 'none';
+            icon.style.opacity = '0.5';
+          };
+          
+          slot.onclick = function() {
+            selectEditImageForSlot(i);
+          };
+        }
+        
+        // Drop events para todos los slots
+        slot.addEventListener('dragover', handleEditDragOver);
+        slot.addEventListener('drop', handleEditDrop);
+        slot.addEventListener('dragenter', handleEditDragEnter);
+        slot.addEventListener('dragleave', handleEditDragLeave);
+        
+        container.appendChild(slot);
+      }
+    }
+
+    function selectEditImageForSlot(slotIndex) {
+      const input = document.getElementById('edit-imagenes-input');
+      input.onchange = function(e) {
+        const files = Array.from(e.target.files);
+        
+        if (files.length === 0) return;
+        
+        // Encontrar slots vacíos a partir del slot clickeado
+        let availableSlots = [];
+        for (let i = slotIndex; i < 8; i++) {
+          if (editImageSlots[i] === null) {
+            availableSlots.push(i);
+          }
+        }
+        
+        // Si no hay suficientes slots desde el clickeado, buscar desde el inicio
+        if (availableSlots.length < files.length) {
+          for (let i = 0; i < slotIndex; i++) {
+            if (editImageSlots[i] === null) {
+              availableSlots.push(i);
+            }
+          }
+        }
+        
+        // Verificar si hay slots disponibles
+        if (availableSlots.length === 0) {
+          showAlert('No hay espacios disponibles. Elimina alguna imagen primero.', 'warning');
+          input.value = '';
+          return;
+        }
+        
+        // Limitar al número de slots disponibles
+        const filesToLoad = files.slice(0, Math.min(files.length, availableSlots.length));
+        
+        if (filesToLoad.length < files.length) {
+          showAlert(`Solo se pueden añadir ${filesToLoad.length} imágenes. Límite de 8 imágenes alcanzado.`, 'warning');
+        }
+        
+        let loadedCount = 0;
+        
+        // Cargar cada archivo en su slot correspondiente
+        filesToLoad.forEach((file, index) => {
+          const targetSlot = availableSlots[index];
+          
+          // Validar tipo de archivo
+          if (!file.type.startsWith('image/')) {
+            showAlert(`El archivo ${file.name} no es una imagen válida`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeEditImageSlots();
+            }
+            return;
+          }
+          
+          // Validar tamaño (máx 10MB)
+          if (file.size > 10 * 1024 * 1024) {
+            showAlert(`La imagen ${file.name} es demasiado grande (máx. 10MB)`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeEditImageSlots();
+            }
+            return;
+          }
+          
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            editImageSlots[targetSlot] = {
+              file: file,
+              preview: event.target.result,
+              isNew: true
+            };
+            loadedCount++;
+            // Solo re-renderizar después de cargar todas las imágenes
+            if (loadedCount === filesToLoad.length) {
+              initializeEditImageSlots();
+            }
+          };
+          reader.onerror = function() {
+            showAlert(`Error al cargar la imagen ${file.name}`, 'danger');
+            loadedCount++;
+            if (loadedCount === filesToLoad.length) {
+              initializeEditImageSlots();
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+        
+        input.value = ''; // Reset para poder seleccionar la misma imagen otra vez
+      };
+      input.click();
+    }
+
+    function removeEditImage(slotIndex) {
+      editImageSlots[slotIndex] = null;
+      
+      // Compactar las imágenes hacia la izquierda
+      const compactedSlots = editImageSlots.filter(slot => slot !== null);
+      editImageSlots = [...compactedSlots, ...Array(8 - compactedSlots.length).fill(null)];
+      
+      initializeEditImageSlots();
+    }
+
+    function handleEditDragStart(e) {
+      editDraggedSlotIndex = parseInt(this.dataset.index);
+      this.style.opacity = '0.4';
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleEditDragEnd(e) {
+      this.style.opacity = '1';
+      document.querySelectorAll('#edit-image-slots .image-slot').forEach(slot => {
+        slot.style.border = slot.querySelector('img') ? '2px solid #2F67FF' : '2px dashed #2F67FF';
+        slot.style.transform = '';
+        slot.style.backgroundColor = '';
+        slot.style.boxShadow = slot.querySelector('img') ? '0 0 15px rgba(47, 103, 255, 0.3)' : 'none';
       });
-    });
+    }
+
+    function handleEditDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+      return false;
+    }
+
+    function handleEditDragEnter(e) {
+      const targetIndex = parseInt(this.dataset.index);
+      if (editDraggedSlotIndex !== null && editDraggedSlotIndex !== targetIndex) {
+        this.style.backgroundColor = 'rgba(47, 103, 255, 0.2)';
+        this.style.transform = 'scale(1.05)';
+        this.style.boxShadow = '0 0 20px rgba(47, 103, 255, 0.6)';
+      }
+    }
+
+    function handleEditDragLeave(e) {
+      this.style.backgroundColor = '';
+      this.style.transform = '';
+      this.style.boxShadow = this.querySelector('img') ? '0 0 15px rgba(47, 103, 255, 0.3)' : 'none';
+    }
+
+    function handleEditDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      
+      const targetIndex = parseInt(this.dataset.index);
+      
+      if (editDraggedSlotIndex !== null && editDraggedSlotIndex !== targetIndex) {
+        // Intercambiar slots
+        const temp = editImageSlots[editDraggedSlotIndex];
+        editImageSlots[editDraggedSlotIndex] = editImageSlots[targetIndex];
+        editImageSlots[targetIndex] = temp;
+        
+        initializeEditImageSlots();
+      }
+      
+      return false;
+    }
+
+    // Cargar contactos
+    async function loadContactos() {
+      const tbody = document.getElementById('contactos-list');
+      tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></td></tr>';
+
+      try {
+        const response = await fetch('php/contactos.php?action=list', {
+          credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message);
+        }
+
+        if (data.contactos.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">No hay mensajes de contacto</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = data.contactos.map(contacto => {
+          const fecha = new Date(contacto.fecha_envio).toLocaleString('es-ES');
+          const leidoClass = contacto.leido == 1 ? '' : 'fw-bold';
+          const leidoBadge = contacto.leido == 1 ? '' : '<span class="badge bg-primary ms-2">Nuevo</span>';
+          
+          return `
+            <tr class="${leidoClass}">
+              <td>${contacto.id}</td>
+              <td>${fecha}</td>
+              <td>${contacto.nombre}${leidoBadge}</td>
+              <td><a href="mailto:${contacto.email}">${contacto.email}</a></td>
+              <td>${contacto.telefono || '-'}</td>
+              <td>${contacto.asunto}</td>
+              <td>
+                <button class="btn btn-sm btn-info" onclick="viewContacto(${contacto.id})" title="Ver mensaje">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteContacto(${contacto.id})" title="Eliminar">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (error) {
+        console.error('Error:', error);
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-danger">Error al cargar contactos</td></tr>';
+      }
+    }
+
+    // Ver detalle de contacto
+    async function viewContacto(id) {
+      try {
+        const response = await fetch(`php/contactos.php?action=get&id=${id}`, {
+          credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message);
+        }
+
+        const contacto = data.contacto;
+        const fecha = new Date(contacto.fecha_envio).toLocaleString('es-ES');
+        
+        const modal = `
+          <div class="modal fade" id="contactoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Mensaje de Contacto #${contacto.id}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <strong>Nombre:</strong> ${contacto.nombre}
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Fecha:</strong> ${fecha}
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <strong>Email:</strong> <a href="mailto:${contacto.email}">${contacto.email}</a>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>Teléfono:</strong> ${contacto.telefono || '-'}
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <strong>Asunto:</strong> ${contacto.asunto}
+                  </div>
+                  <div class="mb-3">
+                    <strong>Mensaje:</strong>
+                    <div class="border p-3 bg-light rounded mt-2">
+                      ${contacto.mensaje.replace(/\n/g, '<br>')}
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="mailto:${contacto.email}?subject=Re: ${encodeURIComponent(contacto.asunto)}" class="btn btn-primary">
+                    <i class="fas fa-reply me-2"></i>Responder por Email
+                  </a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Eliminar modal anterior si existe
+        const existingModal = document.getElementById('contactoModal');
+        if (existingModal) {
+          existingModal.remove();
+        }
+        
+        document.body.insertAdjacentHTML('beforeend', modal);
+        const bsModal = new bootstrap.Modal(document.getElementById('contactoModal'));
+        bsModal.show();
+        
+        // Recargar lista para actualizar estado de leído
+        document.getElementById('contactoModal').addEventListener('hidden.bs.modal', function () {
+          loadContactos();
+          this.remove();
+        });
+        
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al cargar el mensaje', 'danger');
+      }
+    }
+
+    // Eliminar contacto
+    async function deleteContacto(id) {
+      if (!confirm('¿Estás seguro de que deseas eliminar este mensaje?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`php/contactos.php?id=${id}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          showAlert('Mensaje eliminado correctamente', 'success');
+          loadContactos();
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al eliminar el mensaje', 'danger');
+      }
+    }
 
     document.getElementById('publish-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const imageFiles = document.getElementById('imagenes').files;
+      // Filtrar solo los slots con imágenes
+      const imagenes = imageSlots.filter(slot => slot !== null);
       
-      if (imageFiles.length === 0) {
+      if (imagenes.length === 0) {
         showAlert('Debes seleccionar al menos una imagen', 'warning');
-        return;
-      }
-
-      if (imageFiles.length > 7) {
-        showAlert('Máximo 7 imágenes permitidas', 'warning');
         return;
       }
 
@@ -840,14 +1550,14 @@
       formData.append('tipo', document.getElementById('tipo').value);
       formData.append('precio', parseFloat(document.getElementById('precio').value));
       formData.append('kilometraje', document.getElementById('kilometraje').value ? parseInt(document.getElementById('kilometraje').value) : 0);
-      formData.append('color', document.getElementById('color').value || '');
+      formData.append('potencia', document.getElementById('potencia').value ? parseInt(document.getElementById('potencia').value) : 0);
       formData.append('combustible', document.getElementById('combustible').value);
       formData.append('transmision', document.getElementById('transmision').value);
       formData.append('descripcion', document.getElementById('descripcion').value || '');
       
-      // Agregar archivos de imagen
-      Array.from(imageFiles).forEach((file, index) => {
-        formData.append('imagenes[]', file);
+      // Agregar imagenes al FormData en el orden de los slots
+      imagenes.forEach((slot, index) => {
+        formData.append('imagenes[]', slot.file);
       });
 
       try {
@@ -862,7 +1572,8 @@
         if (data.success) {
           showAlert('Vehículo publicado correctamente', 'success');
           document.getElementById('publish-form').reset();
-          document.getElementById('image-preview').innerHTML = '';
+          imageSlots = Array(8).fill(null);
+          initializeImageSlots();
           loadStatistics();
           loadVehicles();
           
@@ -883,76 +1594,117 @@
     });
 
     // Editar vehículo
-    function editVehicle(vehicleId) {
-      fetch(`php/vehiculos.php?action=get&id=${vehicleId}`, {
-        credentials: 'include'
-      })
-      .then(r => r.json())
-        .then(data => {
-          if (data.success) {
-            const v = data.vehiculo;
-            document.getElementById('edit-vehicle-id').value = v.id;
-            document.getElementById('edit-marca').value = v.marca;
-            document.getElementById('edit-modelo').value = v.modelo;
-            document.getElementById('edit-anio').value = v.anio;
-            document.getElementById('edit-precio').value = v.precio;
-            document.getElementById('edit-estado').value = v.estado;
-            document.getElementById('edit-kilometraje').value = v.kilometraje || '';
-            document.getElementById('edit-color').value = v.color || '';
-            document.getElementById('edit-combustible').value = v.combustible;
-            document.getElementById('edit-transmision').value = v.transmision;
-            document.getElementById('edit-imagen_url').value = v.imagen_url || '';
-            document.getElementById('edit-descripcion').value = v.descripcion || '';
-
-            new bootstrap.Modal(document.getElementById('editVehicleModal')).show();
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          showAlert('Error al cargar datos del vehículo', 'danger');
+    async function editVehicle(vehicleId) {
+      try {
+        const response = await fetch(`php/vehiculos.php?action=get&id=${vehicleId}`, {
+          credentials: 'include'
         });
+        const data = await response.json();
+        
+        if (data.success) {
+          const v = data.vehiculo;
+          document.getElementById('edit-vehicle-id').value = v.id;
+          document.getElementById('edit-marca').value = v.marca;
+          document.getElementById('edit-modelo').value = v.modelo;
+          document.getElementById('edit-anio').value = v.anio;
+          document.getElementById('edit-precio').value = v.precio;
+          document.getElementById('edit-estado').value = v.estado;
+          document.getElementById('edit-kilometraje').value = v.kilometraje || '';
+          document.getElementById('edit-potencia').value = v.potencia || '';
+          document.getElementById('edit-combustible').value = v.combustible;
+          document.getElementById('edit-transmision').value = v.transmision;
+          document.getElementById('edit-descripcion').value = v.descripcion || '';
+
+          // Cargar imágenes existentes
+          editImageSlots = Array(8).fill(null);
+          if (v.imagen_url) {
+            editImageSlots[0] = {
+              url: v.imagen_url,
+              preview: v.imagen_url,
+              isNew: false
+            };
+          }
+          
+          // Cargar imágenes adicionales si existen
+          const imagesResponse = await fetch(`php/vehiculos.php?action=get_images&vehiculo_id=${vehicleId}`);
+          const imagesData = await imagesResponse.json();
+          
+          if (imagesData.success && imagesData.imagenes) {
+            imagesData.imagenes.forEach((imgUrl, index) => {
+              if (index < 8) {
+                editImageSlots[index] = {
+                  url: imgUrl,
+                  preview: imgUrl,
+                  isNew: false
+                };
+              }
+            });
+          }
+          
+          initializeEditImageSlots();
+          new bootstrap.Modal(document.getElementById('editVehicleModal')).show();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showAlert('Error al cargar datos del vehículo', 'danger');
+      }
     }
 
     // Guardar cambios del vehículo
-    function saveVehicleChanges() {
+    async function saveVehicleChanges() {
       const vehicleId = document.getElementById('edit-vehicle-id').value;
-      const formData = {
-        action: 'update',
-        id: vehicleId,
-        marca: document.getElementById('edit-marca').value,
-        modelo: document.getElementById('edit-modelo').value,
-        anio: parseInt(document.getElementById('edit-anio').value),
-        precio: parseFloat(document.getElementById('edit-precio').value),
-        estado: document.getElementById('edit-estado').value,
-        kilometraje: document.getElementById('edit-kilometraje').value ? parseInt(document.getElementById('edit-kilometraje').value) : 0,
-        color: document.getElementById('edit-color').value || null,
-        combustible: document.getElementById('edit-combustible').value,
-        transmision: document.getElementById('edit-transmision').value,
-        imagen_url: document.getElementById('edit-imagen_url').value || null,
-        descripcion: document.getElementById('edit-descripcion').value || null
-      };
+      
+      // Usar FormData para enviar imágenes
+      const formData = new FormData();
+      formData.append('action', 'update');
+      formData.append('id', vehicleId);
+      formData.append('marca', document.getElementById('edit-marca').value);
+      formData.append('modelo', document.getElementById('edit-modelo').value);
+      formData.append('anio', parseInt(document.getElementById('edit-anio').value));
+      formData.append('precio', parseFloat(document.getElementById('edit-precio').value));
+      formData.append('estado', document.getElementById('edit-estado').value);
+      formData.append('kilometraje', document.getElementById('edit-kilometraje').value ? parseInt(document.getElementById('edit-kilometraje').value) : 0);
+      formData.append('potencia', document.getElementById('edit-potencia').value ? parseInt(document.getElementById('edit-potencia').value) : 0);
+      formData.append('combustible', document.getElementById('edit-combustible').value);
+      formData.append('transmision', document.getElementById('edit-transmision').value);
+      formData.append('descripcion', document.getElementById('edit-descripcion').value || '');
+      
+      // Agregar imágenes (solo las nuevas que tengan 'file')
+      const newImages = editImageSlots.filter(slot => slot !== null && slot.isNew && slot.file);
+      newImages.forEach(slot => {
+        formData.append('imagenes[]', slot.file);
+      });
+      
+      // Si hay imágenes antiguas, guardar la primera como imagen principal
+      const existingImages = editImageSlots.filter(slot => slot !== null && !slot.isNew);
+      if (existingImages.length > 0) {
+        formData.append('imagen_url', existingImages[0].url);
+      } else if (newImages.length === 0) {
+        formData.append('imagen_url', '');
+      }
 
-      fetch('php/vehiculos.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(formData)
-      })
-      .then(r => r.json())
-      .then(data => {
+      try {
+        const response = await fetch('php/vehiculos.php', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData
+        });
+        
+        const data = await response.json();
+        
         if (data.success) {
           bootstrap.Modal.getInstance(document.getElementById('editVehicleModal')).hide();
           showAlert('Vehículo actualizado correctamente', 'success');
+          editImageSlots = Array(8).fill(null);
           loadStatistics();
           loadVehicles();
         } else {
           showAlert(data.message || 'Error al actualizar', 'danger');
         }
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error:', error);
         showAlert('Error al conectar con el servidor', 'danger');
-      });
+      }
     }
 
     // Cambiar estado de vehículo directamente
@@ -1046,6 +1798,8 @@
         // Recargar datos si es necesario
         if (tabName === 'manage') {
           loadVehicles();
+        } else if (tabName === 'contactos') {
+          loadContactos();
         }
       });
     });
@@ -1063,7 +1817,10 @@
     }
 
     // Inicializar
-    document.addEventListener('DOMContentLoaded', checkAdminAccess);
+    document.addEventListener('DOMContentLoaded', function() {
+      checkAdminAccess();
+      checkEditParameter();
+    });
   </script>
 </body>
 </html>
