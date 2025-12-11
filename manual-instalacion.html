@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Instalación - MCR Motors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #1D1F23;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #2F67FF;
+        }
+
+        .header h1 {
+            color: #0A1324;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #2F67FF;
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        .header .version {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Buttons */
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 0 10px;
+            background: #2F67FF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background: #0A1324;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(47, 103, 255, 0.3);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #2F67FF;
+        }
+
+        .toc h2 {
+            color: #0A1324;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc ul li {
+            margin: 10px 0;
+        }
+
+        .toc ul li a {
+            color: #2F67FF;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .toc ul li a:hover {
+            color: #0A1324;
+            padding-left: 10px;
+        }
+
+        /* Sections */
+        .section {
+            margin: 40px 0;
+            page-break-inside: avoid;
+        }
+
+        .section h2 {
+            color: #0A1324;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2F67FF;
+        }
+
+        .section h3 {
+            color: #2F67FF;
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+        }
+
+        .section h4 {
+            color: #0A1324;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+
+        .section p {
+            margin: 15px 0;
+            text-align: justify;
+        }
+
+        .section ul, .section ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        .section li {
+            margin: 8px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #0A1324;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #0A1324;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: #00ff00;
+        }
+
+        /* Info boxes */
+        .info-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .info-box.warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+
+        .info-box.success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .info-box.info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+
+        .info-box.danger {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Steps */
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            background: #2F67FF;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .checklist h4 {
+            margin-bottom: 15px;
+        }
+
+        .checklist ul {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+        }
+
+        .checklist li::before {
+            content: "☐ ";
+            color: #2F67FF;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge.blue {
+            background: #2F67FF;
+            color: white;
+        }
+
+        .badge.green {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge.red {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge.yellow {
+            background: #ffc107;
+            color: #1D1F23;
+        }
+
+        /* Requirements grid */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .requirement-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2F67FF;
+        }
+
+        .requirement-card h4 {
+            color: #2F67FF;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #2F67FF;
+            text-align: center;
+            color: #666;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .action-buttons {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .section h2 {
+                page-break-after: avoid;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            pre {
+                page-break-inside: avoid;
+            }
+
+            a {
+                color: #0A1324;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📦 MANUAL DE INSTALACIÓN</h1>
+            <div class="subtitle">MCR Motors - Guía Completa de Instalación</div>
+            <div class="version">
+                <p><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Diciembre 2025</p>
+                <p>Instalación paso a paso en Windows, Linux y macOS</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn" onclick="window.print()">
+                <i class="fas fa-file-pdf"></i>Descargar PDF
+            </button>
+            <a href="index.html" class="btn">
+                <i class="fas fa-home"></i>Volver al Inicio
+            </a>
+            <a href="database/documentacion-database.html" class="btn">
+                <i class="fas fa-database"></i>Ver Doc. Base de Datos
+            </a>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2><i class="fas fa-list"></i> Índice de Contenidos</h2>
+            <ul>
+                <li><a href="#introduccion">1. Introducción</a></li>
+                <li><a href="#requisitos">2. Requisitos del Sistema</a></li>
+                <li><a href="#windows">3. Instalación en Windows (XAMPP)</a></li>
+                <li><a href="#linux">4. Instalación en Linux</a></li>
+                <li><a href="#macos">5. Instalación en macOS</a></li>
+                <li><a href="#basedatos">6. Configuración de Base de Datos</a></li>
+                <li><a href="#aplicacion">7. Configuración de la Aplicación</a></li>
+                <li><a href="#verificacion">8. Verificación de la Instalación</a></li>
+                <li><a href="#problemas">9. Solución de Problemas</a></li>
+                <li><a href="#desinstalacion">10. Desinstalación</a></li>
+            </ul>
+        </div>
+
+        <!-- Section: Introducción -->
+        <div class="section" id="introduccion">
+            <h2><i class="fas fa-info-circle"></i> 1. Introducción</h2>
+            
+            <p>Este manual proporciona instrucciones detalladas para instalar <strong>MCR Motors</strong>, una plataforma web completa de compraventa de vehículos de alta gama, en cualquier ordenador.</p>
+
+            <p>La aplicación incluye:</p>
+            <ul>
+                <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, Bootstrap 5</li>
+                <li><strong>Backend:</strong> PHP 7.4+</li>
+                <li><strong>Base de Datos:</strong> MySQL 8.0 / MariaDB 10.3+</li>
+                <li><strong>Servidor Web:</strong> Apache 2.4+</li>
+            </ul>
+
+            <div class="info-box info">
+                <strong><i class="fas fa-lightbulb"></i> Tiempo Estimado de Instalación</strong>
+                <ul>
+                    <li><strong>Instalación básica:</strong> 30-45 minutos</li>
+                    <li><strong>Configuración completa:</strong> 1-2 horas</li>
+                    <li><strong>Con personalización:</strong> 2-4 horas</li>
+                </ul>
+            </div>
+
+            <h3>¿Qué necesitas para empezar?</h3>
+            <ul>
+                <li>✅ Un ordenador con Windows, Linux o macOS</li>
+                <li>✅ Conexión a Internet para descargar dependencias</li>
+                <li>✅ Privilegios de administrador en el sistema</li>
+                <li>✅ Al menos 1 GB de espacio libre en disco</li>
+                <li>✅ Este manual (puedes imprimirlo o guardarlo como PDF)</li>
+            </ul>
+        </div>
+
+        <!-- Section: Requisitos -->
+        <div class="section" id="requisitos">
+            <h2><i class="fas fa-clipboard-check"></i> 2. Requisitos del Sistema</h2>
+
+            <h3>Hardware Mínimo</h3>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h4><i class="fas fa-microchip"></i> Procesador</h4>
+                    <p><strong>Mínimo:</strong> 1 GHz</p>
+                    <p><strong>Recomendado:</strong> 2 GHz o superior</p>
+                </div>
+                <div class="requirement-card">
+                    <h4><i class="fas fa-memory"></i> Memoria RAM</h4>
+                    <p><strong>Mínimo:</strong> 2 GB</p>
+                    <p><strong>Recomendado:</strong> 4 GB o más</p>
+                </div>
+                <div class="requirement-card">
+                    <h4><i class="fas fa-hdd"></i> Espacio en Disco</h4>
+                    <p><strong>Mínimo:</strong> 500 MB</p>
+                    <p><strong>Recomendado:</strong> 1 GB o más</p>
+                </div>
+                <div class="requirement-card">
+                    <h4><i class="fas fa-wifi"></i> Internet</h4>
+                    <p><strong>Necesario para:</strong></p>
+                    <p>Descargar XAMPP/LAMP<br>Clonar repositorio</p>
+                </div>
+            </div>
+
+            <h3>Software Requerido</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Versión Mínima</th>
+                        <th>Versión Recomendada</th>
+                        <th>Propósito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Apache</strong></td>
+                        <td>2.4</td>
+                        <td>2.4.54+</td>
+                        <td>Servidor web</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PHP</strong></td>
+                        <td>7.4</td>
+                        <td>8.0+</td>
+                        <td>Backend</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MySQL/MariaDB</strong></td>
+                        <td>5.7 / 10.3</td>
+                        <td>8.0 / 10.6+</td>
+                        <td>Base de datos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>phpMyAdmin</strong></td>
+                        <td>5.0</td>
+                        <td>5.2+</td>
+                        <td>Gestión BD (opcional)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Extensiones PHP Necesarias</h3>
+            <div class="info-box success">
+                <strong><i class="fas fa-check-circle"></i> Extensiones Requeridas</strong>
+                <ul>
+                    <li><code>mysqli</code> o <code>pdo_mysql</code> - Conexión a MySQL</li>
+                    <li><code>json</code> - Procesamiento de JSON</li>
+                    <li><code>mbstring</code> - Manejo de cadenas multibyte</li>
+                    <li><code>openssl</code> - Encriptación de contraseñas</li>
+                    <li><code>gd</code> - Manipulación de imágenes</li>
+                    <li><code>curl</code> - Peticiones HTTP (opcional)</li>
+                </ul>
+                <p style="margin-top: 10px;"><em>Nota: XAMPP incluye todas estas extensiones por defecto.</em></p>
+            </div>
+
+            <h3>Navegadores Soportados</h3>
+            <ul>
+                <li>✅ Google Chrome 90+</li>
+                <li>✅ Mozilla Firefox 88+</li>
+                <li>✅ Microsoft Edge 90+</li>
+                <li>✅ Safari 14+</li>
+                <li>✅ Opera 76+</li>
+            </ul>
+        </div>
+
+        <!-- Section: Windows -->
+        <div class="section" id="windows">
+            <h2><i class="fab fa-windows"></i> 3. Instalación en Windows (XAMPP)</h2>
+
+            <p>XAMPP es la forma más sencilla de instalar Apache, MySQL y PHP en Windows. Incluye todo lo necesario en un solo paquete.</p>
+
+            <h3><span class="step-number">1</span> Descargar XAMPP</h3>
+            <ol>
+                <li>Visita: <strong>https://www.apachefriends.org/</strong></li>
+                <li>Haz clic en <strong>"XAMPP para Windows"</strong></li>
+                <li>Descarga la versión con <strong>PHP 7.4 o superior</strong></li>
+                <li>Tamaño aproximado: <strong>150-200 MB</strong></li>
+                <li>Tiempo de descarga: 5-15 minutos (según velocidad de Internet)</li>
+            </ol>
+
+            <h3><span class="step-number">2</span> Instalar XAMPP</h3>
+            <ol>
+                <li>Localiza el archivo descargado: <code>xampp-windows-x64-xxx-installer.exe</code></li>
+                <li>Haz doble clic para ejecutar</li>
+                <li>Si aparece <strong>Control de Cuentas de Usuario (UAC)</strong>, haz clic en <strong>"Sí"</strong></li>
+                <li>En la ventana de instalación, selecciona componentes:
+                    <ul>
+                        <li>✅ <strong>Apache</strong> (obligatorio)</li>
+                        <li>✅ <strong>MySQL</strong> (obligatorio)</li>
+                        <li>✅ <strong>PHP</strong> (obligatorio)</li>
+                        <li>✅ <strong>phpMyAdmin</strong> (recomendado)</li>
+                        <li>⬜ FileZilla (opcional)</li>
+                        <li>⬜ Mercury (opcional)</li>
+                        <li>⬜ Tomcat (opcional)</li>
+                    </ul>
+                </li>
+                <li>Elige ubicación de instalación:
+                    <ul>
+                        <li><strong>Recomendado:</strong> <code>C:\xampp</code></li>
+                        <li><strong>Evitar:</strong> Rutas con espacios o caracteres especiales</li>
+                    </ul>
+                </li>
+                <li>Desmarca <strong>"Learn more about Bitnami"</strong> (opcional)</li>
+                <li>Haz clic en <strong>"Next"</strong> y luego <strong>"Finish"</strong></li>
+            </ol>
+
+            <div class="info-box warning">
+                <strong><i class="fas fa-exclamation-triangle"></i> Advertencia - Antivirus</strong>
+                <p>Algunos antivirus pueden bloquear la instalación de XAMPP. Si esto ocurre:</p>
+                <ul>
+                    <li>Desactiva temporalmente el antivirus</li>
+                    <li>Agrega XAMPP a la lista de excepciones</li>
+                    <li>Ejecuta el instalador como administrador</li>
+                </ul>
+            </div>
+
+            <h3><span class="step-number">3</span> Iniciar XAMPP</h3>
+            <ol>
+                <li>Busca <strong>"XAMPP Control Panel"</strong> en el menú inicio</li>
+                <li>Ejecútalo como <strong>Administrador</strong> (clic derecho → Ejecutar como administrador)</li>
+                <li>Haz clic en <strong>"Start"</strong> junto a <strong>Apache</strong></li>
+                <li>Haz clic en <strong>"Start"</strong> junto a <strong>MySQL</strong></li>
+                <li>Los indicadores deben ponerse en <strong>verde</strong></li>
+            </ol>
+
+            <div class="info-box success">
+                <strong><i class="fas fa-check-circle"></i> Verificación Rápida</strong>
+                <p>Abre tu navegador y visita: <strong>http://localhost</strong></p>
+                <p>Deberías ver la página de bienvenida de XAMPP.</p>
+            </div>
+
+            <h3><span class="step-number">4</span> Descargar el Proyecto MCR Motors</h3>
+
+            <h4>Opción A: Con Git (Recomendado)</h4>
+            <ol>
+                <li>Instala Git desde: <strong>https://git-scm.com/download/win</strong></li>
+                <li>Abre <strong>Git Bash</strong> (buscar en menú inicio)</li>
+                <li>Navega a la carpeta htdocs:
+                    <pre><code>cd /c/xampp/htdocs</code></pre>
+                </li>
+                <li>Clona el repositorio:
+                    <pre><code>git clone https://github.com/marcospepin/Compraventa.git</code></pre>
+                </li>
+                <li>Espera a que se descarguen todos los archivos</li>
+            </ol>
+
+            <h4>Opción B: Descarga Manual (ZIP)</h4>
+            <ol>
+                <li>Visita: <strong>https://github.com/marcospepin/Compraventa</strong></li>
+                <li>Haz clic en el botón verde <strong>"Code"</strong></li>
+                <li>Selecciona <strong>"Download ZIP"</strong></li>
+                <li>Guarda el archivo en tu ordenador</li>
+                <li>Extrae el ZIP en <code>C:\xampp\htdocs\</code></li>
+                <li>Renombra la carpeta a <code>Compraventa</code> (quita el sufijo -main si lo tiene)</li>
+            </ol>
+
+            <p><strong>Ruta final del proyecto:</strong> <code>C:\xampp\htdocs\Compraventa\</code></p>
+
+            <h3><span class="step-number">5</span> Crear la Base de Datos</h3>
+            <ol>
+                <li>Asegúrate de que Apache y MySQL estén ejecutándose en XAMPP</li>
+                <li>Abre tu navegador</li>
+                <li>Ve a: <strong>http://localhost/phpmyadmin</strong></li>
+                <li>Haz clic en <strong>"Nueva"</strong> en el menú lateral (o "New")</li>
+                <li>Nombre de la base de datos: <code>mcrmotors_db</code></li>
+                <li>Cotejamiento: <code>utf8mb4_general_ci</code></li>
+                <li>Haz clic en <strong>"Crear"</strong></li>
+            </ol>
+
+            <h3><span class="step-number">6</span> Importar Estructura de la Base de Datos</h3>
+            <ol>
+                <li>En phpMyAdmin, selecciona la base de datos <code>mcrmotors_db</code></li>
+                <li>Haz clic en la pestaña <strong>"Importar"</strong></li>
+                <li>Haz clic en <strong>"Seleccionar archivo"</strong> o <strong>"Choose File"</strong></li>
+                <li>Navega a: <code>C:\xampp\htdocs\Compraventa\database\mcrmotors_db.sql</code></li>
+                <li>Haz clic en <strong>"Continuar"</strong> o <strong>"Go"</strong></li>
+                <li>Espera el mensaje: <strong>"Importación finalizada correctamente"</strong></li>
+            </ol>
+
+            <div class="info-box success">
+                <strong><i class="fas fa-database"></i> Base de Datos Creada</strong>
+                <p>La base de datos incluye:</p>
+                <ul>
+                    <li>4 tablas (usuarios, vehiculos, imagenes, favoritos)</li>
+                    <li>1 usuario administrador (admin@mcrmotors.com / admin123)</li>
+                    <li>1 usuario cliente de prueba (cliente@test.com / cliente123)</li>
+                    <li>6 vehículos de ejemplo</li>
+                </ul>
+            </div>
+
+            <h3><span class="step-number">7</span> Configurar la Aplicación</h3>
+            <ol>
+                <li>Abre el Explorador de Windows</li>
+                <li>Navega a: <code>C:\xampp\htdocs\Compraventa\php\</code></li>
+                <li>Busca el archivo: <code>config.example.php</code></li>
+                <li>Haz copia del archivo (Ctrl+C, Ctrl+V)</li>
+                <li>Renombra la copia a: <code>config.php</code></li>
+                <li>Abre <code>config.php</code> con un editor de texto (Notepad, VS Code, etc.)</li>
+                <li>Verifica que las credenciales sean correctas:
+                    <pre><code>&lt;?php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');  // Vacío por defecto en XAMPP
+define('DB_NAME', 'mcrmotors_db');
+?&gt;</code></pre>
+                </li>
+                <li>Guarda el archivo</li>
+            </ol>
+
+            <h3><span class="step-number">8</span> Acceder a la Aplicación</h3>
+            <ol>
+                <li>Abre tu navegador web</li>
+                <li>Visita: <strong>http://localhost/Compraventa/</strong></li>
+                <li>Deberías ver la <strong>página principal de MCR Motors</strong></li>
+            </ol>
+
+            <div class="info-box success">
+                <strong><i class="fas fa-check-double"></i> ¡Instalación Completa!</strong>
+                <p>MCR Motors está instalado y funcionando en tu ordenador.</p>
+                <p><strong>URLs importantes:</strong></p>
+                <ul>
+                    <li>Página principal: http://localhost/Compraventa/</li>
+                    <li>Panel admin: http://localhost/Compraventa/admin.html</li>
+                    <li>phpMyAdmin: http://localhost/phpmyadmin</li>
+                </ul>
+            </div>
+
+            <h3><span class="step-number">9</span> Crear Usuario Administrador</h3>
+            <p>El script de instalación ya incluye un usuario administrador por defecto:</p>
+
+            <div style="background: linear-gradient(135deg, #2F67FF 0%, #0A1324 100%); color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-user-shield"></i> Credenciales de Administrador</h4>
+                <p><strong>Email:</strong> admin@mcrmotors.com</p>
+                <p><strong>Contraseña:</strong> admin123</p>
+                <p><strong>URL:</strong> http://localhost/Compraventa/login.html</p>
+            </div>
+
+            <div class="info-box danger">
+                <strong><i class="fas fa-exclamation-circle"></i> IMPORTANTE - Seguridad</strong>
+                <p>Esta contraseña es para pruebas. <strong>DEBES cambiarla inmediatamente</strong> si vas a usar la aplicación en producción.</p>
+            </div>
+        </div>
+
+        <!-- Section: Linux -->
+        <div class="section" id="linux">
+            <h2><i class="fab fa-linux"></i> 4. Instalación en Linux</h2>
+
+            <p>Instrucciones para distribuciones basadas en Debian/Ubuntu. Para otras distribuciones, adapta los comandos según tu gestor de paquetes.</p>
+
+            <h3><span class="step-number">1</span> Actualizar Sistema</h3>
+            <pre><code>sudo apt update
+sudo apt upgrade -y</code></pre>
+
+            <h3><span class="step-number">2</span> Instalar LAMP Stack</h3>
+            <pre><code># Instalar Apache
+sudo apt install apache2 -y
+
+# Instalar MySQL
+sudo apt install mysql-server -y
+
+# Instalar PHP y extensiones
+sudo apt install php php-mysql php-mbstring php-json php-gd php-curl php-zip -y
+
+# Instalar phpMyAdmin (opcional)
+sudo apt install phpmyadmin -y
+
+# Reiniciar Apache
+sudo systemctl restart apache2
+
+# Habilitar inicio automático
+sudo systemctl enable apache2
+sudo systemctl enable mysql</code></pre>
+
+            <h3><span class="step-number">3</span> Configurar MySQL</h3>
+            <pre><code># Ejecutar script de seguridad
+sudo mysql_secure_installation
+
+# Acceder a MySQL
+sudo mysql -u root -p
+
+# Crear base de datos
+CREATE DATABASE mcrmotors_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+# Crear usuario (opcional, más seguro)
+CREATE USER 'mcrmotors'@'localhost' IDENTIFIED BY 'tu_contraseña_segura';
+GRANT ALL PRIVILEGES ON mcrmotors_db.* TO 'mcrmotors'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</code></pre>
+
+            <h3><span class="step-number">4</span> Descargar el Proyecto</h3>
+            <pre><code># Navegar al directorio del servidor
+cd /var/www/html
+
+# Clonar repositorio
+sudo git clone https://github.com/marcospepin/Compraventa.git
+
+# Asignar permisos
+sudo chown -R www-data:www-data Compraventa
+sudo chmod -R 755 Compraventa</code></pre>
+
+            <h3><span class="step-number">5</span> Importar Base de Datos</h3>
+            <pre><code>sudo mysql -u root -p mcrmotors_db < /var/www/html/Compraventa/database/mcrmotors_db.sql</code></pre>
+
+            <h3><span class="step-number">6</span> Configurar Aplicación</h3>
+            <pre><code>cd /var/www/html/Compraventa/php
+sudo cp config.example.php config.php
+sudo nano config.php</code></pre>
+
+            <p>Editar las credenciales:</p>
+            <pre><code>define('DB_HOST', 'localhost');
+define('DB_USER', 'mcrmotors');  // o 'root'
+define('DB_PASS', 'tu_contraseña');
+define('DB_NAME', 'mcrmotors_db');</code></pre>
+
+            <h3><span class="step-number">7</span> Establecer Permisos de Uploads</h3>
+            <pre><code>sudo chmod -R 755 /var/www/html/Compraventa/uploads
+sudo chown -R www-data:www-data /var/www/html/Compraventa/uploads</code></pre>
+
+            <h3><span class="step-number">8</span> Acceder a la Aplicación</h3>
+            <p>Visita: <strong>http://localhost/Compraventa/</strong></p>
+        </div>
+
+        <!-- Section: macOS -->
+        <div class="section" id="macos">
+            <h2><i class="fab fa-apple"></i> 5. Instalación en macOS</h2>
+
+            <h3><span class="step-number">1</span> Instalar Homebrew</h3>
+            <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+
+            <h3><span class="step-number">2</span> Instalar PHP y MySQL</h3>
+            <pre><code># Instalar PHP
+brew install php
+
+# Instalar MySQL
+brew install mysql
+
+# Iniciar MySQL
+brew services start mysql</code></pre>
+
+            <h3><span class="step-number">3</span> Configurar Servidor Web</h3>
+            <p><strong>Opción A:</strong> Usar MAMP (más fácil) - https://www.mamp.info/</p>
+            <p><strong>Opción B:</strong> Configurar Apache integrado de macOS</p>
+
+            <pre><code># Iniciar Apache
+sudo apachectl start
+
+# Habilitar PHP
+sudo nano /etc/apache2/httpd.conf
+# Descomentar: LoadModule php_module libexec/apache2/libphp.so
+
+# Reiniciar Apache
+sudo apachectl restart</code></pre>
+
+            <h3><span class="step-number">4</span> Clonar Proyecto</h3>
+            <pre><code>cd /Applications/MAMP/htdocs  # Si usas MAMP
+# o
+cd /Library/WebServer/Documents  # Si usas Apache
+
+sudo git clone https://github.com/marcospepin/Compraventa.git</code></pre>
+
+            <p>Continuar con los pasos de configuración similares a Linux.</p>
+        </div>
+
+        <!-- Section: Base de Datos -->
+        <div class="section" id="basedatos">
+            <h2><i class="fas fa-database"></i> 6. Configuración de Base de Datos</h2>
+
+            <h3>Archivo de Script SQL</h3>
+            <p>El proyecto incluye el archivo <code>database/mcrmotors_db.sql</code> que contiene:</p>
+
+            <ul>
+                <li>✅ Creación de la base de datos</li>
+                <li>✅ 4 tablas relacionales (usuarios, vehiculos, imagenes, favoritos)</li>
+                <li>✅ Índices y claves foráneas</li>
+                <li>✅ Vistas SQL para consultas frecuentes</li>
+                <li>✅ Procedimientos almacenados opcionales</li>
+                <li>✅ Triggers para automatización</li>
+                <li>✅ Usuario administrador</li>
+                <li>✅ 6 vehículos de ejemplo</li>
+            </ul>
+
+            <h3>Estructura de Tablas</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabla</th>
+                        <th>Propósito</th>
+                        <th>Campos Principales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>usuarios</strong></td>
+                        <td>Clientes y administradores</td>
+                        <td>id, nombre, email, password, rol</td>
+                    </tr>
+                    <tr>
+                        <td><strong>vehiculos</strong></td>
+                        <td>Inventario de vehículos</td>
+                        <td>id, marca, modelo, precio, estado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>imagenes</strong></td>
+                        <td>Fotos de vehículos</td>
+                        <td>id, id_vehiculo, ruta, orden</td>
+                    </tr>
+                    <tr>
+                        <td><strong>favoritos</strong></td>
+                        <td>Vehículos guardados por usuarios</td>
+                        <td>id, id_usuario, id_vehiculo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Verificar Instalación de BD</h3>
+            <pre><code>-- Conectar a MySQL
+mysql -u root -p
+
+-- Seleccionar base de datos
+USE mcrmotors_db;
+
+-- Ver tablas
+SHOW TABLES;
+
+-- Verificar datos
+SELECT COUNT(*) as Total FROM usuarios;
+SELECT COUNT(*) as Total FROM vehiculos;</code></pre>
+        </div>
+
+        <!-- Section: Aplicación -->
+        <div class="section" id="aplicacion">
+            <h2><i class="fas fa-cog"></i> 7. Configuración de la Aplicación</h2>
+
+            <h3>Archivo config.php</h3>
+            <p>Ubicación: <code>php/config.php</code></p>
+
+            <p>Parámetros configurables:</p>
+
+            <pre><code>&lt;?php
+// ===================================
+// CONFIGURACIÓN DE BASE DE DATOS
+// ===================================
+define('DB_HOST', 'localhost');      // Host del servidor MySQL
+define('DB_USER', 'root');           // Usuario de MySQL
+define('DB_PASS', '');               // Contraseña (vacío en XAMPP)
+define('DB_NAME', 'mcrmotors_db');   // Nombre de la BD
+
+// ===================================
+// CONFIGURACIÓN DE LA APLICACIÓN
+// ===================================
+define('SITE_URL', 'http://localhost/Compraventa');
+define('UPLOAD_PATH', __DIR__ . '/../uploads/vehiculos/');
+define('MAX_UPLOAD_SIZE', 5242880);  // 5MB en bytes
+
+// ===================================
+// CONFIGURACIÓN DE SESIÓN
+// ===================================
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', 1);
+ini_set('session.cookie_secure', 0);  // Cambiar a 1 con HTTPS
+
+// ===================================
+// ZONA HORARIA
+// ===================================
+date_default_timezone_set('Europe/Madrid');
+
+// ===================================
+// MODO DESARROLLO (Desactivar en producción)
+// ===================================
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+?&gt;</code></pre>
+
+            <h3>Permisos de Carpetas</h3>
+
+            <h4>Windows:</h4>
+            <p>Generalmente no requiere cambios. La carpeta <code>uploads/</code> debe tener permisos de escritura.</p>
+
+            <h4>Linux/macOS:</h4>
+            <pre><code># Dar permisos a carpeta uploads
+sudo chmod -R 755 uploads/
+sudo chown -R www-data:www-data uploads/
+
+# Verificar permisos
+ls -la uploads/</code></pre>
+
+            <h3>Configuración de Email (Opcional)</h3>
+            <p>Para el formulario de contacto, editar <code>php/send_email.php</code>:</p>
+
+            <pre><code>// Configuración SMTP (ejemplo con Gmail)
+$mail->isSMTP();
+$mail->Host       = 'smtp.gmail.com';
+$mail->SMTPAuth   = true;
+$mail->Username   = 'tu_email@gmail.com';
+$mail->Password   = 'tu_contraseña_aplicacion';
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port       = 587;</code></pre>
+        </div>
+
+        <!-- Section: Verificación -->
+        <div class="section" id="verificacion">
+            <h2><i class="fas fa-check-circle"></i> 8. Verificación de la Instalación</h2>
+
+            <h3>Checklist de Verificación</h3>
+
+            <div class="checklist">
+                <h4><i class="fas fa-tasks"></i> Lista de Comprobación</h4>
+                <ul>
+                    <li>Apache está ejecutándose (verde en XAMPP)</li>
+                    <li>MySQL está ejecutándose (verde en XAMPP)</li>
+                    <li>La base de datos mcrmotors_db existe</li>
+                    <li>Las 4 tablas están creadas</li>
+                    <li>Hay usuarios de ejemplo en la BD</li>
+                    <li>Hay vehículos de ejemplo en la BD</li>
+                    <li>El archivo config.php existe y está configurado</li>
+                    <li>La carpeta uploads/ tiene permisos de escritura</li>
+                    <li>La página principal carga correctamente</li>
+                    <li>Las imágenes se muestran correctamente</li>
+                    <li>El formulario de registro funciona</li>
+                    <li>El login funciona correctamente</li>
+                    <li>Puedo acceder al panel de administración</li>
+                </ul>
+            </div>
+
+            <h3>Pruebas Funcionales</h3>
+
+            <h4>1. Probar Página Principal</h4>
+            <ol>
+                <li>Ir a: <code>http://localhost/Compraventa/</code></li>
+                <li>Verificar que carga sin errores</li>
+                <li>Verificar que el menú de navegación funciona</li>
+            </ol>
+
+            <h4>2. Probar Registro de Usuario</h4>
+            <ol>
+                <li>Ir a: <code>http://localhost/Compraventa/registro.html</code></li>
+                <li>Completar el formulario con datos de prueba</li>
+                <li>Verificar que te redirige al catálogo después de registrarte</li>
+            </ol>
+
+            <h4>3. Probar Login</h4>
+            <ol>
+                <li>Ir a: <code>http://localhost/Compraventa/login.html</code></li>
+                <li>Email: <code>admin@mcrmotors.com</code></li>
+                <li>Password: <code>admin123</code></li>
+                <li>Verificar que puedes iniciar sesión</li>
+            </ol>
+
+            <h4>4. Probar Panel de Administración</h4>
+            <ol>
+                <li>Iniciar sesión como administrador</li>
+                <li>Ir a: <code>http://localhost/Compraventa/admin.html</code></li>
+                <li>Intentar crear un vehículo de prueba</li>
+                <li>Subir una imagen</li>
+                <li>Verificar que el vehículo aparece en el catálogo público</li>
+            </ol>
+
+            <h3>Verificar Logs de Errores</h3>
+
+            <h4>Windows (XAMPP):</h4>
+            <pre><code>C:\xampp\apache\logs\error.log
+C:\xampp\mysql\data\mysql_error.log</code></pre>
+
+            <h4>Linux:</h4>
+            <pre><code>sudo tail -f /var/log/apache2/error.log
+sudo tail -f /var/log/mysql/error.log</code></pre>
+
+            <div class="info-box success">
+                <strong><i class="fas fa-thumbs-up"></i> Si todas las pruebas pasan...</strong>
+                <p>¡Felicidades! MCR Motors está completamente instalado y funcionando correctamente en tu sistema.</p>
+            </div>
+        </div>
+
+        <!-- Section: Problemas -->
+        <div class="section" id="problemas">
+            <h2><i class="fas fa-wrench"></i> 9. Solución de Problemas</h2>
+
+            <h3>❌ Apache no inicia</h3>
+            <p><strong>Síntoma:</strong> Al hacer clic en "Start" en XAMPP, Apache no se inicia o se detiene inmediatamente.</p>
+            
+            <p><strong>Causas comunes:</strong></p>
+            <ul>
+                <li>Puerto 80 ocupado por otro programa (Skype, IIS, otro servidor)</li>
+                <li>Puerto 443 ocupado</li>
+                <li>Conflicto con firewall o antivirus</li>
+            </ul>
+
+            <p><strong>Soluciones:</strong></p>
+
+            <h4>Solución 1: Cambiar puerto de Apache</h4>
+            <ol>
+                <li>En XAMPP Control Panel, clic en "Config" junto a Apache</li>
+                <li>Seleccionar "httpd.conf"</li>
+                <li>Buscar <code>Listen 80</code></li>
+                <li>Cambiar a <code>Listen 8080</code></li>
+                <li>Guardar y reiniciar Apache</li>
+                <li>Acceder con: <code>http://localhost:8080/Compraventa/</code></li>
+            </ol>
+
+            <h4>Solución 2: Verificar qué programa usa el puerto 80</h4>
+            <pre><code># Windows PowerShell (como Administrador)
+netstat -ano | findstr :80
+
+# Ver proceso
+tasklist | findstr [PID]
+
+# Detener IIS si está activo
+net stop was /y</code></pre>
+
+            <h4>Solución 3: Deshabilitar Skype</h4>
+            <ol>
+                <li>Abrir Skype</li>
+                <li>Herramientas → Opciones → Avanzado → Conexión</li>
+                <li>Desmarcar "Usar puertos 80 y 443"</li>
+            </ol>
+
+            <h3>❌ MySQL no inicia</h3>
+            <p><strong>Causa común:</strong> Puerto 3306 ocupado o servicio MySQL ya instalado.</p>
+
+            <p><strong>Soluciones:</strong></p>
+
+            <h4>Solución 1: Detener servicio MySQL de Windows</h4>
+            <pre><code># PowerShell como Administrador
+net stop MySQL80
+# o
+net stop MySQL</code></pre>
+
+            <h4>Solución 2: Cambiar puerto MySQL</h4>
+            <ol>
+                <li>XAMPP Control Panel → Config (MySQL) → my.ini</li>
+                <li>Buscar <code>port=3306</code></li>
+                <li>Cambiar a <code>port=3307</code></li>
+                <li>Guardar y reiniciar</li>
+                <li>Actualizar config.php: <code>define('DB_HOST', 'localhost:3307');</code></li>
+            </ol>
+
+            <h3>❌ Error "Access Denied" en MySQL</h3>
+            <p><strong>Síntoma:</strong> No puedes conectarte a MySQL o importar la base de datos.</p>
+
+            <p><strong>Solución:</strong></p>
+            <pre><code># En XAMPP, root NO tiene contraseña por defecto
+mysql -u root
+# (sin -p)
+
+# Si configuraste contraseña y la olvidaste
+# 1. Detener MySQL en XAMPP
+# 2. Editar my.ini y añadir bajo [mysqld]:
+skip-grant-tables
+# 3. Iniciar MySQL
+# 4. Conectar y cambiar contraseña
+mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'nueva_contraseña';
+FLUSH PRIVILEGES;
+# 5. Quitar skip-grant-tables y reiniciar</code></pre>
+
+            <h3>❌ Página en blanco</h3>
+            <p><strong>Síntoma:</strong> Al acceder a la aplicación, solo ves una página blanca.</p>
+
+            <p><strong>Causas:</strong> Error de PHP no mostrado.</p>
+
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Abrir <code>php/config.php</code></li>
+                <li>Añadir al inicio:
+                    <pre><code>ini_set('display_errors', 1);
+error_reporting(E_ALL);</code></pre>
+                </li>
+                <li>Recargar la página para ver el error</li>
+                <li>Revisar logs de Apache</li>
+            </ol>
+
+            <h3>❌ Las imágenes no se suben</h3>
+            <p><strong>Síntoma:</strong> Al intentar subir imágenes en el panel admin, falla.</p>
+
+            <p><strong>Soluciones:</strong></p>
+
+            <h4>Solución 1: Verificar permisos (Linux/macOS)</h4>
+            <pre><code>sudo chmod -R 755 uploads/vehiculos/
+sudo chown -R www-data:www-data uploads/</code></pre>
+
+            <h4>Solución 2: Aumentar tamaño máximo de subida</h4>
+            <ol>
+                <li>Editar <code>php.ini</code> (en XAMPP: Config → PHP → php.ini)</li>
+                <li>Buscar y modificar:
+                    <pre><code>upload_max_filesize = 10M
+post_max_size = 10M
+max_execution_time = 300</code></pre>
+                </li>
+                <li>Guardar y reiniciar Apache</li>
+            </ol>
+
+            <h4>Solución 3: Verificar que la carpeta existe</h4>
+            <pre><code># Windows
+mkdir C:\xampp\htdocs\Compraventa\uploads\vehiculos
+
+# Linux/macOS
+mkdir -p uploads/vehiculos</code></pre>
+
+            <h3>❌ Sesiones no funcionan</h3>
+            <p><strong>Síntoma:</strong> No puedes iniciar sesión o la sesión se pierde inmediatamente.</p>
+
+            <p><strong>Solución (Linux):</strong></p>
+            <pre><code># Verificar carpeta de sesiones
+ls -la /var/lib/php/sessions
+
+# Crear si no existe
+sudo mkdir -p /var/lib/php/sessions
+sudo chmod 1733 /var/lib/php/sessions</code></pre>
+
+            <p><strong>Solución (Windows):</strong> Generalmente no hay problema. Verificar en php.ini que:
+            <pre><code>session.save_path = "C:\xampp\tmp"</code></pre>
+            </p>
+
+            <h3>❌ Error 404 - Página no encontrada</h3>
+            <p><strong>Causa:</strong> Ruta incorrecta o mod_rewrite deshabilitado.</p>
+
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Verificar que accedes a la URL correcta:
+                    <ul>
+                        <li>✅ <code>http://localhost/Compraventa/</code></li>
+                        <li>❌ <code>http://localhost/compraventa/</code> (minúsculas)</li>
+                    </ul>
+                </li>
+                <li>Verificar que la carpeta está en htdocs</li>
+                <li>Verificar que el archivo index.html existe</li>
+            </ol>
+
+            <h3>🆘 Más Ayuda</h3>
+            <p>Si ninguna solución funciona:</p>
+            <ul>
+                <li>📧 Email: info@mcrmotors.com</li>
+                <li>📱 Teléfono: 617 700 519</li>
+                <li>🐛 GitHub Issues: https://github.com/marcospepin/Compraventa/issues</li>
+                <li>📖 Documentación completa: http://localhost/Compraventa/documentacion.html</li>
+            </ul>
+        </div>
+
+        <!-- Section: Desinstalación -->
+        <div class="section" id="desinstalacion">
+            <h2><i class="fas fa-trash-alt"></i> 10. Desinstalación</h2>
+
+            <div class="info-box warning">
+                <strong><i class="fas fa-exclamation-triangle"></i> Advertencia</strong>
+                <p>La desinstalación eliminará todos los datos, incluyendo vehículos, usuarios e imágenes. Asegúrate de hacer un respaldo antes.</p>
+            </div>
+
+            <h3>Crear Respaldo Antes de Desinstalar</h3>
+            <pre><code># Respaldar base de datos
+mysqldump -u root -p mcrmotors_db > backup_mcrmotors.sql
+
+# Respaldar archivos
+# Windows: Copiar carpeta C:\xampp\htdocs\Compraventa a otro lugar
+# Linux: 
+tar -czf backup_compraventa.tar.gz /var/www/html/Compraventa</code></pre>
+
+            <h3>Windows - Desinstalar XAMPP</h3>
+            <ol>
+                <li>Abrir XAMPP Control Panel</li>
+                <li>Detener Apache y MySQL (clic en "Stop")</li>
+                <li>Cerrar XAMPP Control Panel</li>
+                <li>Ir a: Panel de Control → Programas → Desinstalar un programa</li>
+                <li>Buscar "XAMPP" y hacer clic en "Desinstalar"</li>
+                <li>Seguir el asistente de desinstalación</li>
+                <li>Eliminar manualmente la carpeta <code>C:\xampp</code> si queda algo</li>
+            </ol>
+
+            <h3>Linux - Desinstalar LAMP</h3>
+            <pre><code># Eliminar archivos del proyecto
+sudo rm -rf /var/www/html/Compraventa
+
+# Eliminar base de datos
+sudo mysql -u root -p
+DROP DATABASE mcrmotors_db;
+DROP USER IF EXISTS 'mcrmotors'@'localhost';
+EXIT;
+
+# Desinstalar paquetes (opcional)
+sudo apt remove --purge apache2 mysql-server php -y
+sudo apt autoremove -y</code></pre>
+
+            <h3>macOS - Desinstalar</h3>
+            <pre><code># Si usaste Homebrew
+brew services stop mysql
+brew uninstall mysql php
+
+# Si usaste MAMP
+# Arrastrar MAMP a la Papelera desde Aplicaciones</code></pre>
+
+            <h3>Eliminar Solo el Proyecto (Mantener XAMPP)</h3>
+
+            <h4>Windows:</h4>
+            <ol>
+                <li>Eliminar carpeta: <code>C:\xampp\htdocs\Compraventa</code></li>
+                <li>En phpMyAdmin, eliminar base de datos <code>mcrmotors_db</code></li>
+            </ol>
+
+            <h4>Linux:</h4>
+            <pre><code>sudo rm -rf /var/www/html/Compraventa
+sudo mysql -u root -p -e "DROP DATABASE mcrmotors_db;"</code></pre>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>MCR MOTORS</strong> - Manual de Instalación Completo</p>
+            <p>📧 info@mcrmotors.com | 📱 617 700 519</p>
+            <p>📍 San Ciprián de Viñas, Galicia, España</p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+            <p style="font-size: 0.9em;">Manual Versión 1.0 | Diciembre 2025</p>
+            <p style="font-size: 0.9em;">© 2025 MCR Motors. Todos los derechos reservados.</p>
+            <p style="font-size: 0.85em; color: #999; margin-top: 15px;">
+                Desarrollado por Marcos Pepín | Proyecto Final DAW
+            </p>
+            <p style="font-size: 0.85em; color: #999;">
+                <i class="fab fa-github"></i> https://github.com/marcospepin/Compraventa
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll para enlaces internos
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            console.log('Manual de Instalación MCR Motors cargado correctamente');
+        });
+
+        // Eventos de impresión
+        window.addEventListener('beforeprint', function() {
+            console.log('Generando PDF del Manual de Instalación...');
+        });
+
+        window.addEventListener('afterprint', function() {
+            console.log('PDF generado exitosamente');
+        });
+    </script>
+</body>
+</html>

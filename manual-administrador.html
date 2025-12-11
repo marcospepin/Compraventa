@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Administrador - MCR Motors</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #1D1F23;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        /* Estilos para impresión */
+        @media print {
+            body {
+                padding: 0;
+                font-size: 11pt;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            h1:first-of-type {
+                page-break-before: avoid;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .seccion {
+                page-break-inside: avoid;
+            }
+
+            img {
+                max-width: 100%;
+                page-break-inside: avoid;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Portada */
+        .portada {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 4px solid #2F67FF;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #0A1324 0%, #1D1F23 100%);
+            color: #fff;
+        }
+
+        .portada h1 {
+            font-size: 2.5em;
+            color: #2F67FF;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .portada .subtitulo {
+            font-size: 1.5em;
+            color: #CFD3D9;
+            margin-bottom: 30px;
+        }
+
+        .portada .info {
+            margin-top: 40px;
+            font-size: 1em;
+            color: #CFD3D9;
+        }
+
+        /* Índice */
+        .indice {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #2F67FF;
+        }
+
+        .indice h2 {
+            color: #0A1324;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .indice ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .indice li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .indice a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .indice a:hover {
+            color: #2F67FF;
+        }
+
+        /* Títulos */
+        h1 {
+            color: #0A1324;
+            font-size: 2em;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2F67FF;
+        }
+
+        h2 {
+            color: #0A1324;
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2F67FF;
+        }
+
+        h3 {
+            color: #1D1F23;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+
+        /* Párrafos */
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        /* Secciones */
+        .seccion {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .seccion-importante {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .seccion-nota {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .seccion-advertencia {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #0A1324;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Pasos numerados */
+        .paso {
+            display: flex;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .paso-numero {
+            background: #2F67FF;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .paso-contenido {
+            flex: 1;
+        }
+
+        /* Botón de impresión */
+        .btn-imprimir {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2F67FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(47, 103, 255, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .btn-imprimir:hover {
+            background: #2556d6;
+            box-shadow: 0 4px 15px rgba(47, 103, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Código */
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #2F67FF;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #1D1F23;
+            color: #CFD3D9;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        pre code {
+            background: transparent;
+            color: #CFD3D9;
+            padding: 0;
+        }
+
+        /* Destacado */
+        .destacado {
+            background: #fff;
+            border: 2px solid #2F67FF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .destacado h3 {
+            color: #2F67FF;
+            margin-top: 0;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #1D1F23;
+        }
+
+        .badge-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-imprimir no-print" onclick="window.print()">🖨️ Imprimir Manual</button>
+
+    <div class="container">
+        <!-- PORTADA -->
+        <div class="portada">
+            <div style="font-size: 4em; color: #2F67FF; margin-bottom: 20px;">⚙️</div>
+            <h1>MCR MOTORS</h1>
+            <div class="subtitulo">Manual de Administrador</div>
+            <div class="info">
+                <p><strong>Panel de Administración y Gestión</strong></p>
+                <p>Versión 1.0 | Diciembre 2025</p>
+                <p>Documentación Técnica</p>
+            </div>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="indice">
+            <h2>📑 Índice de Contenidos</h2>
+            <ul>
+                <li><a href="#introduccion"><span>1. Introducción</span><span>pág. 1</span></a></li>
+                <li><a href="#acceso-panel"><span>2. Acceso al Panel de Administración</span><span>pág. 2</span></a></li>
+                <li><a href="#dashboard"><span>3. Dashboard y Estadísticas</span><span>pág. 3</span></a></li>
+                <li><a href="#publicar-vehiculo"><span>4. Publicar Vehículos</span><span>pág. 4</span></a></li>
+                <li><a href="#gestionar-vehiculos"><span>5. Gestionar Vehículos</span><span>pág. 5</span></a></li>
+                <li><a href="#imagenes"><span>6. Gestión de Imágenes</span><span>pág. 6</span></a></li>
+                <li><a href="#base-datos"><span>7. Base de Datos</span><span>pág. 7</span></a></li>
+                <li><a href="#seguridad"><span>8. Seguridad y Respaldos</span><span>pág. 8</span></a></li>
+                <li><a href="#mantenimiento"><span>9. Mantenimiento</span><span>pág. 9</span></a></li>
+                <li><a href="#solucionar-problemas"><span>10. Solución de Problemas</span><span>pág. 10</span></a></li>
+            </ul>
+        </div>
+
+        <!-- 1. INTRODUCCIÓN -->
+        <h1 id="introduccion">1. Introducción</h1>
+        
+        <p>Bienvenido al <strong>Manual de Administrador de MCR Motors</strong>. Este documento está diseñado para guiar a los administradores del sistema en la gestión completa de la plataforma de compraventa de vehículos.</p>
+
+        <div class="seccion">
+            <h3>Propósito del Manual</h3>
+            <p>Este manual proporciona instrucciones detalladas sobre:</p>
+            <ul>
+                <li>✅ Acceso y navegación del panel de administración</li>
+                <li>✅ Publicación y gestión de vehículos</li>
+                <li>✅ Administración de imágenes y contenido multimedia</li>
+                <li>✅ Gestión de la base de datos</li>
+                <li>✅ Procedimientos de seguridad y respaldos</li>
+                <li>✅ Mantenimiento del sistema</li>
+                <li>✅ Resolución de problemas comunes</li>
+            </ul>
+        </div>
+
+        <div class="seccion-importante">
+            <strong>⚠️ Importante:</strong> Este manual está dirigido exclusivamente a administradores del sistema. El acceso al panel de administración requiere credenciales especiales y conlleva responsabilidades importantes sobre los datos del sitio web.
+        </div>
+
+        <div class="seccion">
+            <h3>Responsabilidades del Administrador</h3>
+            <ul>
+                <li><strong>Gestión de contenido:</strong> Publicar, actualizar y eliminar vehículos del catálogo</li>
+                <li><strong>Control de calidad:</strong> Asegurar que la información y las imágenes sean precisas</li>
+                <li><strong>Seguridad:</strong> Mantener las credenciales seguras y realizar respaldos regulares</li>
+                <li><strong>Mantenimiento:</strong> Revisar el funcionamiento del sistema periódicamente</li>
+                <li><strong>Actualización:</strong> Mantener el catálogo actualizado con el inventario real</li>
+            </ul>
+        </div>
+
+        <!-- 2. ACCESO AL PANEL -->
+        <h1 id="acceso-panel">2. Acceso al Panel de Administración</h1>
+
+        <h2>2.1. Credenciales de Acceso</h2>
+
+        <div class="seccion-advertencia">
+            <strong>🔒 Seguridad:</strong> Las credenciales de administrador son confidenciales. No las comparta con nadie y cámbielas periódicamente.
+        </div>
+
+        <p><strong>Credenciales por defecto (deben cambiarse inmediatamente):</strong></p>
+        <div class="seccion">
+            <ul>
+                <li><strong>Email:</strong> <code>admin@mcrmotors.com</code></li>
+                <li><strong>Contraseña:</strong> <code>admin123</code></li>
+            </ul>
+        </div>
+
+        <h2>2.2. Iniciar Sesión como Administrador</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder a la página de login</strong>
+                <p>Navegue a: <code>http://localhost/Compraventa/login.html</code> (o su dominio en producción)</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Ingresar credenciales</strong>
+                <p>Escriba el email y contraseña de administrador</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Entrar"</strong>
+                <p>El sistema verificará sus credenciales y le redirigirá al panel de administración</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Acceso al panel</strong>
+                <p>Una vez autenticado, acceda a <code>admin.html</code> directamente o use el menú de navegación</p>
+            </div>
+        </div>
+
+        <h2>2.3. Cambiar Contraseña de Administrador</h2>
+
+        <div class="seccion-importante">
+            <strong>⚠️ Primera vez:</strong> Es obligatorio cambiar la contraseña por defecto en el primer acceso.
+        </div>
+
+        <p>Para cambiar su contraseña:</p>
+        <ol>
+            <li>Acceda a la base de datos mediante phpMyAdmin</li>
+            <li>Navegue a la tabla <code>usuarios</code></li>
+            <li>Localice el usuario con rol <code>admin</code></li>
+            <li>Genere un hash de contraseña usando PHP:</li>
+        </ol>
+
+        <pre><code>// Generar hash de nueva contraseña
+$nueva_password = 'su_nueva_contraseña_segura';
+$hash = password_hash($nueva_password, PASSWORD_DEFAULT);
+echo $hash;</code></pre>
+
+        <ol start="5">
+            <li>Actualice el campo <code>password</code> con el nuevo hash</li>
+        </ol>
+
+        <!-- 3. DASHBOARD -->
+        <h1 id="dashboard">3. Dashboard y Estadísticas</h1>
+
+        <h2>3.1. Vista General del Dashboard</h2>
+
+        <p>Al acceder al panel de administración, verá el Dashboard con información importante:</p>
+
+        <div class="seccion">
+            <h3>Tarjetas de Estadísticas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Total de Vehículos</strong></td>
+                        <td>Número total de vehículos en el sistema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>En Venta</strong></td>
+                        <td>Vehículos actualmente disponibles para compra</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vendidos</strong></td>
+                        <td>Vehículos que han sido vendidos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Usuarios Registrados</strong></td>
+                        <td>Número de usuarios en la plataforma</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>3.2. Navegación del Panel</h2>
+
+        <p>El panel de administración se organiza en pestañas principales:</p>
+
+        <div class="seccion">
+            <ul>
+                <li><strong>📊 Dashboard:</strong> Vista general con estadísticas</li>
+                <li><strong>➕ Publicar Vehículo:</strong> Formulario para añadir nuevos vehículos</li>
+                <li><strong>📝 Gestionar Vehículos:</strong> Tabla con todos los vehículos (editar/eliminar)</li>
+            </ul>
+        </div>
+
+        <!-- 4. PUBLICAR VEHÍCULO -->
+        <h1 id="publicar-vehiculo">4. Publicar Vehículos</h1>
+
+        <h2>4.1. Acceder al Formulario de Publicación</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en la pestaña "Publicar Vehículo"</strong>
+                <p>En el menú del panel de administración</p>
+            </div>
+        </div>
+
+        <h2>4.2. Completar la Información del Vehículo</h2>
+
+        <div class="seccion">
+            <h3>Campos Obligatorios</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Marca</strong></td>
+                        <td>Marca del vehículo</td>
+                        <td>Audi, BMW, Mercedes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modelo</strong></td>
+                        <td>Modelo específico</td>
+                        <td>A4, Serie 3, Clase C</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Versión</strong></td>
+                        <td>Versión o acabado</td>
+                        <td>2.0 TDI S-Line</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Año</strong></td>
+                        <td>Año de fabricación</td>
+                        <td>2020</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kilómetros</strong></td>
+                        <td>Kilometraje actual</td>
+                        <td>45000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio (€)</strong></td>
+                        <td>Precio de venta en euros</td>
+                        <td>25000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Combustible</strong></td>
+                        <td>Tipo de combustible</td>
+                        <td>Diésel, Gasolina, Híbrido, Eléctrico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transmisión</strong></td>
+                        <td>Tipo de cambio</td>
+                        <td>Manual, Automático</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Potencia (CV)</strong></td>
+                        <td>Potencia en caballos</td>
+                        <td>150</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado</strong></td>
+                        <td>Estado del vehículo</td>
+                        <td>Venta, Vendido</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>4.3. Descripción del Vehículo</h2>
+
+        <div class="seccion-nota">
+            <strong>💡 Consejo:</strong> Una buena descripción aumenta las posibilidades de venta. Sea detallado pero conciso.
+        </div>
+
+        <p><strong>Elementos a incluir en la descripción:</strong></p>
+        <ul>
+            <li>✅ Estado general del vehículo</li>
+            <li>✅ Historial de mantenimiento</li>
+            <li>✅ Número de propietarios previos</li>
+            <li>✅ Equipamiento destacado</li>
+            <li>✅ Estado de neumáticos y frenos</li>
+            <li>✅ Próxima ITV</li>
+            <li>✅ Detalles especiales o extras</li>
+        </ul>
+
+        <h2>4.4. Características del Vehículo</h2>
+
+        <p>En el campo "Características", liste el equipamiento. Se recomienda usar el siguiente formato:</p>
+
+        <div class="seccion">
+            <strong>Ejemplo:</strong>
+            <pre><code>- Aire acondicionado automático
+- Navegador GPS integrado
+- Sensores de aparcamiento delanteros y traseros
+- Cámara de visión trasera
+- Control de crucero adaptativo
+- Asientos de cuero
+- Llantas de aleación 18"
+- Sistema de sonido premium
+- Bluetooth y USB
+- Faros LED</code></pre>
+        </div>
+
+        <h2>4.5. Subir Imágenes</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Seleccionar Imágenes"</strong>
+                <p>Puede seleccionar múltiples imágenes a la vez (Ctrl + clic o Cmd + clic)</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Requisitos de las imágenes</strong>
+                <ul>
+                    <li><strong>Formato:</strong> JPG, JPEG, PNG</li>
+                    <li><strong>Tamaño máximo:</strong> 5MB por imagen</li>
+                    <li><strong>Cantidad recomendada:</strong> 8-15 imágenes</li>
+                    <li><strong>Resolución:</strong> Mínimo 1280x720 píxeles</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Orden de las imágenes</strong>
+                <p>La primera imagen será la principal que se muestra en el catálogo. Suba primero la mejor foto del vehículo.</p>
+            </div>
+        </div>
+
+        <div class="seccion-nota">
+            <strong>📸 Consejos fotográficos:</strong>
+            <ul>
+                <li>Tome fotos con buena iluminación natural</li>
+                <li>Incluya: exterior frontal, lateral, trasero, interior, motor, ruedas</li>
+                <li>Limpie el vehículo antes de fotografiar</li>
+                <li>Evite reflejos y sombras pronunciadas</li>
+            </ul>
+        </div>
+
+        <h2>4.6. Publicar el Vehículo</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Revisar toda la información</strong>
+                <p>Verifique que todos los campos estén correctos antes de publicar</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Publicar Vehículo"</strong>
+                <p>El sistema procesará las imágenes y creará la publicación</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Confirmación</strong>
+                <p>Recibirá un mensaje de éxito. El vehículo aparecerá inmediatamente en el catálogo público</p>
+            </div>
+        </div>
+
+        <!-- 5. GESTIONAR VEHÍCULOS -->
+        <h1 id="gestionar-vehiculos">5. Gestionar Vehículos</h1>
+
+        <h2>5.1. Acceder a la Lista de Vehículos</h2>
+
+        <p>En la pestaña <strong>"Gestionar Vehículos"</strong> verá una tabla con todos los vehículos publicados.</p>
+
+        <div class="seccion">
+            <h3>Información Mostrada</h3>
+            <ul>
+                <li>Imagen miniatura</li>
+                <li>Marca, Modelo y Versión</li>
+                <li>Año y Kilómetros</li>
+                <li>Precio</li>
+                <li>Estado (En venta / Vendido)</li>
+                <li>Acciones disponibles (Editar / Eliminar)</li>
+            </ul>
+        </div>
+
+        <h2>5.2. Editar un Vehículo</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Localizar el vehículo</strong>
+                <p>Use el buscador o navegue por la lista</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Editar" (icono lápiz)</strong>
+                <p>Se abrirá un formulario con los datos actuales del vehículo</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Modificar los campos necesarios</strong>
+                <p>Cambie solo lo que necesite actualizar</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Guardar cambios</strong>
+                <p>Haga clic en "Actualizar Vehículo" para guardar las modificaciones</p>
+            </div>
+        </div>
+
+        <h2>5.3. Marcar un Vehículo como Vendido</h2>
+
+        <div class="seccion-importante">
+            <strong>⚠️ Importante:</strong> Cuando se vende un vehículo, debe marcarlo como "Vendido" para que aparezca en la galería de vendidos y no en el catálogo de venta.
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Editar el vehículo vendido</strong>
+                <p>Haga clic en el botón "Editar"</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Cambiar el estado a "Vendido"</strong>
+                <p>En el selector "Estado", seleccione <strong>"Vendido"</strong></p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Guardar cambios</strong>
+                <p>El vehículo se moverá automáticamente a la sección de vendidos</p>
+            </div>
+        </div>
+
+        <h2>5.4. Eliminar un Vehículo</h2>
+
+        <div class="seccion-advertencia">
+            <strong>🗑️ Atención:</strong> Eliminar un vehículo es una acción permanente. Se borrarán todos sus datos e imágenes asociadas.
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Eliminar" (icono papelera)</strong>
+                <p>Aparecerá un cuadro de confirmación</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Confirmar la eliminación</strong>
+                <p>Haga clic en "Sí, eliminar" si está seguro</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Eliminación completa</strong>
+                <p>El vehículo y todas sus imágenes serán eliminados permanentemente de la base de datos</p>
+            </div>
+        </div>
+
+        <div class="seccion-nota">
+            <strong>💡 Recomendación:</strong> En lugar de eliminar, considere marcar el vehículo como "Vendido" para mantener un historial.
+        </div>
+
+        <!-- 6. GESTIÓN DE IMÁGENES -->
+        <h1 id="imagenes">6. Gestión de Imágenes</h1>
+
+        <h2>6.1. Estructura de Almacenamiento</h2>
+
+        <p>Las imágenes de los vehículos se almacenan en:</p>
+        <div class="seccion">
+            <code>uploads/vehiculos/</code>
+        </div>
+
+        <p>Cada imagen se guarda con un nombre único generado automáticamente para evitar conflictos.</p>
+
+        <h2>6.2. Añadir Imágenes a un Vehículo Existente</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Editar el vehículo</strong>
+                <p>Acceda al formulario de edición del vehículo</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Subir nuevas imágenes</strong>
+                <p>Use el selector de archivos para añadir más fotos</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Guardar cambios</strong>
+                <p>Las nuevas imágenes se añadirán a la galería existente</p>
+            </div>
+        </div>
+
+        <h2>6.3. Eliminar Imágenes</h2>
+
+        <p>Para eliminar imágenes individuales de un vehículo:</p>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Editar el vehículo</strong>
+                <p>Acceda al formulario de edición</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Ver galería actual</strong>
+                <p>Verá todas las imágenes asociadas al vehículo</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Eliminar imagen</strong>
+                <p>Haga clic en el icono de eliminar (X) sobre la imagen que desea borrar</p>
+            </div>
+        </div>
+
+        <h2>6.4. Optimización de Imágenes</h2>
+
+        <div class="seccion-nota">
+            <strong>💡 Recomendaciones:</strong>
+            <ul>
+                <li>Comprima las imágenes antes de subirlas (use herramientas como TinyPNG)</li>
+                <li>Mantenga un balance entre calidad y tamaño de archivo</li>
+                <li>No suba imágenes con marca de agua de otros sitios</li>
+                <li>Asegúrese de tener derechos sobre las fotografías</li>
+            </ul>
+        </div>
+
+        <!-- 7. BASE DE DATOS -->
+        <h1 id="base-datos">7. Base de Datos</h1>
+
+        <h2>7.1. Estructura de la Base de Datos</h2>
+
+        <p>La plataforma utiliza las siguientes tablas principales:</p>
+
+        <div class="seccion">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabla</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>usuarios</code></td>
+                        <td>Almacena información de usuarios y administradores</td>
+                    </tr>
+                    <tr>
+                        <td><code>vehiculos</code></td>
+                        <td>Contiene todos los datos de los vehículos</td>
+                    </tr>
+                    <tr>
+                        <td><code>imagenes</code></td>
+                        <td>Referencias a las imágenes de cada vehículo</td>
+                    </tr>
+                    <tr>
+                        <td><code>favoritos</code></td>
+                        <td>Relación entre usuarios y vehículos favoritos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>7.2. Acceso a phpMyAdmin</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Abrir phpMyAdmin</strong>
+                <p>En desarrollo local: <code>http://localhost/phpmyadmin</code></p>
+                <p>En hosting: Acceder desde el panel de control (cPanel)</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar la base de datos</strong>
+                <p>Haga clic en <code>mcrmotors_db</code> en el panel lateral</p>
+            </div>
+        </div>
+
+        <h2>7.3. Consultas SQL Útiles</h2>
+
+        <div class="seccion">
+            <h3>Ver todos los vehículos en venta</h3>
+            <pre><code>SELECT * FROM vehiculos WHERE estado = 'venta' ORDER BY fecha_creacion DESC;</code></pre>
+        </div>
+
+        <div class="seccion">
+            <h3>Ver vehículos vendidos</h3>
+            <pre><code>SELECT * FROM vehiculos WHERE estado = 'vendido' ORDER BY fecha_creacion DESC;</code></pre>
+        </div>
+
+        <div class="seccion">
+            <h3>Contar vehículos por marca</h3>
+            <pre><code>SELECT marca, COUNT(*) as total FROM vehiculos GROUP BY marca ORDER BY total DESC;</code></pre>
+        </div>
+
+        <div class="seccion">
+            <h3>Ver usuarios registrados</h3>
+            <pre><code>SELECT id, nombre, email, rol, fecha_registro FROM usuarios;</code></pre>
+        </div>
+
+        <!-- 8. SEGURIDAD Y RESPALDOS -->
+        <h1 id="seguridad">8. Seguridad y Respaldos</h1>
+
+        <h2>8.1. Cambiar Contraseña Regularmente</h2>
+
+        <div class="seccion-importante">
+            <strong>🔒 Recomendación:</strong> Cambie su contraseña de administrador al menos cada 3 meses.
+        </div>
+
+        <p><strong>Requisitos para una contraseña segura:</strong></p>
+        <ul>
+            <li>✅ Mínimo 12 caracteres</li>
+            <li>✅ Mezcla de mayúsculas y minúsculas</li>
+            <li>✅ Incluir números</li>
+            <li>✅ Incluir símbolos especiales (@, #, $, etc.)</li>
+            <li>✅ No usar información personal</li>
+            <li>✅ No reutilizar contraseñas de otros sitios</li>
+        </ul>
+
+        <h2>8.2. Respaldo de la Base de Datos</h2>
+
+        <div class="seccion-advertencia">
+            <strong>⚠️ Crítico:</strong> Realice respaldos de la base de datos regularmente. Se recomienda al menos una vez por semana.
+        </div>
+
+        <h3>Método 1: Desde phpMyAdmin</h3>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder a phpMyAdmin</strong>
+                <p>Entre en phpMyAdmin y seleccione la base de datos</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Ir a la pestaña "Exportar"</strong>
+                <p>Haga clic en la pestaña "Exportar" en el menú superior</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar opciones</strong>
+                <ul>
+                    <li>Método de exportación: <strong>Rápido</strong></li>
+                    <li>Formato: <strong>SQL</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Continuar"</strong>
+                <p>Se descargará un archivo .sql con toda la base de datos</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">5</div>
+            <div class="paso-contenido">
+                <strong>Guardar el archivo</strong>
+                <p>Guarde el archivo con un nombre descriptivo que incluya la fecha:<br>
+                <code>mcrmotors_backup_2025-12-11.sql</code></p>
+            </div>
+        </div>
+
+        <h3>Método 2: Línea de Comandos</h3>
+
+        <pre><code>mysqldump -u root -p mcrmotors_db > backup_$(date +%Y%m%d).sql</code></pre>
+
+        <h2>8.3. Respaldo de Imágenes</h2>
+
+        <p>Además de la base de datos, debe respaldar la carpeta de imágenes:</p>
+
+        <div class="seccion">
+            <strong>Windows:</strong>
+            <pre><code>xcopy /E /I "C:\xampp\htdocs\Compraventa\uploads" "D:\Backups\mcrmotors_images_backup"</code></pre>
+        </div>
+
+        <div class="seccion">
+            <strong>Linux/Mac:</strong>
+            <pre><code>cp -r /var/www/html/uploads /backups/mcrmotors_images_$(date +%Y%m%d)</code></pre>
+        </div>
+
+        <h2>8.4. Restaurar desde un Respaldo</h2>
+
+        <h3>Restaurar Base de Datos</h3>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder a phpMyAdmin</strong>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar la base de datos</strong>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Ir a la pestaña "Importar"</strong>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar el archivo .sql de respaldo</strong>
+                <p>Haga clic en "Seleccionar archivo" y elija su backup</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">5</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Continuar"</strong>
+                <p>La base de datos se restaurará a ese estado</p>
+            </div>
+        </div>
+
+        <!-- 9. MANTENIMIENTO -->
+        <h1 id="mantenimiento">9. Mantenimiento</h1>
+
+        <h2>9.1. Tareas de Mantenimiento Diarias</h2>
+
+        <div class="seccion">
+            <ul>
+                <li>✅ Verificar que el sitio web carga correctamente</li>
+                <li>✅ Revisar nuevos registros de usuarios (si aplica)</li>
+                <li>✅ Responder a mensajes de contacto</li>
+                <li>✅ Actualizar vehículos vendidos</li>
+            </ul>
+        </div>
+
+        <h2>9.2. Tareas Semanales</h2>
+
+        <div class="seccion">
+            <ul>
+                <li>✅ Realizar respaldo de la base de datos</li>
+                <li>✅ Respaldar carpeta de imágenes</li>
+                <li>✅ Revisar estadísticas del dashboard</li>
+                <li>✅ Verificar enlaces rotos o imágenes faltantes</li>
+                <li>✅ Limpiar vehículos antiguos vendidos (opcional)</li>
+            </ul>
+        </div>
+
+        <h2>9.3. Tareas Mensuales</h2>
+
+        <div class="seccion">
+            <ul>
+                <li>✅ Optimizar base de datos (phpMyAdmin → Operaciones → Optimizar)</li>
+                <li>✅ Revisar espacio en disco disponible</li>
+                <li>✅ Actualizar contraseñas si es necesario</li>
+                <li>✅ Revisar logs de errores del servidor</li>
+                <li>✅ Verificar certificado SSL (si aplica)</li>
+            </ul>
+        </div>
+
+        <h2>9.4. Optimización de la Base de Datos</h2>
+
+        <p>Para mantener la base de datos eficiente:</p>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder a phpMyAdmin</strong>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar la base de datos</strong>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Marcar todas las tablas</strong>
+                <p>Haga clic en "Marcar todas"</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar "Optimizar tabla"</strong>
+                <p>En el menú desplegable "Con selección:", elija "Optimizar tabla"</p>
+            </div>
+        </div>
+
+        <h2>9.5. Limpieza de Archivos Huérfanos</h2>
+
+        <p>Con el tiempo, pueden quedar imágenes huérfanas (sin vehículo asociado) en el servidor. Para limpiarlas:</p>
+
+        <div class="seccion-nota">
+            <strong>💡 Consejo:</strong> Realice esta tarea con precaución. Asegúrese de tener un respaldo antes de eliminar archivos.
+        </div>
+
+        <ol>
+            <li>Liste todas las imágenes en <code>uploads/vehiculos/</code></li>
+            <li>Compare con las rutas almacenadas en la tabla <code>imagenes</code></li>
+            <li>Elimine solo los archivos que no tengan referencia en la base de datos</li>
+        </ol>
+
+        <!-- 10. SOLUCIÓN DE PROBLEMAS -->
+        <h1 id="solucionar-problemas">10. Solución de Problemas</h1>
+
+        <h2>10.1. No Puedo Iniciar Sesión</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> Las credenciales no funcionan</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Verificar que está usando el email correcto</li>
+                <li>✅ Asegurarse de que no hay espacios extra en el email o contraseña</li>
+                <li>✅ Verificar que el campo de contraseña no tiene CapsLock activado</li>
+                <li>✅ Si olvidó su contraseña, restablecerla desde phpMyAdmin</li>
+            </ul>
+        </div>
+
+        <h2>10.2. Las Imágenes No Se Suben</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> Error al subir imágenes</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Verificar que el tamaño de imagen no exceda 5MB</li>
+                <li>✅ Comprobar que el formato sea JPG, JPEG o PNG</li>
+                <li>✅ Verificar permisos de la carpeta <code>uploads/vehiculos/</code> (debe ser 755)</li>
+                <li>✅ Verificar configuración PHP: <code>upload_max_filesize</code> y <code>post_max_size</code></li>
+            </ul>
+        </div>
+
+        <h2>10.3. Error de Conexión a la Base de Datos</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> "Error de conexión a la base de datos"</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Verificar que MySQL está ejecutándose (XAMPP Control Panel)</li>
+                <li>✅ Revisar credenciales en <code>php/config.php</code></li>
+                <li>✅ Asegurarse de que el nombre de la base de datos es correcto</li>
+                <li>✅ Verificar que el usuario tiene permisos sobre la base de datos</li>
+            </ul>
+        </div>
+
+        <h2>10.4. Los Vehículos No Aparecen en el Catálogo</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> El catálogo está vacío</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Verificar que hay vehículos con estado "venta" en la base de datos</li>
+                <li>✅ Revisar la consola del navegador (F12) para errores JavaScript</li>
+                <li>✅ Verificar que el archivo <code>php/vehiculos.php</code> es accesible</li>
+                <li>✅ Comprobar que no hay errores en el PHP (ver logs del servidor)</li>
+            </ul>
+        </div>
+
+        <h2>10.5. El Sitio Web Es Muy Lento</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> Carga lenta de páginas</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Optimizar imágenes antes de subirlas (comprimir)</li>
+                <li>✅ Limpiar vehículos antiguos innecesarios</li>
+                <li>✅ Optimizar la base de datos</li>
+                <li>✅ Verificar velocidad de conexión a Internet</li>
+                <li>✅ Considerar upgrade del hosting (en producción)</li>
+            </ul>
+        </div>
+
+        <h2>10.6. Errores 404 (Página No Encontrada)</h2>
+
+        <div class="seccion">
+            <p><strong>Problema:</strong> Enlaces rotos</p>
+            <p><strong>Soluciones:</strong></p>
+            <ul>
+                <li>✅ Verificar que todos los archivos HTML están en su ubicación</li>
+                <li>✅ Revisar rutas en los enlaces (relativas vs absolutas)</li>
+                <li>✅ Asegurarse de que los nombres de archivo coinciden (mayúsculas/minúsculas)</li>
+                <li>✅ Verificar configuración de .htaccess (si aplica)</li>
+            </ul>
+        </div>
+
+        <h2>10.7. Contacto de Soporte Técnico</h2>
+
+        <div class="destacado">
+            <h3>🛠️ Necesita Ayuda Adicional?</h3>
+            <p>Si experimenta problemas que no puede resolver con este manual:</p>
+            <ul>
+                <li><strong>Email:</strong> soporte@mcrmotors.com</li>
+                <li><strong>Teléfono:</strong> 617700519</li>
+                <li><strong>Documentación técnica:</strong> Revise la carpeta <code>docs/</code></li>
+            </ul>
+            <p>Proporcione la siguiente información al solicitar ayuda:</p>
+            <ul>
+                <li>Descripción detallada del problema</li>
+                <li>Capturas de pantalla del error</li>
+                <li>Pasos para reproducir el problema</li>
+                <li>Mensajes de error exactos (si los hay)</li>
+            </ul>
+        </div>
+
+        <!-- APÉNDICE -->
+        <h1>Apéndice: Checklist del Administrador</h1>
+
+        <div class="seccion">
+            <h3>📋 Checklist Diario</h3>
+            <ul>
+                <li>☐ Verificar funcionamiento del sitio web</li>
+                <li>☐ Actualizar estado de vehículos vendidos</li>
+                <li>☐ Responder mensajes de contacto</li>
+            </ul>
+        </div>
+
+        <div class="seccion">
+            <h3>📋 Checklist Semanal</h3>
+            <ul>
+                <li>☐ Realizar respaldo de base de datos</li>
+                <li>☐ Respaldar carpeta de imágenes</li>
+                <li>☐ Revisar estadísticas y métricas</li>
+                <li>☐ Verificar calidad de imágenes y descripciones</li>
+            </ul>
+        </div>
+
+        <div class="seccion">
+            <h3>📋 Checklist Mensual</h3>
+            <ul>
+                <li>☐ Optimizar base de datos</li>
+                <li>☐ Revisar espacio en disco</li>
+                <li>☐ Actualizar contraseñas</li>
+                <li>☐ Limpiar archivos huérfanos</li>
+                <li>☐ Revisar logs de errores</li>
+            </ul>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>MCR Motors</strong> | Panel de Administración</p>
+            <p>📧 admin@mcrmotors.com | 📞 617700519</p>
+            <p style="margin-top: 20px; font-size: 0.8em;">Manual de Administrador v1.0 | Diciembre 2025</p>
+            <p style="font-size: 0.8em;">© 2025 MCR Motors. Documento Confidencial - Solo para Administradores</p>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para el botón de impresión
+        window.onload = function() {
+            console.log('Manual de Administrador MCR Motors cargado correctamente');
+        };
+    </script>
+</body>
+</html>

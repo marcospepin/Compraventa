@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramas del Sistema - MCR Motors</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1D1F23;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        /* Estilos para impresión */
+        @media print {
+            body {
+                padding: 0;
+                font-size: 11pt;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+
+            .diagram-container {
+                page-break-inside: avoid;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            h1:first-of-type {
+                page-break-before: avoid;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Portada */
+        .portada {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 4px solid #2F67FF;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #0A1324 0%, #1D1F23 100%);
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .portada h1 {
+            font-size: 2.5em;
+            color: #2F67FF;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .portada .subtitulo {
+            font-size: 1.5em;
+            color: #CFD3D9;
+            margin-bottom: 20px;
+        }
+
+        .portada .info {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #CFD3D9;
+        }
+
+        /* Títulos */
+        h1 {
+            color: #0A1324;
+            font-size: 2em;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2F67FF;
+        }
+
+        h2 {
+            color: #0A1324;
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2F67FF;
+        }
+
+        h3 {
+            color: #1D1F23;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+
+        /* Párrafos */
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        /* Diagrama Container */
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #2F67FF;
+        }
+
+        .diagram-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #0A1324;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .diagram-description {
+            margin: 15px 0;
+            padding: 15px;
+            background: #fff;
+            border-left: 4px solid #2F67FF;
+            color: #555;
+        }
+
+        /* Botón de impresión */
+        .btn-imprimir {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2F67FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(47, 103, 255, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .btn-imprimir:hover {
+            background: #2556d6;
+            box-shadow: 0 4px 15px rgba(47, 103, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Índice */
+        .indice {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #2F67FF;
+            border-radius: 6px;
+        }
+
+        .indice h2 {
+            color: #0A1324;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border: none;
+            padding: 0;
+        }
+
+        .indice ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .indice li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .indice a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .indice a:hover {
+            color: #2F67FF;
+        }
+
+        /* Mermaid customization */
+        .mermaid {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-imprimir no-print" onclick="window.print()">🖨️ Imprimir Diagramas</button>
+
+    <div class="container">
+        <!-- PORTADA -->
+        <div class="portada">
+            <div style="font-size: 4em; color: #2F67FF; margin-bottom: 20px;">📊</div>
+            <h1>MCR MOTORS</h1>
+            <div class="subtitulo">Diagramas del Sistema</div>
+            <div class="info">
+                <p><strong>Documentación Técnica</strong></p>
+                <p>Versión 1.0 | Diciembre 2025</p>
+            </div>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="indice">
+            <h2>📑 Índice de Diagramas</h2>
+            <ul>
+                <li><a href="#arquitectura"><span>1. Diagrama de Arquitectura</span></a></li>
+                <li><a href="#base-datos"><span>2. Diagrama de Base de Datos</span></a></li>
+                <li><a href="#casos-uso"><span>3. Diagrama de Casos de Uso</span></a></li>
+                <li><a href="#flujo-usuario"><span>4. Diagrama de Flujo - Usuario</span></a></li>
+                <li><a href="#flujo-admin"><span>5. Diagrama de Flujo - Administrador</span></a></li>
+                <li><a href="#secuencia-login"><span>6. Diagrama de Secuencia - Login</span></a></li>
+                <li><a href="#secuencia-publicar"><span>7. Diagrama de Secuencia - Publicar Vehículo</span></a></li>
+                <li><a href="#componentes"><span>8. Diagrama de Componentes</span></a></li>
+                <li><a href="#despliegue"><span>9. Diagrama de Despliegue</span></a></li>
+                <li><a href="#estados"><span>10. Diagrama de Estados - Vehículo</span></a></li>
+            </ul>
+        </div>
+
+        <!-- 1. DIAGRAMA DE ARQUITECTURA -->
+        <h1 id="arquitectura">1. Diagrama de Arquitectura</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Arquitectura de Tres Capas</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Capa de Presentación"
+        A[HTML5 + CSS3]
+        B[JavaScript ES6+]
+        C[Bootstrap 5]
+        D[Font Awesome]
+    end
+    
+    subgraph "Capa de Negocio"
+        E[PHP 7.4+]
+        F[Lógica de Aplicación]
+        G[Autenticación]
+        H[Validación de Datos]
+    end
+    
+    subgraph "Capa de Datos"
+        I[MySQL 8.0]
+        J[Tablas Relacionales]
+        K[Constraints & FKs]
+    end
+    
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+    
+    style A fill:#2F67FF,color:#fff
+    style B fill:#2F67FF,color:#fff
+    style C fill:#2F67FF,color:#fff
+    style D fill:#2F67FF,color:#fff
+    style E fill:#0A1324,color:#fff
+    style F fill:#0A1324,color:#fff
+    style G fill:#0A1324,color:#fff
+    style H fill:#0A1324,color:#fff
+    style I fill:#28a745,color:#fff
+    style J fill:#28a745,color:#fff
+    style K fill:#28a745,color:#fff
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> El sistema sigue una arquitectura de tres capas bien definida:
+                <ul>
+                    <li><strong>Capa de Presentación:</strong> Frontend con HTML5, CSS3, JavaScript y Bootstrap</li>
+                    <li><strong>Capa de Negocio:</strong> Backend en PHP con lógica de aplicación y validaciones</li>
+                    <li><strong>Capa de Datos:</strong> Base de datos MySQL con estructura relacional</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. DIAGRAMA DE BASE DE DATOS -->
+        <h1 id="base-datos">2. Diagrama de Base de Datos</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Modelo Entidad-Relación</div>
+            <div class="mermaid">
+erDiagram
+    USUARIOS ||--o{ FAVORITOS : tiene
+    VEHICULOS ||--o{ FAVORITOS : "está en"
+    VEHICULOS ||--o{ IMAGENES : contiene
+
+    USUARIOS {
+        int id PK
+        varchar nombre
+        varchar email UK
+        varchar telefono
+        varchar password
+        enum rol
+        datetime fecha_registro
+    }
+
+    VEHICULOS {
+        int id PK
+        varchar marca
+        varchar modelo
+        varchar version
+        int ano
+        int km
+        decimal precio
+        varchar combustible
+        varchar transmision
+        int potencia
+        text descripcion
+        text caracteristicas
+        enum estado
+        datetime fecha_creacion
+    }
+
+    IMAGENES {
+        int id PK
+        int id_vehiculo FK
+        varchar ruta
+        int orden
+        datetime fecha_subida
+    }
+
+    FAVORITOS {
+        int id PK
+        int id_usuario FK
+        int id_vehiculo FK
+        datetime fecha_agregado
+    }
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Modelo de datos con 4 tablas principales:
+                <ul>
+                    <li><strong>usuarios:</strong> Almacena clientes y administradores</li>
+                    <li><strong>vehiculos:</strong> Información completa de cada vehículo</li>
+                    <li><strong>imagenes:</strong> Referencias a las fotografías de vehículos</li>
+                    <li><strong>favoritos:</strong> Relación many-to-many entre usuarios y vehículos</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. DIAGRAMA DE CASOS DE USO -->
+        <h1 id="casos-uso">3. Diagrama de Casos de Uso</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Casos de Uso del Sistema</div>
+            <div class="mermaid">
+graph LR
+    subgraph "Sistema MCR Motors"
+        U1[Buscar Vehículos]
+        U2[Ver Detalles]
+        U3[Registrarse]
+        U4[Iniciar Sesión]
+        U5[Guardar Favoritos]
+        U6[Contactar]
+        U7[Publicar Vehículo]
+        U8[Editar Vehículo]
+        U9[Eliminar Vehículo]
+        U10[Ver Estadísticas]
+    end
+    
+    Usuario([Usuario/Cliente]) --> U1
+    Usuario --> U2
+    Usuario --> U3
+    Usuario --> U4
+    Usuario --> U6
+    
+    UsuarioReg([Usuario Registrado]) --> U1
+    UsuarioReg --> U2
+    UsuarioReg --> U4
+    UsuarioReg --> U5
+    UsuarioReg --> U6
+    
+    Admin([Administrador]) --> U7
+    Admin --> U8
+    Admin --> U9
+    Admin --> U10
+    
+    style Usuario fill:#2F67FF,color:#fff
+    style UsuarioReg fill:#17a2b8,color:#fff
+    style Admin fill:#dc3545,color:#fff
+    style U7 fill:#ffc107
+    style U8 fill:#ffc107
+    style U9 fill:#ffc107
+    style U10 fill:#ffc107
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> El sistema tiene tres tipos de actores:
+                <ul>
+                    <li><strong>Usuario/Cliente:</strong> Puede buscar, ver detalles, registrarse y contactar</li>
+                    <li><strong>Usuario Registrado:</strong> Además puede guardar favoritos</li>
+                    <li><strong>Administrador:</strong> Gestión completa de vehículos y estadísticas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. DIAGRAMA DE FLUJO - USUARIO -->
+        <h1 id="flujo-usuario">4. Diagrama de Flujo - Usuario</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Flujo de Navegación del Usuario</div>
+            <div class="mermaid">
+flowchart TD
+    A[Inicio] --> B{¿Registrado?}
+    B -->|No| C[Ver Catálogo]
+    B -->|Sí| D[Iniciar Sesión]
+    D --> E[Ver Catálogo]
+    C --> F[Aplicar Filtros]
+    E --> F
+    F --> G[Ver Lista de Vehículos]
+    G --> H[Seleccionar Vehículo]
+    H --> I[Ver Detalles]
+    I --> J{¿Interesado?}
+    J -->|Sí| K{¿Registrado?}
+    J -->|No| G
+    K -->|Sí| L[Guardar en Favoritos]
+    K -->|No| M[Contactar por WhatsApp]
+    L --> M
+    M --> N[Fin]
+    
+    style A fill:#28a745,color:#fff
+    style N fill:#dc3545,color:#fff
+    style D fill:#2F67FF,color:#fff
+    style L fill:#ffc107
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Flujo típico de un usuario buscando un vehículo:
+                <ol>
+                    <li>El usuario accede al catálogo (con o sin registro)</li>
+                    <li>Aplica filtros de búsqueda</li>
+                    <li>Selecciona un vehículo de interés</li>
+                    <li>Ve los detalles completos</li>
+                    <li>Puede guardar en favoritos (si está registrado) o contactar directamente</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 5. DIAGRAMA DE FLUJO - ADMIN -->
+        <h1 id="flujo-admin">5. Diagrama de Flujo - Administrador</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Flujo de Gestión de Vehículos</div>
+            <div class="mermaid">
+flowchart TD
+    A[Inicio] --> B[Login Admin]
+    B --> C{¿Autenticado?}
+    C -->|No| B
+    C -->|Sí| D[Panel de Admin]
+    D --> E{Acción}
+    E -->|Publicar| F[Formulario Nuevo Vehículo]
+    E -->|Gestionar| G[Lista de Vehículos]
+    E -->|Estadísticas| H[Ver Dashboard]
+    
+    F --> I[Completar Datos]
+    I --> J[Subir Imágenes]
+    J --> K[Publicar]
+    K --> L[Vehículo en Catálogo]
+    
+    G --> M{Seleccionar Acción}
+    M -->|Editar| N[Modificar Datos]
+    M -->|Eliminar| O[Confirmar Eliminación]
+    M -->|Marcar Vendido| P[Cambiar Estado]
+    
+    N --> Q[Actualizar]
+    O --> R[Eliminar de BD]
+    P --> S[Mover a Vendidos]
+    
+    Q --> G
+    R --> G
+    S --> G
+    L --> D
+    H --> D
+    
+    style A fill:#28a745,color:#fff
+    style B fill:#2F67FF,color:#fff
+    style K fill:#ffc107
+    style O fill:#dc3545,color:#fff
+    style R fill:#dc3545,color:#fff
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Flujo de trabajo del administrador para gestionar vehículos:
+                <ul>
+                    <li><strong>Publicar:</strong> Crear nuevo vehículo con datos e imágenes</li>
+                    <li><strong>Editar:</strong> Modificar información de vehículos existentes</li>
+                    <li><strong>Eliminar:</strong> Borrar vehículos de la base de datos</li>
+                    <li><strong>Marcar Vendido:</strong> Cambiar estado y mover a galería de vendidos</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 6. DIAGRAMA DE SECUENCIA - LOGIN -->
+        <h1 id="secuencia-login">6. Diagrama de Secuencia - Login</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Proceso de Autenticación</div>
+            <div class="mermaid">
+sequenceDiagram
+    participant U as Usuario
+    participant B as Navegador
+    participant P as PHP (auth.php)
+    participant D as Base de Datos
+
+    U->>B: Ingresa email y contraseña
+    B->>P: POST /php/auth.php (login)
+    P->>P: Validar datos
+    P->>D: SELECT * FROM usuarios WHERE email=?
+    D-->>P: Datos del usuario
+    P->>P: Verificar password_hash
+    alt Credenciales Correctas
+        P->>P: Crear sesión PHP
+        P-->>B: JSON {success: true, user: data}
+        B->>B: Guardar en localStorage
+        B-->>U: Redirigir a inicio/admin
+    else Credenciales Incorrectas
+        P-->>B: JSON {success: false, error: msg}
+        B-->>U: Mostrar error
+    end
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Secuencia del proceso de inicio de sesión:
+                <ol>
+                    <li>El usuario ingresa sus credenciales</li>
+                    <li>El navegador envía una petición POST a auth.php</li>
+                    <li>PHP valida los datos y consulta la base de datos</li>
+                    <li>Se verifica el hash de la contraseña</li>
+                    <li>Si es correcto, se crea una sesión y se envía respuesta positiva</li>
+                    <li>El navegador almacena los datos y redirige al usuario</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 7. DIAGRAMA DE SECUENCIA - PUBLICAR -->
+        <h1 id="secuencia-publicar">7. Diagrama de Secuencia - Publicar Vehículo</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Proceso de Publicación de Vehículo</div>
+            <div class="mermaid">
+sequenceDiagram
+    participant A as Admin
+    participant B as Navegador
+    participant P as PHP (vehiculos.php)
+    participant F as Sistema de Archivos
+    participant D as Base de Datos
+
+    A->>B: Completa formulario
+    A->>B: Selecciona imágenes
+    B->>P: POST /php/vehiculos.php (create)
+    P->>P: Verificar sesión admin
+    P->>P: Validar datos
+    
+    loop Para cada imagen
+        P->>F: Subir imagen a /uploads/vehiculos/
+        F-->>P: Ruta del archivo
+    end
+    
+    P->>D: INSERT INTO vehiculos
+    D-->>P: ID del vehículo
+    
+    loop Para cada imagen
+        P->>D: INSERT INTO imagenes (id_vehiculo, ruta)
+    end
+    
+    P-->>B: JSON {success: true, id: vehiculo_id}
+    B-->>A: Mostrar confirmación
+    B->>B: Actualizar lista de vehículos
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Secuencia para publicar un nuevo vehículo:
+                <ol>
+                    <li>El administrador completa el formulario con todos los datos</li>
+                    <li>Selecciona las imágenes a subir</li>
+                    <li>PHP verifica que el usuario sea administrador</li>
+                    <li>Valida todos los datos del formulario</li>
+                    <li>Sube cada imagen al servidor y guarda las rutas</li>
+                    <li>Inserta el vehículo en la base de datos</li>
+                    <li>Inserta las referencias de imágenes asociadas</li>
+                    <li>Retorna confirmación al navegador</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 8. DIAGRAMA DE COMPONENTES -->
+        <h1 id="componentes">8. Diagrama de Componentes</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Componentes del Sistema</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Frontend Components"
+        H[index.html]
+        CV[coches-venta.html]
+        CA[coches-vendidos.html]
+        AD[admin.html]
+        L[login.html]
+        R[registro.html]
+        
+        JS[script.js]
+        VJS[vehiculos.js]
+        CSS[style.css]
+    end
+    
+    subgraph "Backend Components"
+        CONFIG[config.php]
+        AUTH[auth.php]
+        VEH[vehiculos.php]
+        FAV[favoritos.php]
+    end
+    
+    subgraph "Database"
+        DB[(MySQL Database)]
+    end
+    
+    subgraph "Storage"
+        IMG[/uploads/vehiculos/]
+    end
+    
+    H --> JS
+    CV --> JS
+    CV --> VJS
+    CA --> VJS
+    AD --> VJS
+    L --> AUTH
+    R --> AUTH
+    
+    JS --> VEH
+    JS --> AUTH
+    JS --> FAV
+    VJS --> VEH
+    
+    AUTH --> CONFIG
+    VEH --> CONFIG
+    FAV --> CONFIG
+    
+    CONFIG --> DB
+    VEH --> IMG
+    
+    style CONFIG fill:#ffc107
+    style DB fill:#28a745,color:#fff
+    style IMG fill:#17a2b8,color:#fff
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Estructura de componentes del sistema:
+                <ul>
+                    <li><strong>Frontend:</strong> Páginas HTML, scripts JS y estilos CSS</li>
+                    <li><strong>Backend:</strong> Scripts PHP para lógica de negocio</li>
+                    <li><strong>Base de Datos:</strong> MySQL con tablas relacionales</li>
+                    <li><strong>Almacenamiento:</strong> Sistema de archivos para imágenes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 9. DIAGRAMA DE DESPLIEGUE -->
+        <h1 id="despliegue">9. Diagrama de Despliegue</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Arquitectura de Despliegue</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Cliente"
+        B[Navegador Web<br/>Chrome, Firefox, Edge]
+    end
+    
+    subgraph "Servidor Web"
+        A[Apache 2.4]
+        P[PHP 7.4+]
+        F[Sistema de Archivos<br/>uploads/]
+    end
+    
+    subgraph "Servidor BD"
+        M[MySQL 8.0]
+    end
+    
+    B -->|HTTPS| A
+    A --> P
+    P --> M
+    P --> F
+    
+    style B fill:#2F67FF,color:#fff
+    style A fill:#dc3545,color:#fff
+    style P fill:#0A1324,color:#fff
+    style M fill:#28a745,color:#fff
+    style F fill:#17a2b8,color:#fff
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Configuración del entorno de despliegue:
+                <ul>
+                    <li><strong>Cliente:</strong> Navegadores web modernos accediendo por HTTPS</li>
+                    <li><strong>Servidor Web:</strong> Apache con PHP para procesar peticiones</li>
+                    <li><strong>Servidor BD:</strong> MySQL para almacenamiento de datos</li>
+                    <li><strong>Sistema de Archivos:</strong> Almacenamiento de imágenes en el servidor</li>
+                </ul>
+                <p><strong>Entornos:</strong> Desarrollo (XAMPP local) y Producción (hosting con cPanel)</p>
+            </div>
+        </div>
+
+        <!-- 10. DIAGRAMA DE ESTADOS -->
+        <h1 id="estados">10. Diagrama de Estados - Vehículo</h1>
+        
+        <div class="diagram-container">
+            <div class="diagram-title">Ciclo de Vida de un Vehículo</div>
+            <div class="mermaid">
+stateDiagram-v2
+    [*] --> Creación: Admin publica vehículo
+    
+    Creación --> EnVenta: Guardar en BD
+    
+    EnVenta --> Editando: Admin edita
+    Editando --> EnVenta: Guardar cambios
+    
+    EnVenta --> Vendido: Marcar como vendido
+    
+    Vendido --> EnVenta: Revertir venta (opcional)
+    
+    EnVenta --> Eliminado: Admin elimina
+    Vendido --> Eliminado: Admin elimina
+    
+    Eliminado --> [*]
+    
+    note right of EnVenta
+        Visible en catálogo público
+        Los usuarios pueden verlo
+        y guardarlo en favoritos
+    end note
+    
+    note right of Vendido
+        Aparece en galería
+        de vendidos
+        No se puede comprar
+    end note
+            </div>
+            <div class="diagram-description">
+                <strong>Descripción:</strong> Estados posibles de un vehículo en el sistema:
+                <ul>
+                    <li><strong>Creación:</strong> El administrador ingresa el nuevo vehículo</li>
+                    <li><strong>En Venta:</strong> Visible en el catálogo público, disponible para compra</li>
+                    <li><strong>Editando:</strong> El administrador está modificando los datos</li>
+                    <li><strong>Vendido:</strong> Marcado como vendido, aparece en galería de vendidos</li>
+                    <li><strong>Eliminado:</strong> Borrado permanentemente de la base de datos</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>MCR Motors</strong> | Diagramas del Sistema</p>
+            <p>📧 info@mcrmotors.com | 📞 617700519</p>
+            <p style="margin-top: 20px; font-size: 0.8em;">Documentación Técnica v1.0 | Diciembre 2025</p>
+            <p style="font-size: 0.8em;">© 2025 MCR Motors. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#2F67FF',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#0A1324',
+                lineColor: '#1D1F23',
+                secondaryColor: '#CFD3D9',
+                tertiaryColor: '#f8f9fa'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35
+            }
+        });
+
+        console.log('Diagramas MCR Motors cargados correctamente');
+    </script>
+</body>
+</html>

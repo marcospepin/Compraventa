@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - MCR Motors</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #1D1F23;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+
+        /* Estilos para impresión */
+        @media print {
+            body {
+                padding: 0;
+                font-size: 11pt;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            h1:first-of-type {
+                page-break-before: avoid;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .seccion {
+                page-break-inside: avoid;
+            }
+
+            img {
+                max-width: 100%;
+                page-break-inside: avoid;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Portada */
+        .portada {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 4px solid #2F67FF;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #0A1324 0%, #1D1F23 100%);
+            color: #fff;
+        }
+
+        .portada h1 {
+            font-size: 2.5em;
+            color: #2F67FF;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .portada .subtitulo {
+            font-size: 1.5em;
+            color: #CFD3D9;
+            margin-bottom: 30px;
+        }
+
+        .portada .info {
+            margin-top: 40px;
+            font-size: 1em;
+            color: #CFD3D9;
+        }
+
+        .portada .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Índice */
+        .indice {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 4px solid #2F67FF;
+        }
+
+        .indice h2 {
+            color: #0A1324;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .indice ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .indice li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .indice a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .indice a:hover {
+            color: #2F67FF;
+        }
+
+        /* Títulos */
+        h1 {
+            color: #0A1324;
+            font-size: 2em;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2F67FF;
+        }
+
+        h2 {
+            color: #0A1324;
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2F67FF;
+        }
+
+        h3 {
+            color: #1D1F23;
+            font-size: 1.2em;
+            margin: 20px 0 10px;
+        }
+
+        /* Párrafos */
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        /* Listas */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        /* Secciones */
+        .seccion {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .seccion-importante {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .seccion-nota {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #0A1324;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Pasos numerados */
+        .paso {
+            display: flex;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .paso-numero {
+            background: #2F67FF;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .paso-contenido {
+            flex: 1;
+        }
+
+        /* Botón de impresión */
+        .btn-imprimir {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2F67FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(47, 103, 255, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .btn-imprimir:hover {
+            background: #2556d6;
+            box-shadow: 0 4px 15px rgba(47, 103, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Iconos */
+        .icono {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Código */
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #2F67FF;
+            font-weight: 500;
+        }
+
+        /* Destacado */
+        .destacado {
+            background: #fff;
+            border: 2px solid #2F67FF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .destacado h3 {
+            color: #2F67FF;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-imprimir no-print" onclick="window.print()">🖨️ Imprimir Manual</button>
+
+    <div class="container">
+        <!-- PORTADA -->
+        <div class="portada">
+            <div style="font-size: 4em; color: #2F67FF; margin-bottom: 20px;">🚗</div>
+            <h1>MCR MOTORS</h1>
+            <div class="subtitulo">Manual de Usuario</div>
+            <div class="info">
+                <p><strong>Plataforma de Compraventa de Vehículos</strong></p>
+                <p>Versión 1.0 | Diciembre 2025</p>
+                <p>San Ciprián de Viñas, Galicia</p>
+            </div>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="indice">
+            <h2>📑 Índice de Contenidos</h2>
+            <ul>
+                <li><a href="#introduccion"><span>1. Introducción</span><span>pág. 1</span></a></li>
+                <li><a href="#primeros-pasos"><span>2. Primeros Pasos</span><span>pág. 2</span></a></li>
+                <li><a href="#navegacion"><span>3. Navegación por la Web</span><span>pág. 3</span></a></li>
+                <li><a href="#registro"><span>4. Registro de Usuario</span><span>pág. 4</span></a></li>
+                <li><a href="#buscar-vehiculos"><span>5. Buscar Vehículos</span><span>pág. 5</span></a></li>
+                <li><a href="#favoritos"><span>6. Gestión de Favoritos</span><span>pág. 6</span></a></li>
+                <li><a href="#contacto"><span>7. Contactar con el Concesionario</span><span>pág. 7</span></a></li>
+                <li><a href="#financiacion"><span>8. Financiación</span><span>pág. 8</span></a></li>
+                <li><a href="#faq"><span>9. Preguntas Frecuentes</span><span>pág. 9</span></a></li>
+                <li><a href="#soporte"><span>10. Soporte y Contacto</span><span>pág. 10</span></a></li>
+            </ul>
+        </div>
+
+        <!-- 1. INTRODUCCIÓN -->
+        <h1 id="introduccion">1. Introducción</h1>
+        
+        <p><strong>Bienvenido a MCR Motors</strong>, su concesionario de confianza en San Ciprián de Viñas, Galicia. Esta plataforma web ha sido diseñada para facilitar la búsqueda, selección y compra de vehículos de segunda mano de calidad.</p>
+
+        <div class="seccion">
+            <h3>¿Qué es MCR Motors?</h3>
+            <p>MCR Motors es una plataforma online que conecta a compradores con vehículos de segunda mano cuidadosamente seleccionados. Ofrecemos una amplia gama de marcas, modelos y precios adaptados a todas las necesidades.</p>
+        </div>
+
+        <div class="seccion">
+            <h3>Características Principales</h3>
+            <ul>
+                <li>✅ <strong>Catálogo actualizado</strong> con vehículos disponibles en tiempo real</li>
+                <li>✅ <strong>Búsqueda avanzada</strong> con múltiples filtros (marca, precio, año, etc.)</li>
+                <li>✅ <strong>Imágenes de alta calidad</strong> de cada vehículo</li>
+                <li>✅ <strong>Información detallada</strong> sobre características técnicas</li>
+                <li>✅ <strong>Sistema de favoritos</strong> para guardar vehículos de interés</li>
+                <li>✅ <strong>Formulario de contacto</strong> directo con el concesionario</li>
+                <li>✅ <strong>Información de financiación</strong> disponible</li>
+                <li>✅ <strong>Galería de vendidos</strong> para ver nuestra trayectoria</li>
+            </ul>
+        </div>
+
+        <div class="seccion-nota">
+            <strong>📌 Nota importante:</strong> Para acceder a todas las funcionalidades (como guardar favoritos), es necesario crear una cuenta de usuario. El registro es gratuito y solo toma unos segundos.
+        </div>
+
+        <!-- 2. PRIMEROS PASOS -->
+        <h1 id="primeros-pasos">2. Primeros Pasos</h1>
+
+        <h2>2.1. Acceso a la Plataforma</h2>
+        
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Abrir el navegador web</strong>
+                <p>Utilice un navegador moderno como Google Chrome, Mozilla Firefox, Microsoft Edge o Safari.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Escribir la dirección web</strong>
+                <p>En la barra de direcciones, escriba: <code>www.mcrmotors.com</code> (ejemplo) y presione Enter.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Pantalla de bienvenida</strong>
+                <p>Verá una pantalla de carga con el logo de MCR Motors durante unos segundos mientras se carga la página principal.</p>
+            </div>
+        </div>
+
+        <h2>2.2. Requisitos del Sistema</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Requisito Mínimo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Navegador Web</td>
+                    <td>Chrome 90+, Firefox 88+, Edge 90+, Safari 14+</td>
+                </tr>
+                <tr>
+                    <td>Conexión a Internet</td>
+                    <td>2 Mbps o superior</td>
+                </tr>
+                <tr>
+                    <td>Resolución de Pantalla</td>
+                    <td>1024x768 píxeles mínimo</td>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>Debe estar activado</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 3. NAVEGACIÓN -->
+        <h1 id="navegacion">3. Navegación por la Web</h1>
+
+        <h2>3.1. Estructura del Menú Principal</h2>
+
+        <p>La barra de navegación superior contiene las siguientes secciones:</p>
+
+        <div class="seccion">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>INICIO</strong></td>
+                        <td>Página principal con destacados y novedades</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VEHÍCULOS EN VENTA</strong></td>
+                        <td>Catálogo completo de vehículos disponibles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VENDIDOS</strong></td>
+                        <td>Galería de vehículos ya vendidos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FINANCIACIÓN</strong></td>
+                        <td>Información sobre opciones de financiación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CONTACTO</strong></td>
+                        <td>Formulario para contactar con el concesionario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>❤️ FAVORITOS</strong></td>
+                        <td>Vehículos guardados (requiere login)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>👤 MI CUENTA</strong></td>
+                        <td>Acceso al área de usuario</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>3.2. Barra Superior de Información</h2>
+
+        <p>En la parte superior de todas las páginas encontrará:</p>
+
+        <ul>
+            <li><strong>📞 Teléfono de contacto:</strong> 617700519 (directo a WhatsApp)</li>
+            <li><strong>📍 Ubicación:</strong> San Ciprián de Viñas, Galicia</li>
+            <li><strong>Redes sociales:</strong> Enlaces a Instagram, Wallapop y Coches.net</li>
+        </ul>
+
+        <h2>3.3. Página de Inicio</h2>
+
+        <p>La página principal incluye:</p>
+
+        <div class="seccion">
+            <ul>
+                <li><strong>Banner principal</strong> con mensaje de bienvenida</li>
+                <li><strong>Vehículos destacados</strong> seleccionados por el concesionario</li>
+                <li><strong>Sección "¿Por qué elegirnos?"</strong> con nuestras ventajas</li>
+                <li><strong>Estadísticas</strong> del negocio (años de experiencia, vehículos vendidos, etc.)</li>
+                <li><strong>Últimas novedades</strong> en el inventario</li>
+            </ul>
+        </div>
+
+        <!-- 4. REGISTRO -->
+        <h1 id="registro">4. Registro de Usuario</h1>
+
+        <div class="seccion-importante">
+            <strong>⚠️ Importante:</strong> Para acceder a funcionalidades como guardar favoritos y recibir notificaciones, debe crear una cuenta de usuario.
+        </div>
+
+        <h2>4.1. Crear una Nueva Cuenta</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder al formulario de registro</strong>
+                <p>Haga clic en el icono de usuario <strong>👤 MI CUENTA</strong> en el menú superior, luego seleccione <strong>"Registrarse"</strong>.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Completar el formulario</strong>
+                <p>Ingrese la siguiente información:</p>
+                <ul>
+                    <li><strong>Nombre completo:</strong> Su nombre y apellidos</li>
+                    <li><strong>Email:</strong> Dirección de correo electrónico válida</li>
+                    <li><strong>Teléfono:</strong> Número de contacto (opcional)</li>
+                    <li><strong>Contraseña:</strong> Mínimo 6 caracteres</li>
+                    <li><strong>Confirmar contraseña:</strong> Repetir la contraseña</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Aceptar términos y condiciones</strong>
+                <p>Marque la casilla para aceptar los términos y condiciones de uso.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">4</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Registrarse"</strong>
+                <p>Si todos los datos son correctos, su cuenta será creada inmediatamente.</p>
+            </div>
+        </div>
+
+        <div class="seccion-nota">
+            <strong>✅ Confirmación:</strong> Recibirá un mensaje de confirmación indicando que el registro fue exitoso y será redirigido automáticamente a la página principal con su sesión iniciada.
+        </div>
+
+        <h2>4.2. Iniciar Sesión</h2>
+
+        <p>Si ya tiene una cuenta creada:</p>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Ir a "Iniciar Sesión"</strong>
+                <p>Haga clic en <strong>👤 MI CUENTA</strong> → <strong>"Iniciar Sesión"</strong></p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Ingresar credenciales</strong>
+                <p>Escriba su <strong>email</strong> y <strong>contraseña</strong></p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Entrar"</strong>
+                <p>Si los datos son correctos, accederá a su cuenta.</p>
+            </div>
+        </div>
+
+        <h2>4.3. Cerrar Sesión</h2>
+
+        <p>Para cerrar sesión de forma segura:</p>
+        <ul>
+            <li>Haga clic en <strong>👤 MI CUENTA</strong> en el menú superior</li>
+            <li>Seleccione <strong>"Cerrar Sesión"</strong></li>
+        </ul>
+
+        <!-- 5. BUSCAR VEHÍCULOS -->
+        <h1 id="buscar-vehiculos">5. Buscar Vehículos</h1>
+
+        <h2>5.1. Acceder al Catálogo</h2>
+
+        <p>Para ver todos los vehículos disponibles:</p>
+        <ul>
+            <li>Haga clic en <strong>"VEHÍCULOS EN VENTA"</strong> en el menú principal</li>
+            <li>Verá una lista con todos los coches disponibles</li>
+        </ul>
+
+        <h2>5.2. Filtros de Búsqueda</h2>
+
+        <div class="seccion">
+            <p>Utilice los filtros en la parte superior para refinar su búsqueda:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Filtro</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Marca</strong></td>
+                        <td>Seleccione la marca del vehículo (Audi, BMW, Mercedes, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio</strong></td>
+                        <td>Defina un rango de precios (mínimo y máximo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Año</strong></td>
+                        <td>Filtre por año de fabricación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kilómetros</strong></td>
+                        <td>Establezca un rango de kilometraje</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Combustible</strong></td>
+                        <td>Gasolina, Diésel, Híbrido, Eléctrico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transmisión</strong></td>
+                        <td>Manual o Automático</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Seleccionar filtros</strong>
+                <p>Elija los criterios que desee en los desplegables y campos de texto.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en "Buscar"</strong>
+                <p>La página se actualizará mostrando solo los vehículos que cumplan con sus criterios.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Limpiar filtros</strong>
+                <p>Para ver todos los vehículos nuevamente, haga clic en <strong>"Limpiar Filtros"</strong>.</p>
+            </div>
+        </div>
+
+        <h2>5.3. Ver Detalles de un Vehículo</h2>
+
+        <p>Para obtener información completa sobre un vehículo específico:</p>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en el vehículo</strong>
+                <p>Haga clic sobre la imagen o el botón <strong>"Ver Detalles"</strong></p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Revisar la información</strong>
+                <p>Se abrirá una ventana emergente con:</p>
+                <ul>
+                    <li>Galería de imágenes del vehículo</li>
+                    <li>Precio y detalles principales</li>
+                    <li>Características completas</li>
+                    <li>Descripción detallada</li>
+                    <li>Botones para contactar o guardar en favoritos</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>5.4. Ordenar Resultados</h2>
+
+        <p>Puede ordenar los vehículos por:</p>
+        <ul>
+            <li><strong>Precio:</strong> De menor a mayor o de mayor a menor</li>
+            <li><strong>Año:</strong> Más nuevos primero o más antiguos primero</li>
+            <li><strong>Kilómetros:</strong> Menos kilómetros primero</li>
+            <li><strong>Fecha de publicación:</strong> Novedades primero</li>
+        </ul>
+
+        <!-- 6. FAVORITOS -->
+        <h1 id="favoritos">6. Gestión de Favoritos</h1>
+
+        <div class="seccion-importante">
+            <strong>⚠️ Requisito:</strong> Debe haber iniciado sesión para usar esta funcionalidad.
+        </div>
+
+        <h2>6.1. Añadir un Vehículo a Favoritos</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Localizar el vehículo</strong>
+                <p>Navegue por el catálogo y encuentre el vehículo de su interés.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Hacer clic en el corazón ❤️</strong>
+                <p>Puede hacerlo desde la lista de vehículos o desde la ventana de detalles.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Confirmación</strong>
+                <p>El corazón se llenará de color rojo indicando que se guardó en favoritos.</p>
+            </div>
+        </div>
+
+        <h2>6.2. Ver Mi Lista de Favoritos</h2>
+
+        <ul>
+            <li>Haga clic en <strong>❤️ FAVORITOS</strong> en el menú superior</li>
+            <li>Verá todos los vehículos que ha guardado</li>
+            <li>Puede acceder a los detalles de cada uno</li>
+        </ul>
+
+        <h2>6.3. Eliminar un Favorito</h2>
+
+        <p>Para quitar un vehículo de favoritos:</p>
+        <ul>
+            <li>En la página de favoritos, haga clic en el corazón rojo ❤️</li>
+            <li>O desde la ficha del vehículo, vuelva a hacer clic en el corazón</li>
+            <li>El vehículo será eliminado de su lista</li>
+        </ul>
+
+        <div class="seccion-nota">
+            <strong>💡 Consejo:</strong> Use favoritos para comparar varios vehículos y tomar una decisión informada. Puede guardar todos los que desee.
+        </div>
+
+        <!-- 7. CONTACTO -->
+        <h1 id="contacto">7. Contactar con el Concesionario</h1>
+
+        <h2>7.1. Formulario de Contacto</h2>
+
+        <p>Para enviar una consulta general o solicitar información sobre un vehículo:</p>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Ir a "CONTACTO"</strong>
+                <p>Haga clic en <strong>CONTACTO</strong> en el menú principal.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Completar el formulario</strong>
+                <p>Proporcione la siguiente información:</p>
+                <ul>
+                    <li><strong>Nombre:</strong> Su nombre completo</li>
+                    <li><strong>Email:</strong> Su dirección de correo</li>
+                    <li><strong>Teléfono:</strong> Su número de contacto</li>
+                    <li><strong>Asunto:</strong> Motivo de su consulta</li>
+                    <li><strong>Mensaje:</strong> Escriba su consulta detalladamente</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">3</div>
+            <div class="paso-contenido">
+                <strong>Enviar mensaje</strong>
+                <p>Haga clic en <strong>"Enviar Mensaje"</strong>. Recibirá una confirmación y el concesionario se pondrá en contacto con usted lo antes posible.</p>
+            </div>
+        </div>
+
+        <h2>7.2. WhatsApp Directo</h2>
+
+        <div class="destacado">
+            <h3>📱 Contacto Rápido por WhatsApp</h3>
+            <p>Para una respuesta más rápida, puede contactar directamente por WhatsApp:</p>
+            <ul>
+                <li>Haga clic en el icono de teléfono en la barra superior: <strong>📞 617700519</strong></li>
+                <li>O desde la ficha de un vehículo, haga clic en <strong>"Contactar por WhatsApp"</strong></li>
+                <li>Se abrirá WhatsApp con un mensaje predefinido sobre el vehículo que le interesa</li>
+            </ul>
+        </div>
+
+        <h2>7.3. Ubicación y Visita</h2>
+
+        <p>Si desea visitar el concesionario físicamente:</p>
+
+        <div class="seccion">
+            <p><strong>📍 Dirección:</strong><br>
+            San Ciprián de Viñas<br>
+            Galicia, España</p>
+
+            <p><strong>🕒 Horario:</strong><br>
+            (Consultar horarios actualizados por teléfono)</p>
+
+            <p><strong>🗺️ Cómo llegar:</strong><br>
+            Haga clic en el icono de ubicación en la barra superior para abrir Google Maps con indicaciones.</p>
+        </div>
+
+        <!-- 8. FINANCIACIÓN -->
+        <h1 id="financiacion">8. Financiación</h1>
+
+        <h2>8.1. Opciones de Financiación</h2>
+
+        <p>MCR Motors ofrece diferentes opciones de financiación para facilitarle la compra de su vehículo:</p>
+
+        <div class="seccion">
+            <ul>
+                <li>✅ <strong>Financiación personalizada</strong> adaptada a su capacidad de pago</li>
+                <li>✅ <strong>Plazos flexibles</strong> de hasta 84 meses</li>
+                <li>✅ <strong>Entrada flexible</strong> o sin entrada</li>
+                <li>✅ <strong>Respuesta rápida</strong> a su solicitud</li>
+                <li>✅ <strong>Tipos de interés competitivos</strong></li>
+            </ul>
+        </div>
+
+        <h2>8.2. Ver Información de Financiación</h2>
+
+        <div class="paso">
+            <div class="paso-numero">1</div>
+            <div class="paso-contenido">
+                <strong>Acceder a la sección</strong>
+                <p>Haga clic en <strong>FINANCIACIÓN</strong> en el menú principal.</p>
+            </div>
+        </div>
+
+        <div class="paso">
+            <div class="paso-numero">2</div>
+            <div class="paso-contenido">
+                <strong>Revisar las condiciones</strong>
+                <p>Encontrará información sobre planes de financiación disponibles, requisitos y ejemplos de cuotas.</p>
+            </div>
+        </div>
+
+        <h2>8.3. Solicitar Financiación</h2>
+
+        <p>Para solicitar financiación para un vehículo específico:</p>
+
+        <ul>
+            <li>Desde la ficha del vehículo, haga clic en <strong>"Solicitar Financiación"</strong></li>
+            <li>O contacte directamente por WhatsApp/teléfono indicando que desea financiar</li>
+            <li>Un asesor le contactará para estudiar su caso</li>
+        </ul>
+
+        <div class="seccion-nota">
+            <strong>📋 Documentación necesaria:</strong>
+            <ul>
+                <li>DNI/NIE en vigor</li>
+                <li>Últimas 3 nóminas o declaración de la renta</li>
+                <li>Número de cuenta bancaria</li>
+            </ul>
+        </div>
+
+        <!-- 9. FAQ -->
+        <h1 id="faq">9. Preguntas Frecuentes</h1>
+
+        <h2>¿Cómo puedo reservar un vehículo?</h2>
+        <p>Contacte con nosotros por WhatsApp o teléfono indicando el vehículo que le interesa. Le informaremos sobre el proceso de reserva.</p>
+
+        <h2>¿Puedo hacer una prueba de conducción?</h2>
+        <p>Sí, todos nuestros vehículos están disponibles para prueba. Contacte con nosotros para concertar una cita.</p>
+
+        <h2>¿Los vehículos tienen garantía?</h2>
+        <p>Sí, todos nuestros vehículos incluyen garantía. Las condiciones específicas se detallan en cada vehículo.</p>
+
+        <h2>¿Aceptan vehículos como forma de pago?</h2>
+        <p>Sí, valoramos su vehículo usado como parte del pago. Contacte con nosotros para una tasación.</p>
+
+        <h2>¿Puedo ver el historial del vehículo?</h2>
+        <p>Sí, proporcionamos el informe completo del historial del vehículo incluyendo ITV, mantenimientos y estado.</p>
+
+        <h2>¿Realizan envíos a otras provincias?</h2>
+        <p>Sí, podemos gestionar el transporte del vehículo a cualquier punto de España. Consulte condiciones.</p>
+
+        <h2>¿Cómo actualizo mis datos de usuario?</h2>
+        <p>Actualmente debe contactar con nosotros para actualizar sus datos. Próximamente estará disponible desde su perfil.</p>
+
+        <h2>¿Puedo eliminar mi cuenta?</h2>
+        <p>Sí, contacte con nosotros y procederemos a eliminar su cuenta y todos sus datos personales.</p>
+
+        <h2>¿Con qué frecuencia se actualiza el catálogo?</h2>
+        <p>El catálogo se actualiza diariamente. Los vehículos vendidos se marcan automáticamente y se mueven a la galería de vendidos.</p>
+
+        <h2>¿Puedo visitar el concesionario sin cita previa?</h2>
+        <p>Sí, aunque recomendamos concertar cita para asegurar una atención personalizada.</p>
+
+        <!-- 10. SOPORTE -->
+        <h1 id="soporte">10. Soporte y Contacto</h1>
+
+        <h2>10.1. Canales de Atención</h2>
+
+        <div class="destacado">
+            <h3>📞 Teléfono / WhatsApp</h3>
+            <p><strong>617700519</strong></p>
+            <p>Horario: Lunes a Viernes de 9:00 a 20:00h | Sábados de 10:00 a 14:00h</p>
+        </div>
+
+        <div class="destacado">
+            <h3>📧 Email</h3>
+            <p><strong>info@mcrmotors.com</strong></p>
+            <p>Respuesta en 24-48 horas laborables</p>
+        </div>
+
+        <div class="destacado">
+            <h3>📍 Visita Presencial</h3>
+            <p><strong>San Ciprián de Viñas, Galicia</strong></p>
+            <p>Recomendamos concertar cita previa</p>
+        </div>
+
+        <h2>10.2. Redes Sociales</h2>
+
+        <p>Síguenos en nuestras redes sociales para estar al día de novedades:</p>
+
+        <ul>
+            <li><strong>Instagram:</strong> @marcos_pepin</li>
+            <li><strong>Wallapop:</strong> pepinairlines</li>
+            <li><strong>Coches.net:</strong> GRM Motorsport</li>
+        </ul>
+
+        <h2>10.3. Problemas Técnicos</h2>
+
+        <p>Si experimenta algún problema técnico con la página web:</p>
+
+        <ul>
+            <li>Asegúrese de tener una conexión a Internet estable</li>
+            <li>Actualice la página (F5 o Ctrl+R)</li>
+            <li>Borre la caché y cookies del navegador</li>
+            <li>Pruebe con otro navegador</li>
+            <li>Si el problema persiste, contacte con nosotros indicando el error específico</li>
+        </ul>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>MCR Motors</strong> | Tu concesionario de confianza en San Ciprián de Viñas, Galicia</p>
+            <p>📞 617700519 | 📍 San Ciprián de Viñas | 📧 info@mcrmotors.com</p>
+            <p style="margin-top: 20px; font-size: 0.8em;">Manual de Usuario v1.0 | Diciembre 2025</p>
+            <p style="font-size: 0.8em;">© 2025 MCR Motors. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad para el botón de impresión
+        window.onload = function() {
+            console.log('Manual de Usuario MCR Motors cargado correctamente');
+        };
+    </script>
+</body>
+</html>

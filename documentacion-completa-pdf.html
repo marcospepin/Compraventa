@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Completa - MCR Motors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; line-height: 1.6; color: #1D1F23; background: white; font-size: 11pt; }
+        .container { max-width: 21cm; margin: 0 auto; padding: 1cm; }
+        .cover-page { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #0A1324 0%, #2F67FF 100%); color: white; page-break-after: always; margin: -1cm; padding: 2cm; }
+        .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 800; }
+        .cover-page .subtitle { font-size: 2em; margin-bottom: 30px; }
+        .cover-page .info { font-size: 1.2em; margin: 10px 0; }
+        .toc { page-break-after: always; padding: 20px 0; }
+        .toc h2 { color: #0A1324; font-size: 2em; margin-bottom: 30px; border-bottom: 3px solid #2F67FF; padding-bottom: 10px; }
+        .toc-item { margin: 15px 0; padding-left: 20px; }
+        .toc-item.level-1 { font-weight: 600; font-size: 1.2em; color: #0A1324; margin-top: 25px; }
+        .toc-item.level-2 { padding-left: 40px; font-size: 1em; color: #2F67FF; }
+        h1 { color: #0A1324; font-size: 2.5em; margin: 40px 0 20px; padding-top: 20px; border-top: 4px solid #2F67FF; page-break-before: always; }
+        h1:first-of-type { page-break-before: avoid; }
+        h2 { color: #0A1324; font-size: 2em; margin: 30px 0 15px; border-left: 5px solid #2F67FF; padding-left: 15px; }
+        h3 { color: #2F67FF; font-size: 1.5em; margin: 25px 0 12px; }
+        h4 { color: #0A1324; font-size: 1.2em; margin: 20px 0 10px; font-weight: 600; }
+        p { margin: 12px 0; text-align: justify; line-height: 1.8; }
+        ul, ol { margin: 15px 0 15px 30px; }
+        li { margin: 8px 0; }
+        strong { color: #0A1324; font-weight: 600; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; page-break-inside: avoid; }
+        th { background: #0A1324; color: white; padding: 12px; text-align: left; font-weight: 600; border: 1px solid #ddd; }
+        td { padding: 10px 12px; border: 1px solid #ddd; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        code { background: #f8f9fa; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.95em; color: #2F67FF; }
+        .info-box { background: #f8f9fa; border-left: 4px solid #2F67FF; padding: 20px; margin: 20px 0; page-break-inside: avoid; }
+        .success-box { background: #d4edda; border-left: 4px solid #28a745; padding: 20px; margin: 20px 0; page-break-inside: avoid; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 25px 0; page-break-inside: avoid; }
+        .stat-card { background: #f8f9fa; border: 2px solid #2F67FF; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 2em; font-weight: 700; color: #2F67FF; display: block; margin: 10px 0; }
+        .stat-label { font-size: 0.9em; color: #666; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85em; font-weight: 600; margin-right: 6px; margin-bottom: 6px; }
+        .badge-primary { background: #2F67FF; color: white; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #1D1F23; }
+        .badge-info { background: #17a2b8; color: white; }
+        .diagram-container { margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 2px solid #2F67FF; page-break-inside: avoid; }
+        .diagram-title { font-size: 1.1em; font-weight: 600; color: #0A1324; margin-bottom: 15px; text-align: center; }
+        .mermaid { text-align: center; }
+        .page-footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #2F67FF; text-align: center; font-size: 0.9em; color: #666; page-break-before: always; }
+        @media print {
+            body { font-size: 10pt; }
+            .container { max-width: 100%; margin: 0; padding: 0; }
+            h1 { page-break-before: always; }
+            h1:first-of-type { page-break-before: avoid; }
+            h2, h3, h4 { page-break-after: avoid; }
+            table, .info-box, .success-box, .diagram-container { page-break-inside: avoid; }
+            a { color: #2F67FF; text-decoration: none; }
+        }
+        @page { margin: 2cm; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- PORTADA -->
+        <div class="cover-page">
+            <h1>📚 DOCUMENTACIÓN COMPLETA</h1>
+            <div class="subtitle">MCR MOTORS</div>
+            <div class="info">
+                <p>Proyecto Final - Ciclo Formativo de Grado Superior</p>
+                <p>Desarrollo de Aplicaciones Web</p>
+            </div>
+            <div class="info" style="margin-top: 40px;">
+                <p><strong>Plataforma de Compraventa de Vehículos de Alta Gama</strong></p>
+            </div>
+            <div class="info" style="margin-top: 40px; opacity: 0.8;">
+                <p>Versión 1.0 | Diciembre 2025</p>
+                <p>Autor: Marcos Gómez Martínez</p>
+            </div>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="toc">
+            <h2>📑 ÍNDICE DE CONTENIDOS</h2>
+            <div class="toc-item level-1">1. RESUMEN EJECUTIVO</div>
+            <div class="toc-item level-2">1.1. Sobre el Proyecto</div>
+            <div class="toc-item level-2">1.2. Objetivos y Stack Tecnológico</div>
+            <div class="toc-item level-1">2. DOCUMENTACIÓN DEL PROYECTO</div>
+            <div class="toc-item level-2">2.1. Anteproyecto y Estudio Preliminar</div>
+            <div class="toc-item level-2">2.2. Análisis de Requerimientos</div>
+            <div class="toc-item level-2">2.3. Planificación y Presupuesto</div>
+            <div class="toc-item level-1">3. DOCUMENTACIÓN TÉCNICA</div>
+            <div class="toc-item level-2">3.1. Diseño del Sistema</div>
+            <div class="toc-item level-2">3.2. Modelo de Datos</div>
+            <div class="toc-item level-2">3.3. Desarrollo y Pruebas</div>
+            <div class="toc-item level-1">4. MANUALES</div>
+            <div class="toc-item level-1">5. DIAGRAMAS TÉCNICOS</div>
+            <div class="toc-item level-1">6. RECURSOS Y REFERENCIAS</div>
+        </div>
+
+        <!-- SECCIÓN 1 -->
+        <h1>1. RESUMEN EJECUTIVO</h1>
+
+        <h2>1.1. Sobre el Proyecto</h2>
+        <p><strong>MCR Motors</strong> es una aplicación web completa de compraventa de vehículos de alta gama y deportivos, desarrollada como Proyecto Final de Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web.</p>
+        <p>La plataforma conecta compradores interesados en vehículos premium con un concesionario especializado, ofreciendo una experiencia digital moderna, intuitiva y profesional.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-number">15</span><span class="stat-label">Semanas de Desarrollo</span></div>
+            <div class="stat-card"><span class="stat-number">9</span><span class="stat-label">Documentos Técnicos</span></div>
+            <div class="stat-card"><span class="stat-number">10+</span><span class="stat-label">Tecnologías Usadas</span></div>
+            <div class="stat-card"><span class="stat-number">4</span><span class="stat-label">Tablas de BD</span></div>
+        </div>
+
+        <h2>1.2. Objetivos y Stack Tecnológico</h2>
+
+        <h3>Objetivos Principales</h3>
+        <ul>
+            <li>✅ Crear plataforma web profesional para vehículos premium</li>
+            <li>✅ Implementar sistema de gestión de inventario</li>
+            <li>✅ Ofrecer experiencia de usuario moderna y responsive</li>
+            <li>✅ Facilitar contacto directo con el concesionario</li>
+            <li>✅ Cumplir con normativa de protección de datos</li>
+        </ul>
+
+        <div class="info-box">
+            <h4>Stack Tecnológico:</h4>
+            <p>
+                <span class="badge badge-primary">HTML5</span>
+                <span class="badge badge-primary">CSS3</span>
+                <span class="badge badge-primary">JavaScript ES6+</span>
+                <span class="badge badge-primary">PHP 7.4+</span>
+                <span class="badge badge-primary">MySQL 8.0</span>
+                <span class="badge badge-info">Bootstrap 5</span>
+                <span class="badge badge-info">Font Awesome</span>
+                <span class="badge badge-success">Apache 2.4</span>
+                <span class="badge badge-success">XAMPP</span>
+                <span class="badge badge-warning">Git/GitHub</span>
+            </p>
+        </div>
+
+        <h3>Destinatarios</h3>
+        <p><strong>Usuarios/Clientes:</strong> Personas de 25-55 años con poder adquisitivo medio-alto, interesadas en vehículos deportivos, de alta gama o clásicos.</p>
+        <p><strong>Administradores:</strong> Personal del concesionario que gestiona el inventario, publica nuevos vehículos y administra el contenido de la plataforma.</p>
+
+        <!-- SECCIÓN 2 -->
+        <h1>2. DOCUMENTACIÓN DEL PROYECTO</h1>
+
+        <h2>2.1. Anteproyecto y Estudio Preliminar</h2>
+
+        <h3>Anteproyecto</h3>
+        <p>Define en qué consiste el proyecto, las motivaciones, el contexto y el modelo de negocio.</p>
+        <ul>
+            <li><strong>Descripción:</strong> Plataforma web de compraventa de vehículos premium</li>
+            <li><strong>Contexto:</strong> Sector automoción alta gama en Galicia</li>
+            <li><strong>Público objetivo:</strong> 25-55 años, poder adquisitivo medio-alto</li>
+            <li><strong>Competencia:</strong> Coches.net, Wallapop, AutoScout24</li>
+            <li><strong>Oportunidad:</strong> Combinar presencia propia con plataformas terceras</li>
+        </ul>
+
+        <h3>Estudio Preliminar - Funcionalidades</h3>
+        <ul>
+            <li>Catálogo de vehículos con búsqueda y filtros avanzados</li>
+            <li>Sistema de registro y autenticación de usuarios</li>
+            <li>Gestión de vehículos favoritos</li>
+            <li>Panel de administración completo</li>
+            <li>Formulario de contacto directo</li>
+            <li>Información sobre financiación</li>
+            <li>Galería de vehículos vendidos</li>
+        </ul>
+
+        <h2>2.2. Análisis de Requerimientos</h2>
+
+        <h3>Requisitos Funcionales Principales (16 totales)</h3>
+        <ol>
+            <li>Visualizar catálogo de vehículos disponibles</li>
+            <li>Buscar y filtrar vehículos por múltiples criterios</li>
+            <li>Ver detalles completos de cada vehículo</li>
+            <li>Registrarse e iniciar sesión</li>
+            <li>Guardar vehículos en favoritos</li>
+            <li>Contactar con el concesionario</li>
+            <li>Ver información sobre financiación</li>
+            <li>Administrar vehículos (CRUD completo)</li>
+            <li>Subir y gestionar imágenes</li>
+            <li>Ver estadísticas en dashboard</li>
+            <li>Marcar vehículos como vendidos</li>
+            <li>Y más...</li>
+        </ol>
+
+        <div class="info-box">
+            <h4>Normativa Aplicable:</h4>
+            <ul>
+                <li><strong>LOPDGDD:</strong> Ley Orgánica de Protección de Datos</li>
+                <li><strong>GDPR:</strong> Reglamento General de Protección de Datos UE</li>
+                <li><strong>LSSI:</strong> Ley de Servicios de la Sociedad de la Información</li>
+            </ul>
+        </div>
+
+        <h2>2.3. Planificación y Presupuesto</h2>
+
+        <h3>Planificación - 15 semanas (15 Enero - 30 Abril 2025)</h3>
+        <table>
+            <thead><tr><th>Fase</th><th>Duración</th><th>Actividades Principales</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Fase 1: Análisis</strong></td><td>2 semanas</td><td>Requisitos, alcance, tecnologías</td></tr>
+                <tr><td><strong>Fase 2: Diseño</strong></td><td>3 semanas</td><td>BD, wireframes, arquitectura, UI</td></tr>
+                <tr><td><strong>Fase 3: Desarrollo</strong></td><td>7 semanas</td><td>Frontend, backend, integración</td></tr>
+                <tr><td><strong>Fase 4: Pruebas</strong></td><td>2 semanas</td><td>Funcionales, usabilidad, seguridad</td></tr>
+                <tr><td><strong>Fase 5: Despliegue</strong></td><td>1 semana</td><td>Servidor, migración, documentación</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Presupuesto y Viabilidad</h3>
+        <table>
+            <thead><tr><th>Concepto</th><th style="text-align: right;">Importe</th></tr></thead>
+            <tbody>
+                <tr><td><strong>INVERSIÓN INICIAL TOTAL</strong></td><td style="text-align: right;"><strong>18.062 €</strong></td></tr>
+                <tr><td>Hardware y equipamiento</td><td style="text-align: right;">2.500 €</td></tr>
+                <tr><td>Desarrollo y programación</td><td style="text-align: right;">12.000 €</td></tr>
+                <tr><td>Diseño gráfico y marketing</td><td style="text-align: right;">2.362 €</td></tr>
+                <tr><td>Software y licencias</td><td style="text-align: right;">1.200 €</td></tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead><tr><th>Concepto</th><th style="text-align: right;">Anual</th></tr></thead>
+            <tbody>
+                <tr><td><strong>COSTES DE EXPLOTACIÓN</strong></td><td style="text-align: right;"><strong>6.092 €</strong></td></tr>
+                <tr><td><strong>INGRESOS ESTIMADOS</strong></td><td style="text-align: right;"><strong>12.450 €</strong></td></tr>
+            </tbody>
+        </table>
+
+        <div class="success-box">
+            <h4>✅ ANÁLISIS DE RENTABILIDAD</h4>
+            <ul>
+                <li><strong>Beneficio Neto Anual:</strong> 6.358 €</li>
+                <li><strong>Período de Retorno (Payback):</strong> 2,84 años</li>
+                <li><strong>ROI a 5 años:</strong> +76,2%</li>
+                <li><strong>Conclusión:</strong> PROYECTO VIABLE económicamente</li>
+            </ul>
+        </div>
+
+        <!-- SECCIÓN 3 -->
+        <h1>3. DOCUMENTACIÓN TÉCNICA</h1>
+
+        <h2>3.1. Diseño del Sistema</h2>
+
+        <h3>Arquitectura de Tres Capas</h3>
+        <div class="info-box">
+            <ul>
+                <li><strong>Capa de Presentación:</strong> HTML5, CSS3, JavaScript ES6+, Bootstrap 5</li>
+                <li><strong>Capa de Negocio:</strong> PHP 7.4+ con lógica de aplicación</li>
+                <li><strong>Capa de Datos:</strong> MySQL 8.0 con estructura relacional</li>
+            </ul>
+        </div>
+
+        <h3>Patrón de Diseño MVC</h3>
+        <p>El sistema implementa una variante del patrón Modelo-Vista-Controlador:</p>
+        <ul>
+            <li><strong>Modelo:</strong> Scripts PHP que interactúan con la base de datos (vehiculos.php, auth.php, favoritos.php)</li>
+            <li><strong>Vista:</strong> Archivos HTML que presentan la información al usuario</li>
+            <li><strong>Controlador:</strong> JavaScript que gestiona la interacción usuario-sistema y comunica vista con modelo vía AJAX</li>
+        </ul>
+
+        <h3>Estructura de Archivos del Proyecto</h3>
+        <div class="info-box">
+            <pre style="background: white; padding: 15px; border-radius: 5px; overflow-x: auto;">
+Compraventa/
+├── index.html                 # Página principal
+├── coches-venta.html         # Catálogo de vehículos
+├── coches-vendidos.html      # Galería de vendidos
+├── registro.html             # Formulario de registro
+├── login.html                # Acceso al sistema
+├── favoritos.html            # Lista de favoritos
+├── contacto.html             # Formulario de contacto
+├── financiacion.html         # Información de financiación
+├── admin.html                # Panel de administración
+├── css/
+│   └── style.css             # Estilos personalizados (1500+ líneas)
+├── js/
+│   ├── script.js             # Funciones globales
+│   └── vehiculos.js          # Gestión de vehículos
+├── php/
+│   ├── config.php            # Configuración de BD
+│   ├── auth.php              # Autenticación y sesiones
+│   ├── vehiculos.php         # API REST vehículos
+│   ├── favoritos.php         # Gestión de favoritos
+│   └── send_email.php        # Envío de correos
+├── uploads/
+│   └── vehiculos/            # Imágenes de vehículos
+├── images/
+│   └── logo-ppal.png         # Logo corporativo
+└── docs/                     # Documentación markdown
+            </pre>
+        </div>
+
+        <h3>Base de Datos - 4 Tablas Principales</h3>
+        <table>
+            <thead><tr><th>Tabla</th><th>Descripción</th><th>Relaciones</th></tr></thead>
+            <tbody>
+                <tr><td><code>usuarios</code></td><td>Clientes y administradores del sistema</td><td>→ favoritos (1:N)</td></tr>
+                <tr><td><code>vehiculos</code></td><td>Información completa de cada vehículo</td><td>→ imagenes (1:N), → favoritos (1:N)</td></tr>
+                <tr><td><code>imagenes</code></td><td>Fotografías de los vehículos</td><td>← vehiculos (N:1)</td></tr>
+                <tr><td><code>favoritos</code></td><td>Relación usuarios-vehículos favoritos</td><td>← usuarios (N:1), ← vehiculos (N:1)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>3.2. Guía de Estilos Completa</h2>
+
+        <h3>Sistema de Colores Corporativos</h3>
+        <table>
+            <thead><tr><th>Color</th><th>Código HEX</th><th>Uso Principal</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Azul Principal</strong></td><td>#2F67FF</td><td>Botones CTA, enlaces, elementos interactivos</td><td style="background: #2F67FF; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Azul Oscuro</strong></td><td>#0A1324</td><td>Encabezados, fondos de header/footer</td><td style="background: #0A1324; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Gris Carbón</strong></td><td>#1D1F23</td><td>Texto principal, contenido</td><td style="background: #1D1F23; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Plata</strong></td><td>#CFD3D9</td><td>Texto secundario, bordes sutiles</td><td style="background: #CFD3D9; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Verde Éxito</strong></td><td>#28a745</td><td>Mensajes de éxito, confirmaciones</td><td style="background: #28a745; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Rojo Peligro</strong></td><td>#dc3545</td><td>Errores, advertencias, eliminación</td><td style="background: #dc3545; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Amarillo Advertencia</strong></td><td>#ffc107</td><td>Alertas, información importante</td><td style="background: #ffc107; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Azul Info</strong></td><td>#17a2b8</td><td>Información adicional, tooltips</td><td style="background: #17a2b8; color: white; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Blanco</strong></td><td>#FFFFFF</td><td>Fondos de contenido, tarjetas</td><td style="background: #FFFFFF; border: 1px solid #ddd; text-align: center;">Muestra</td></tr>
+                <tr><td><strong>Gris Claro</strong></td><td>#f8f9fa</td><td>Fondos alternativos, separadores</td><td style="background: #f8f9fa; border: 1px solid #ddd; text-align: center;">Muestra</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Tipografía y Jerarquía Visual</h3>
+        
+        <h4>Familia Tipográfica</h4>
+        <p><strong>Montserrat</strong> (Google Fonts) - Tipografía sans-serif moderna y profesional</p>
+        
+        <table>
+            <thead><tr><th>Peso</th><th>Uso</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+                <tr><td>300 - Light</td><td>Texto descriptivo, subtítulos secundarios</td><td style="font-weight: 300;">The quick brown fox</td></tr>
+                <tr><td>400 - Regular</td><td>Texto de cuerpo, párrafos</td><td style="font-weight: 400;">The quick brown fox</td></tr>
+                <tr><td>500 - Medium</td><td>Navegación, etiquetas</td><td style="font-weight: 500;">The quick brown fox</td></tr>
+                <tr><td>600 - SemiBold</td><td>Subtítulos, destacados</td><td style="font-weight: 600;">The quick brown fox</td></tr>
+                <tr><td>700 - Bold</td><td>Títulos secundarios</td><td style="font-weight: 700;">The quick brown fox</td></tr>
+                <tr><td>800 - ExtraBold</td><td>Títulos principales, hero</td><td style="font-weight: 800;">The quick brown fox</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Escala Tipográfica</h4>
+        <table>
+            <thead><tr><th>Elemento</th><th>Tamaño</th><th>Peso</th><th>Line Height</th></tr></thead>
+            <tbody>
+                <tr><td>H1 - Título Principal</td><td>2.5em (40px)</td><td>800</td><td>1.2</td></tr>
+                <tr><td>H2 - Título Sección</td><td>2em (32px)</td><td>700</td><td>1.3</td></tr>
+                <tr><td>H3 - Subtítulo</td><td>1.5em (24px)</td><td>600</td><td>1.4</td></tr>
+                <tr><td>H4 - Subtítulo Menor</td><td>1.2em (19.2px)</td><td>600</td><td>1.4</td></tr>
+                <tr><td>Párrafo Normal</td><td>1em (16px)</td><td>400</td><td>1.6</td></tr>
+                <tr><td>Texto Pequeño</td><td>0.875em (14px)</td><td>400</td><td>1.5</td></tr>
+                <tr><td>Texto Muy Pequeño</td><td>0.75em (12px)</td><td>400</td><td>1.4</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Espaciado y Layout</h3>
+        
+        <h4>Sistema de Espaciado (basado en 8px)</h4>
+        <table>
+            <thead><tr><th>Nombre</th><th>Valor</th><th>Uso</th></tr></thead>
+            <tbody>
+                <tr><td>XS</td><td>4px (0.25rem)</td><td>Espaciado mínimo entre elementos muy relacionados</td></tr>
+                <tr><td>SM</td><td>8px (0.5rem)</td><td>Padding interno de elementos pequeños</td></tr>
+                <tr><td>MD</td><td>16px (1rem)</td><td>Espaciado estándar entre elementos</td></tr>
+                <tr><td>LG</td><td>24px (1.5rem)</td><td>Separación entre secciones pequeñas</td></tr>
+                <tr><td>XL</td><td>32px (2rem)</td><td>Separación entre secciones principales</td></tr>
+                <tr><td>XXL</td><td>48px (3rem)</td><td>Separación entre bloques grandes</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Breakpoints Responsive</h4>
+        <table>
+            <thead><tr><th>Tamaño</th><th>Ancho Mínimo</th><th>Dispositivos Típicos</th></tr></thead>
+            <tbody>
+                <tr><td>XS (Extra Small)</td><td>< 576px</td><td>Móviles pequeños (portrait)</td></tr>
+                <tr><td>SM (Small)</td><td>≥ 576px</td><td>Móviles grandes, phablets</td></tr>
+                <tr><td>MD (Medium)</td><td>≥ 768px</td><td>Tablets (portrait)</td></tr>
+                <tr><td>LG (Large)</td><td>≥ 992px</td><td>Tablets (landscape), escritorio pequeño</td></tr>
+                <tr><td>XL (Extra Large)</td><td>≥ 1200px</td><td>Escritorio estándar</td></tr>
+                <tr><td>XXL (Extra Extra Large)</td><td>≥ 1400px</td><td>Pantallas grandes, monitores 4K</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Componentes UI</h3>
+
+        <h4>Botones</h4>
+        <table>
+            <thead><tr><th>Tipo</th><th>Color Fondo</th><th>Uso</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Primary</strong></td><td>#2F67FF</td><td>Acción principal (Guardar, Enviar, Publicar)</td></tr>
+                <tr><td><strong>Secondary</strong></td><td>#6c757d</td><td>Acción secundaria (Cancelar, Volver)</td></tr>
+                <tr><td><strong>Success</strong></td><td>#28a745</td><td>Confirmación positiva (Confirmar, Aceptar)</td></tr>
+                <tr><td><strong>Danger</strong></td><td>#dc3545</td><td>Acciones destructivas (Eliminar, Borrar)</td></tr>
+                <tr><td><strong>Warning</strong></td><td>#ffc107</td><td>Advertencias (Marcar vendido)</td></tr>
+                <tr><td><strong>Info</strong></td><td>#17a2b8</td><td>Información (Ver detalles)</td></tr>
+                <tr><td><strong>Outline</strong></td><td>Transparente</td><td>Acciones terciarias, menos prominentes</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Tarjetas (Cards)</h4>
+        <ul>
+            <li><strong>Border Radius:</strong> 8px para esquinas suaves</li>
+            <li><strong>Box Shadow:</strong> 0 2px 8px rgba(0,0,0,0.1) para elevación sutil</li>
+            <li><strong>Padding:</strong> 20px (LG) en todos los lados</li>
+            <li><strong>Hover Effect:</strong> Transform: translateY(-5px) + box-shadow más pronunciada</li>
+        </ul>
+
+        <h4>Formularios</h4>
+        <ul>
+            <li><strong>Input Height:</strong> 40px para mejor accesibilidad táctil</li>
+            <li><strong>Border:</strong> 1px solid #ddd, focus: 2px solid #2F67FF</li>
+            <li><strong>Border Radius:</strong> 4px</li>
+            <li><strong>Padding:</strong> 10px 15px</li>
+            <li><strong>Label:</strong> Font-weight 600, margin-bottom 8px</li>
+        </ul>
+
+        <h3>Iconografía</h3>
+        <p><strong>Font Awesome 6.4.0</strong> - Librería de iconos vectoriales</p>
+        <ul>
+            <li><strong>Tamaño Base:</strong> 1em (heredado del contexto)</li>
+            <li><strong>Iconos de Navegación:</strong> 1.2em</li>
+            <li><strong>Iconos de Acciones:</strong> 1em</li>
+            <li><strong>Iconos Decorativos:</strong> 2-3em</li>
+            <li><strong>Color:</strong> Hereda del elemento padre o color corporativo</li>
+        </ul>
+
+        <h3>Animaciones y Transiciones</h3>
+        <table>
+            <thead><tr><th>Elemento</th><th>Propiedad</th><th>Duración</th><th>Easing</th></tr></thead>
+            <tbody>
+                <tr><td>Botones (hover)</td><td>background, transform</td><td>0.3s</td><td>ease</td></tr>
+                <tr><td>Links (hover)</td><td>color</td><td>0.2s</td><td>ease</td></tr>
+                <tr><td>Cards (hover)</td><td>transform, box-shadow</td><td>0.3s</td><td>ease</td></tr>
+                <tr><td>Modales (apertura)</td><td>opacity, transform</td><td>0.3s</td><td>ease-out</td></tr>
+                <tr><td>Dropdowns</td><td>max-height, opacity</td><td>0.2s</td><td>ease-in-out</td></tr>
+                <tr><td>Fade In (contenido)</td><td>opacity, translateY</td><td>0.5s</td><td>ease</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Accesibilidad</h3>
+        <ul>
+            <li><strong>Contraste:</strong> Mínimo 4.5:1 para texto normal, 3:1 para texto grande</li>
+            <li><strong>Tamaño Mínimo Táctil:</strong> 44x44px para botones en móviles</li>
+            <li><strong>Focus Visible:</strong> Outline de 2px en color corporativo</li>
+            <li><strong>Alt Text:</strong> Todas las imágenes tienen texto alternativo descriptivo</li>
+            <li><strong>Aria Labels:</strong> Implementados en elementos interactivos</li>
+            <li><strong>Navegación por Teclado:</strong> Orden lógico de tabulación</li>
+        </ul>
+
+        <h2>3.3. Modelo de Datos Completo</h2>
+
+        <h3>Diagrama Entidad-Relación Detallado</h3>
+        <div class="diagram-container">
+            <div class="diagram-title">Modelo de Datos con Cardinalidades</div>
+            <div class="mermaid">
+erDiagram
+    USUARIOS ||--o{ FAVORITOS : "1:N"
+    VEHICULOS ||--o{ FAVORITOS : "1:N"
+    VEHICULOS ||--o{ IMAGENES : "1:N"
+
+    USUARIOS {
+        int id PK "Auto increment"
+        varchar(100) nombre "NOT NULL"
+        varchar(100) email "UNIQUE, NOT NULL"
+        varchar(20) telefono "NULL"
+        varchar(255) password "NOT NULL, bcrypt"
+        enum rol "DEFAULT cliente"
+        timestamp fecha_registro "DEFAULT NOW"
+    }
+
+    VEHICULOS {
+        int id PK "Auto increment"
+        varchar(50) marca "NOT NULL"
+        varchar(50) modelo "NOT NULL"
+        varchar(100) version "NULL"
+        int ano "NOT NULL, 1900-2100"
+        int kilometros "NOT NULL, >= 0"
+        decimal precio "NOT NULL, 10-2"
+        varchar(20) combustible "NOT NULL"
+        varchar(20) transmision "NOT NULL"
+        int potencia "NOT NULL, CV"
+        varchar(30) color "NOT NULL"
+        text descripcion "NULL"
+        text caracteristicas "NULL, JSON"
+        enum estado "DEFAULT venta"
+        timestamp fecha_creacion "DEFAULT NOW"
+        timestamp fecha_actualizacion "ON UPDATE NOW"
+    }
+
+    IMAGENES {
+        int id PK "Auto increment"
+        int vehiculo_id FK "NOT NULL"
+        varchar(255) ruta "NOT NULL"
+        int orden "DEFAULT 0"
+        boolean principal "DEFAULT 0"
+        timestamp fecha_subida "DEFAULT NOW"
+    }
+
+    FAVORITOS {
+        int id PK "Auto increment"
+        int usuario_id FK "NOT NULL"
+        int vehiculo_id FK "NOT NULL"
+        timestamp fecha_agregado "DEFAULT NOW"
+    }
+            </div>
+        </div>
+
+        <h3>Tabla: usuarios (Completa)</h3>
+        <table>
+            <thead><tr><th>Campo</th><th>Tipo</th><th>Restricciones</th><th>Descripción</th></tr></thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Identificador único del usuario</td></tr>
+                <tr><td><code>nombre</code></td><td>VARCHAR(100)</td><td>NOT NULL</td><td>Nombre completo del usuario</td></tr>
+                <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>UNIQUE, NOT NULL, INDEX</td><td>Correo electrónico (usado para login)</td></tr>
+                <tr><td><code>telefono</code></td><td>VARCHAR(20)</td><td>NULL</td><td>Número de teléfono de contacto</td></tr>
+                <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Contraseña hasheada con bcrypt</td></tr>
+                <tr><td><code>rol</code></td><td>ENUM('cliente', 'admin')</td><td>DEFAULT 'cliente', NOT NULL</td><td>Rol del usuario en el sistema</td></tr>
+                <tr><td><code>fecha_registro</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Fecha y hora de registro</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Índices de la tabla usuarios:</h4>
+        <ul>
+            <li><strong>PRIMARY KEY:</strong> id</li>
+            <li><strong>UNIQUE INDEX:</strong> email (para búsquedas rápidas en login)</li>
+            <li><strong>INDEX:</strong> rol (para filtrar por tipo de usuario)</li>
+        </ul>
+
+        <h3>Tabla: vehiculos (Completa)</h3>
+        <table>
+            <thead><tr><th>Campo</th><th>Tipo</th><th>Restricciones</th><th>Descripción</th></tr></thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Identificador único del vehículo</td></tr>
+                <tr><td><code>marca</code></td><td>VARCHAR(50)</td><td>NOT NULL, INDEX</td><td>Marca del vehículo (Ferrari, Porsche, etc.)</td></tr>
+                <tr><td><code>modelo</code></td><td>VARCHAR(50)</td><td>NOT NULL, INDEX</td><td>Modelo del vehículo (911, F8 Tributo, etc.)</td></tr>
+                <tr><td><code>version</code></td><td>VARCHAR(100)</td><td>NULL</td><td>Versión específica (Turbo S, Spider, etc.)</td></tr>
+                <tr><td><code>ano</code></td><td>INT</td><td>NOT NULL, CHECK (ano BETWEEN 1900 AND 2100)</td><td>Año de fabricación</td></tr>
+                <tr><td><code>kilometros</code></td><td>INT</td><td>NOT NULL, CHECK (kilometros >= 0)</td><td>Kilometraje actual del vehículo</td></tr>
+                <tr><td><code>precio</code></td><td>DECIMAL(10,2)</td><td>NOT NULL, CHECK (precio > 0)</td><td>Precio de venta en euros</td></tr>
+                <tr><td><code>combustible</code></td><td>VARCHAR(20)</td><td>NOT NULL</td><td>Tipo de combustible (Gasolina, Diésel, Eléctrico, Híbrido)</td></tr>
+                <tr><td><code>transmision</code></td><td>VARCHAR(20)</td><td>NOT NULL</td><td>Tipo de transmisión (Manual, Automática, Secuencial)</td></tr>
+                <tr><td><code>potencia</code></td><td>INT</td><td>NOT NULL, CHECK (potencia > 0)</td><td>Potencia en caballos (CV)</td></tr>
+                <tr><td><code>color</code></td><td>VARCHAR(30)</td><td>NOT NULL</td><td>Color exterior del vehículo</td></tr>
+                <tr><td><code>descripcion</code></td><td>TEXT</td><td>NULL</td><td>Descripción detallada del vehículo</td></tr>
+                <tr><td><code>caracteristicas</code></td><td>TEXT</td><td>NULL</td><td>Características adicionales (JSON format)</td></tr>
+                <tr><td><code>estado</code></td><td>ENUM('venta', 'vendido')</td><td>DEFAULT 'venta', NOT NULL, INDEX</td><td>Estado actual del vehículo</td></tr>
+                <tr><td><code>fecha_creacion</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Fecha de publicación</td></tr>
+                <tr><td><code>fecha_actualizacion</code></td><td>TIMESTAMP</td><td>ON UPDATE CURRENT_TIMESTAMP</td><td>Última actualización</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Índices de la tabla vehiculos:</h4>
+        <ul>
+            <li><strong>PRIMARY KEY:</strong> id</li>
+            <li><strong>INDEX:</strong> marca (para filtros por marca)</li>
+            <li><strong>INDEX:</strong> modelo (para filtros por modelo)</li>
+            <li><strong>INDEX:</strong> estado (para separar venta/vendidos)</li>
+            <li><strong>COMPOSITE INDEX:</strong> (marca, modelo) para búsquedas combinadas</li>
+            <li><strong>INDEX:</strong> precio (para ordenamiento por precio)</li>
+        </ul>
+
+        <h3>Tabla: imagenes (Completa)</h3>
+        <table>
+            <thead><tr><th>Campo</th><th>Tipo</th><th>Restricciones</th><th>Descripción</th></tr></thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Identificador único de la imagen</td></tr>
+                <tr><td><code>vehiculo_id</code></td><td>INT</td><td>FOREIGN KEY → vehiculos(id), NOT NULL, ON DELETE CASCADE, INDEX</td><td>Referencia al vehículo propietario</td></tr>
+                <tr><td><code>ruta</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Ruta relativa del archivo de imagen</td></tr>
+                <tr><td><code>orden</code></td><td>INT</td><td>DEFAULT 0, NOT NULL</td><td>Orden de visualización en galería</td></tr>
+                <tr><td><code>principal</code></td><td>BOOLEAN</td><td>DEFAULT 0</td><td>Indica si es la imagen principal (miniatura)</td></tr>
+                <tr><td><code>fecha_subida</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Fecha de subida de la imagen</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Restricciones especiales:</h4>
+        <ul>
+            <li><strong>Constraint:</strong> Solo una imagen puede ser principal por vehículo</li>
+            <li><strong>ON DELETE CASCADE:</strong> Al eliminar un vehículo, se eliminan automáticamente sus imágenes</li>
+            <li><strong>Formato permitido:</strong> JPG, PNG, WebP</li>
+            <li><strong>Tamaño máximo:</strong> 5MB por imagen</li>
+        </ul>
+
+        <h3>Tabla: favoritos (Completa)</h3>
+        <table>
+            <thead><tr><th>Campo</th><th>Tipo</th><th>Restricciones</th><th>Descripción</th></tr></thead>
+            <tbody>
+                <tr><td><code>id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Identificador único del favorito</td></tr>
+                <tr><td><code>usuario_id</code></td><td>INT</td><td>FOREIGN KEY → usuarios(id), NOT NULL, ON DELETE CASCADE, INDEX</td><td>Referencia al usuario</td></tr>
+                <tr><td><code>vehiculo_id</code></td><td>INT</td><td>FOREIGN KEY → vehiculos(id), NOT NULL, ON DELETE CASCADE, INDEX</td><td>Referencia al vehículo</td></tr>
+                <tr><td><code>fecha_agregado</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Fecha en que se agregó a favoritos</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Restricciones especiales:</h4>
+        <ul>
+            <li><strong>UNIQUE CONSTRAINT:</strong> (usuario_id, vehiculo_id) - Un usuario no puede agregar el mismo vehículo dos veces</li>
+            <li><strong>ON DELETE CASCADE:</strong> Al eliminar un usuario o vehículo, se eliminan sus relaciones en favoritos</li>
+        </ul>
+
+        <h3>Diagrama de Relaciones y Cardinalidad</h3>
+        <div class="diagram-container">
+            <div class="diagram-title">Cardinalidades del Modelo de Datos</div>
+            <div class="mermaid">
+graph LR
+    U[USUARIOS<br/>1 usuario] -->|tiene 0..N| F[FAVORITOS]
+    V[VEHICULOS<br/>1 vehículo] -->|tiene 0..N| F
+    V -->|tiene 1..N| I[IMAGENES<br/>mín 1 imagen]
+    
+    style U fill:#2F67FF,color:#fff
+    style V fill:#28a745,color:#fff
+    style I fill:#17a2b8,color:#fff
+    style F fill:#ffc107,color:#000
+            </div>
+            <p><strong>Interpretación:</strong></p>
+            <ul>
+                <li>Un usuario puede tener 0 o muchos favoritos</li>
+                <li>Un vehículo puede estar en 0 o muchas listas de favoritos</li>
+                <li>Un vehículo debe tener al menos 1 imagen (obligatorio)</li>
+                <li>Una imagen pertenece a exactamente 1 vehículo</li>
+            </ul>
+        </div>
+
+        <h3>Script SQL de Creación</h3>
+        <div class="info-box">
+            <pre style="background: white; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.85em;">
+CREATE DATABASE IF NOT EXISTS compraventa_vehiculos
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE compraventa_vehiculos;
+
+-- Tabla usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefono VARCHAR(20),
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente',
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_rol (rol)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tabla vehiculos
+CREATE TABLE vehiculos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    version VARCHAR(100),
+    ano INT NOT NULL CHECK (ano BETWEEN 1900 AND 2100),
+    kilometros INT NOT NULL CHECK (kilometros >= 0),
+    precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
+    combustible VARCHAR(20) NOT NULL,
+    transmision VARCHAR(20) NOT NULL,
+    potencia INT NOT NULL CHECK (potencia > 0),
+    color VARCHAR(30) NOT NULL,
+    descripcion TEXT,
+    caracteristicas TEXT,
+    estado ENUM('venta', 'vendido') NOT NULL DEFAULT 'venta',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_marca (marca),
+    INDEX idx_modelo (modelo),
+    INDEX idx_estado (estado),
+    INDEX idx_precio (precio),
+    INDEX idx_marca_modelo (marca, modelo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tabla imagenes
+CREATE TABLE imagenes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehiculo_id INT NOT NULL,
+    ruta VARCHAR(255) NOT NULL,
+    orden INT NOT NULL DEFAULT 0,
+    principal BOOLEAN DEFAULT 0,
+    fecha_subida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id) ON DELETE CASCADE,
+    INDEX idx_vehiculo (vehiculo_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tabla favoritos
+CREATE TABLE favoritos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    vehiculo_id INT NOT NULL,
+    fecha_agregado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_favorito (usuario_id, vehiculo_id),
+    INDEX idx_usuario (usuario_id),
+    INDEX idx_vehiculo (vehiculo_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            </pre>
+        </div>
+
+        <h3>Normalización de la Base de Datos</h3>
+        <p>La base de datos cumple con la <strong>Tercera Forma Normal (3FN)</strong>:</p>
+        <ul>
+            <li><strong>1FN:</strong> Todos los campos contienen valores atómicos, sin grupos repetidos</li>
+            <li><strong>2FN:</strong> No hay dependencias parciales; todos los atributos no clave dependen de la clave primaria completa</li>
+            <li><strong>3FN:</strong> No hay dependencias transitivas; los atributos no clave no dependen de otros atributos no clave</li>
+        </ul>
+
+        <h3>Integridad Referencial</h3>
+        <table>
+            <thead><tr><th>Relación</th><th>Tipo</th><th>ON DELETE</th><th>Justificación</th></tr></thead>
+            <tbody>
+                <tr><td>vehiculos → imagenes</td><td>1:N</td><td>CASCADE</td><td>Las imágenes no tienen sentido sin el vehículo</td></tr>
+                <tr><td>usuarios → favoritos</td><td>1:N</td><td>CASCADE</td><td>Al eliminar usuario, eliminamos sus favoritos</td></tr>
+                <tr><td>vehiculos → favoritos</td><td>1:N</td><td>CASCADE</td><td>Al eliminar vehículo, eliminamos referencias en favoritos</td></tr>
+            </tbody>
+        </table>
+
+        <h2>3.3. Desarrollo y Pruebas</h2>
+
+        <h3>Estructura del Proyecto</h3>
+        <p><strong>Frontend:</strong> 9 páginas HTML (index, coches-venta, coches-vendidos, registro, login, favoritos, contacto, financiacion, admin)</p>
+        <p><strong>Backend:</strong> 4 scripts PHP (auth.php, vehiculos.php, favoritos.php, send_email.php)</p>
+        <p><strong>Estilos:</strong> CSS personalizado + Bootstrap 5</p>
+
+        <h3>Tecnologías Clave</h3>
+        <ul>
+            <li><strong>PDO:</strong> Conexión segura a BD con prepared statements</li>
+            <li><strong>Fetch API:</strong> Peticiones AJAX modernas</li>
+            <li><strong>LocalStorage:</strong> Persistencia de sesión en cliente</li>
+            <li><strong>Bootstrap 5:</strong> Framework CSS sin jQuery</li>
+        </ul>
+
+        <h3>Pruebas Realizadas</h3>
+        <ul>
+            <li><strong>Funcionales:</strong> Verificación de todas las funcionalidades</li>
+            <li><strong>Usabilidad:</strong> Navegación intuitiva y UX optimizada</li>
+            <li><strong>Seguridad:</strong> Validación, prevención SQL injection/XSS</li>
+            <li><strong>Compatibilidad:</strong> Chrome, Firefox, Safari, Edge</li>
+            <li><strong>Rendimiento:</strong> Optimización de carga y recursos</li>
+        </ul>
+
+        <!-- SECCIÓN 4 -->
+        <h1>4. MANUALES DE USUARIO Y ADMINISTRACIÓN</h1>
+
+        <h2>4.1. Manual de Usuario (10 secciones)</h2>
+        <ol>
+            <li>Introducción a la plataforma</li>
+            <li>Primeros pasos y requisitos</li>
+            <li>Navegación por la web</li>
+            <li>Registro de usuario</li>
+            <li>Búsqueda de vehículos y filtros</li>
+            <li>Gestión de favoritos</li>
+            <li>Contacto con el concesionario</li>
+            <li>Información sobre financiación</li>
+            <li>Preguntas frecuentes (FAQ)</li>
+            <li>Soporte y contacto</li>
+        </ol>
+
+        <h2>4.2. Manual de Administrador (10 secciones)</h2>
+        <ol>
+            <li>Introducción y responsabilidades</li>
+            <li>Acceso al panel de administración</li>
+            <li>Dashboard y estadísticas</li>
+            <li>Publicar nuevos vehículos</li>
+            <li>Gestionar vehículos existentes</li>
+            <li>Gestión de imágenes</li>
+            <li>Administración de base de datos</li>
+            <li>Seguridad y respaldos</li>
+            <li>Mantenimiento del sistema</li>
+            <li>Solución de problemas comunes</li>
+        </ol>
+
+        <div class="info-box">
+            <p><strong>Acceso:</strong> Los manuales completos están disponibles en <code>manual-usuario.html</code> y <code>manual-administrador.html</code> con diseño profesional y navegación interactiva.</p>
+        </div>
+
+        <!-- SECCIÓN 5: DIAGRAMAS -->
+        <h1>5. DIAGRAMAS TÉCNICOS DEL SISTEMA</h1>
+
+        <p>A continuación se presentan 10 diagramas técnicos que documentan visualmente la arquitectura, procesos y estructuras del sistema MCR Motors.</p>
+
+        <h2>5.1. Diagrama de Arquitectura</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Arquitectura de Tres Capas</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Capa de Presentación"
+        A[HTML5 + CSS3]
+        B[JavaScript ES6+]
+        C[Bootstrap 5]
+        D[Font Awesome]
+    end
+    
+    subgraph "Capa de Negocio"
+        E[PHP 7.4+]
+        F[Lógica de Aplicación]
+        G[Autenticación]
+        H[Validación de Datos]
+    end
+    
+    subgraph "Capa de Datos"
+        I[MySQL 8.0]
+        J[Tablas Relacionales]
+        K[Constraints & FKs]
+    end
+    
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+    
+    style A fill:#2F67FF,color:#fff
+    style B fill:#2F67FF,color:#fff
+    style C fill:#2F67FF,color:#fff
+    style D fill:#2F67FF,color:#fff
+    style E fill:#0A1324,color:#fff
+    style F fill:#0A1324,color:#fff
+    style G fill:#0A1324,color:#fff
+    style H fill:#0A1324,color:#fff
+    style I fill:#28a745,color:#fff
+    style J fill:#28a745,color:#fff
+    style K fill:#28a745,color:#fff
+            </div>
+            <p><strong>Descripción:</strong> El sistema sigue una arquitectura de tres capas: Presentación (HTML/CSS/JS), Negocio (PHP) y Datos (MySQL).</p>
+        </div>
+
+        <h2>5.2. Diagrama de Base de Datos</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Modelo Entidad-Relación</div>
+            <div class="mermaid">
+erDiagram
+    USUARIOS ||--o{ FAVORITOS : tiene
+    VEHICULOS ||--o{ FAVORITOS : "está en"
+    VEHICULOS ||--o{ IMAGENES : contiene
+
+    USUARIOS {
+        int id PK
+        varchar nombre
+        varchar email UK
+        varchar telefono
+        varchar password
+        enum rol
+        datetime fecha_registro
+    }
+
+    VEHICULOS {
+        int id PK
+        varchar marca
+        varchar modelo
+        varchar version
+        int ano
+        int km
+        decimal precio
+        varchar combustible
+        varchar transmision
+        int potencia
+        text descripcion
+        text caracteristicas
+        enum estado
+        datetime fecha_creacion
+    }
+
+    IMAGENES {
+        int id PK
+        int id_vehiculo FK
+        varchar ruta
+        int orden
+        datetime fecha_subida
+    }
+
+    FAVORITOS {
+        int id PK
+        int id_usuario FK
+        int id_vehiculo FK
+        datetime fecha_agregado
+    }
+            </div>
+            <p><strong>Descripción:</strong> Modelo con 4 tablas: usuarios, vehiculos, imagenes y favoritos con relaciones many-to-many.</p>
+        </div>
+
+        <h2>5.3. Diagrama de Casos de Uso</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Casos de Uso del Sistema</div>
+            <div class="mermaid">
+graph LR
+    subgraph "Sistema MCR Motors"
+        U1[Buscar Vehículos]
+        U2[Ver Detalles]
+        U3[Registrarse]
+        U4[Iniciar Sesión]
+        U5[Guardar Favoritos]
+        U6[Contactar]
+        U7[Publicar Vehículo]
+        U8[Editar Vehículo]
+        U9[Eliminar Vehículo]
+        U10[Ver Estadísticas]
+    end
+    
+    Usuario([Usuario/Cliente]) --> U1
+    Usuario --> U2
+    Usuario --> U3
+    Usuario --> U4
+    Usuario --> U6
+    
+    UsuarioReg([Usuario Registrado]) --> U1
+    UsuarioReg --> U2
+    UsuarioReg --> U4
+    UsuarioReg --> U5
+    UsuarioReg --> U6
+    
+    Admin([Administrador]) --> U7
+    Admin --> U8
+    Admin --> U9
+    Admin --> U10
+    
+    style Usuario fill:#2F67FF,color:#fff
+    style UsuarioReg fill:#17a2b8,color:#fff
+    style Admin fill:#dc3545,color:#fff
+    style U7 fill:#ffc107
+    style U8 fill:#ffc107
+    style U9 fill:#ffc107
+    style U10 fill:#ffc107
+            </div>
+            <p><strong>Descripción:</strong> Tres tipos de actores: Usuario, Usuario Registrado y Administrador con sus respectivas funcionalidades.</p>
+        </div>
+
+        <h2>5.4. Diagrama de Flujo - Usuario</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Flujo de Navegación del Usuario</div>
+            <div class="mermaid">
+flowchart TD
+    A[Inicio] --> B{¿Registrado?}
+    B -->|No| C[Ver Catálogo]
+    B -->|Sí| D[Iniciar Sesión]
+    D --> E[Ver Catálogo]
+    C --> F[Aplicar Filtros]
+    E --> F
+    F --> G[Ver Lista de Vehículos]
+    G --> H[Seleccionar Vehículo]
+    H --> I[Ver Detalles]
+    I --> J{¿Interesado?}
+    J -->|Sí| K{¿Registrado?}
+    J -->|No| G
+    K -->|Sí| L[Guardar en Favoritos]
+    K -->|No| M[Contactar por WhatsApp]
+    L --> M
+    M --> N[Fin]
+    
+    style A fill:#28a745,color:#fff
+    style N fill:#dc3545,color:#fff
+    style D fill:#2F67FF,color:#fff
+    style L fill:#ffc107
+            </div>
+            <p><strong>Descripción:</strong> Flujo típico desde búsqueda hasta contacto con el concesionario.</p>
+        </div>
+
+        <h2>5.5. Diagrama de Flujo - Administrador</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Flujo de Gestión de Vehículos</div>
+            <div class="mermaid">
+flowchart TD
+    A[Inicio] --> B[Login Admin]
+    B --> C{¿Autenticado?}
+    C -->|No| B
+    C -->|Sí| D[Panel de Admin]
+    D --> E{Acción}
+    E -->|Publicar| F[Formulario Nuevo Vehículo]
+    E -->|Gestionar| G[Lista de Vehículos]
+    E -->|Estadísticas| H[Ver Dashboard]
+    
+    F --> I[Completar Datos]
+    I --> J[Subir Imágenes]
+    J --> K[Publicar]
+    K --> L[Vehículo en Catálogo]
+    
+    G --> M{Seleccionar Acción}
+    M -->|Editar| N[Modificar Datos]
+    M -->|Eliminar| O[Confirmar Eliminación]
+    M -->|Marcar Vendido| P[Cambiar Estado]
+    
+    N --> Q[Actualizar]
+    O --> R[Eliminar de BD]
+    P --> S[Mover a Vendidos]
+    
+    Q --> G
+    R --> G
+    S --> G
+    L --> D
+    H --> D
+    
+    style A fill:#28a745,color:#fff
+    style B fill:#2F67FF,color:#fff
+    style K fill:#ffc107
+    style O fill:#dc3545,color:#fff
+    style R fill:#dc3545,color:#fff
+            </div>
+            <p><strong>Descripción:</strong> Gestión completa de vehículos: publicar, editar, eliminar y marcar como vendido.</p>
+        </div>
+
+        <h2>5.6. Diagrama de Secuencia - Login</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Proceso de Autenticación</div>
+            <div class="mermaid">
+sequenceDiagram
+    participant U as Usuario
+    participant B as Navegador
+    participant P as PHP (auth.php)
+    participant D as Base de Datos
+
+    U->>B: Ingresa email y contraseña
+    B->>P: POST /php/auth.php (login)
+    P->>P: Validar datos
+    P->>D: SELECT * FROM usuarios WHERE email=?
+    D-->>P: Datos del usuario
+    P->>P: Verificar password_hash
+    alt Credenciales Correctas
+        P->>P: Crear sesión PHP
+        P-->>B: JSON {success: true, user: data}
+        B->>B: Guardar en localStorage
+        B-->>U: Redirigir a inicio/admin
+    else Credenciales Incorrectas
+        P-->>B: JSON {success: false, error: msg}
+        B-->>U: Mostrar error
+    end
+            </div>
+            <p><strong>Descripción:</strong> Secuencia del proceso de inicio de sesión con validación de credenciales.</p>
+        </div>
+
+        <h2>5.7. Diagrama de Secuencia - Publicar Vehículo</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Proceso de Publicación</div>
+            <div class="mermaid">
+sequenceDiagram
+    participant A as Admin
+    participant B as Navegador
+    participant P as PHP (vehiculos.php)
+    participant F as Sistema de Archivos
+    participant D as Base de Datos
+
+    A->>B: Completa formulario
+    A->>B: Selecciona imágenes
+    B->>P: POST /php/vehiculos.php (create)
+    P->>P: Verificar sesión admin
+    P->>P: Validar datos
+    
+    loop Para cada imagen
+        P->>F: Subir imagen a /uploads/vehiculos/
+        F-->>P: Ruta del archivo
+    end
+    
+    P->>D: INSERT INTO vehiculos
+    D-->>P: ID del vehículo
+    
+    loop Para cada imagen
+        P->>D: INSERT INTO imagenes (id_vehiculo, ruta)
+    end
+    
+    P-->>B: JSON {success: true, id: vehiculo_id}
+    B-->>A: Mostrar confirmación
+    B->>B: Actualizar lista de vehículos
+            </div>
+            <p><strong>Descripción:</strong> Proceso completo de publicación incluyendo subida de imágenes.</p>
+        </div>
+
+        <h2>5.8. Diagrama de Componentes</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Componentes del Sistema</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Frontend Components"
+        H[index.html]
+        CV[coches-venta.html]
+        CA[coches-vendidos.html]
+        AD[admin.html]
+        L[login.html]
+        R[registro.html]
+        
+        JS[script.js]
+        VJS[vehiculos.js]
+        CSS[style.css]
+    end
+    
+    subgraph "Backend Components"
+        CONFIG[config.php]
+        AUTH[auth.php]
+        VEH[vehiculos.php]
+        FAV[favoritos.php]
+    end
+    
+    subgraph "Database"
+        DB[(MySQL Database)]
+    end
+    
+    subgraph "Storage"
+        IMG[/uploads/vehiculos/]
+    end
+    
+    H --> JS
+    CV --> JS
+    CV --> VJS
+    CA --> VJS
+    AD --> VJS
+    L --> AUTH
+    R --> AUTH
+    
+    JS --> VEH
+    JS --> AUTH
+    JS --> FAV
+    VJS --> VEH
+    
+    AUTH --> CONFIG
+    VEH --> CONFIG
+    FAV --> CONFIG
+    
+    CONFIG --> DB
+    VEH --> IMG
+    
+    style CONFIG fill:#ffc107
+    style DB fill:#28a745,color:#fff
+    style IMG fill:#17a2b8,color:#fff
+            </div>
+            <p><strong>Descripción:</strong> Estructura modular con componentes frontend, backend, base de datos y almacenamiento.</p>
+        </div>
+
+        <h2>5.9. Diagrama de Despliegue</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Arquitectura de Despliegue</div>
+            <div class="mermaid">
+graph TB
+    subgraph "Cliente"
+        B[Navegador Web<br/>Chrome, Firefox, Edge]
+    end
+    
+    subgraph "Servidor Web"
+        A[Apache 2.4]
+        P[PHP 7.4+]
+        F[Sistema de Archivos<br/>uploads/]
+    end
+    
+    subgraph "Servidor BD"
+        M[MySQL 8.0]
+    end
+    
+    B -->|HTTPS| A
+    A --> P
+    P --> M
+    P --> F
+    
+    style B fill:#2F67FF,color:#fff
+    style A fill:#dc3545,color:#fff
+    style P fill:#0A1324,color:#fff
+    style M fill:#28a745,color:#fff
+    style F fill:#17a2b8,color:#fff
+            </div>
+            <p><strong>Descripción:</strong> Configuración con cliente web, servidor Apache/PHP y base de datos MySQL.</p>
+        </div>
+
+        <h2>5.10. Diagrama de Estados - Vehículo</h2>
+        <div class="diagram-container">
+            <div class="diagram-title">Ciclo de Vida de un Vehículo</div>
+            <div class="mermaid">
+stateDiagram-v2
+    [*] --> Creación: Admin publica vehículo
+    
+    Creación --> EnVenta: Guardar en BD
+    
+    EnVenta --> Editando: Admin edita
+    Editando --> EnVenta: Guardar cambios
+    
+    EnVenta --> Vendido: Marcar como vendido
+    
+    Vendido --> EnVenta: Revertir venta (opcional)
+    
+    EnVenta --> Eliminado: Admin elimina
+    Vendido --> Eliminado: Admin elimina
+    
+    Eliminado --> [*]
+    
+    note right of EnVenta
+        Visible en catálogo público
+        Los usuarios pueden verlo
+        y guardarlo en favoritos
+    end note
+    
+    note right of Vendido
+        Aparece en galería
+        de vendidos
+        No se puede comprar
+    end note
+            </div>
+            <p><strong>Descripción:</strong> Estados posibles: Creación, En Venta, Editando, Vendido y Eliminado.</p>
+        </div>
+
+        <!-- SECCIÓN 6 -->
+        <h1>6. RECURSOS Y REFERENCIAS</h1>
+
+        <h2>6.1. Documentación Oficial</h2>
+
+        <h3>Lenguajes Core</h3>
+        <ul>
+            <li>HTML5, CSS3, JavaScript - MDN Web Docs</li>
+            <li>PHP 7.4+ - Documentación Oficial PHP</li>
+            <li>MySQL 8.0 - Documentación Oficial MySQL</li>
+        </ul>
+
+        <h3>Frameworks y Librerías</h3>
+        <ul>
+            <li>Bootstrap 5 - getbootstrap.com</li>
+            <li>Font Awesome - fontawesome.com</li>
+            <li>Google Fonts (Montserrat)</li>
+            <li>PDO - PHP Data Objects</li>
+            <li>Mermaid.js - Diagramas interactivos</li>
+        </ul>
+
+        <h2>6.2. Herramientas de Desarrollo</h2>
+        <ul>
+            <li><strong>XAMPP:</strong> Entorno local (Apache + MySQL + PHP)</li>
+            <li><strong>Visual Studio Code:</strong> Editor de código principal</li>
+            <li><strong>Git/GitHub:</strong> Control de versiones</li>
+            <li><strong>phpMyAdmin:</strong> Administración de BD</li>
+            <li><strong>Chrome DevTools:</strong> Debugging y testing</li>
+        </ul>
+
+        <h2>6.3. Información del Autor</h2>
+        <div class="info-box">
+            <p><strong>Autor:</strong> Marcos Gómez Martínez</p>
+            <p><strong>Proyecto:</strong> Proyecto Final - CFGS Desarrollo de Aplicaciones Web</p>
+            <p><strong>Email:</strong> info@mcrmotors.com</p>
+            <p><strong>Teléfono:</strong> 617700519</p>
+            <p><strong>Ubicación:</strong> San Ciprián de Viñas, Galicia, España</p>
+            <p><strong>GitHub:</strong> github.com/marcospepin/Compraventa</p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="page-footer">
+            <p><strong>MCR MOTORS</strong> | Proyecto Final DAW</p>
+            <p>Plataforma de Compraventa de Vehículos de Alta Gama</p>
+            <p style="margin-top: 20px;">📧 info@mcrmotors.com | 📱 617700519 | 📍 San Ciprián de Viñas, Galicia</p>
+            <p style="margin-top: 20px;">Documentación Completa v1.0 | Diciembre 2025</p>
+            <p>© 2025 MCR Motors. Todos los derechos reservados.</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">Autor: Marcos Gómez Martínez</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Inicializar Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#2F67FF',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#0A1324',
+                lineColor: '#1D1F23',
+                secondaryColor: '#CFD3D9',
+                tertiaryColor: '#f8f9fa'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35
+            }
+        });
+
+        console.log('Documentación MCR Motors con diagramas cargada correctamente');
+    </script>
+</body>
+</html>
